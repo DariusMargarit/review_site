@@ -70,11 +70,13 @@
 
     <div class="content-part">
 
-      <div class="content-image mr-12">
-        <img style="background: white" src="../assets/social-media-5187243_1280.png"  />
+      <div class="content-image">
+        <img style="background: white; max-width: 950px" src="../assets/social-media-5187243_1280.png"  />
       </div>
 
       <div class="content-box mr-15">
+
+
         <div class="content-title">
           <h1>De ce HonestReviews?</h1>
         </div>
@@ -88,6 +90,8 @@
           </p>
         </div>
       </div>
+
+
 
     </div>
 
