@@ -2,130 +2,6 @@
   <v-main>
     <nav-bar />
 
-<!--    <div class="first_content">-->
-<!--      <br /><br /><br />-->
-
-<!--      <div align="center" class="mt-3">-->
-<!--        <a href="#ghid" class="ghidul">-->
-<!--          <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>-->
-<!--        </a>-->
-<!--      </div>-->
-
-<!--      <div class="content">-->
-<!--        <div class="content-col content-text">-->
-<!--          <p>Doresti si tu sa lasi un review unui produs? Creeaza-ti un cont chiar acum</p>-->
-<!--          <br />-->
-<!--          <v-btn v-if="userIsAuthenticated" disabled large class="homebutton text&#45;&#45;black font-weight-bold" plain >Înscrie-te</v-btn>-->
-<!--          <v-btn v-else large class="homebutton text&#45;&#45;black font-weight-bold" plain @click="toSignUp" >Înscrie-te</v-btn>-->
-<!--        </div>-->
-<!--        <div class="content-col mr-15">-->
-<!--          <img src="../assets/rating.png" class="img" />-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="subcontent">-->
-<!--        <div class="content-col subcontent-text">-->
-<!--          <p>Ai deja un cont? Conecteaza-te la el aici</p>-->
-
-<!--          <br />-->
-<!--          <v-btn v-if="userIsAuthenticated" disabled large class="homebutton text&#45;&#45;black font-weight-bold" plain >Autentifică-te</v-btn>-->
-<!--          <v-btn v-else large class="homebutton text&#45;&#45;black font-weight-bold" plain @click="toLogIn" >Autentifică-te</v-btn>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-
-<!--    </div>-->
-
-<!--    <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>-->
-<!--    <br />-->
-
-
-
-<!--    <div class="content-part">-->
-<!--      <div class="content-box">-->
-<!--        <div class="content-title">-->
-<!--          <h1>Ce este HonestReviews?</h1>-->
-<!--        </div>-->
-
-<!--        <div class="content-parag">-->
-<!--          <p style="font-family: 'Lato', sans-serif; font-weight: bold;">-->
-<!--            HonestReviews este un website prin intermediul caruia utilizatorii pot lasa review-uri, adica pareri, oricarui produs pe care l-au achizitionat.-->
-<!--            Un asa-zis "review" consta in exprimarea propriei opinii in legatura cu produsul ales.-->
-<!--            De asemenea, sunt mentionate sursa de unde a fost achizitionat produsul, numele intreg al acestuia, pretul si alte informatii utile.-->
-<!--          </p>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="content-image">-->
-<!--        <img src="../assets/social-media-3846597_640.png" />-->
-<!--      </div>-->
-
-<!--    </div>-->
-
-
-<!--    <br />-->
-<!--    <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-right</v-icon></div>-->
-<!--    <br />-->
-
-<!--    <div class="content-part">-->
-
-<!--      <div class="content-image">-->
-<!--        <img style="background: white; max-width: 950px" src="../assets/social-media-5187243_1280.png"  />-->
-<!--      </div>-->
-
-<!--      <div class="content-box mr-15">-->
-
-
-<!--        <div class="content-title">-->
-<!--          <h1>De ce HonestReviews?</h1>-->
-<!--        </div>-->
-
-<!--        <div class="content-parag">-->
-<!--          <p style="font-family: 'Lato', sans-serif; font-weight: bold;">-->
-<!--            Site-ul nostru va ofera o modalitate usoara de a scrie sau de a cauta impresii ale altor utilizatori despre orice fel ce produs.-->
-<!--            De la frigidere la computere, de la masini la biciclete, de la resorturi turistice la restaurante, aici puteti gasi un review pentru orice categorie imaginabila.-->
-<!--            Datorita interfatei construita sa fie usor de folosit, oricine poate beneficia de acest site.-->
-<!--            In plus, autentificarea se poate realiza prin intermediul E-Mailului, al contului de Google sau al contului de Facebook, asigurand, astfel, un proces rapid de logare.-->
-<!--          </p>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-
-<!--    </div>-->
-
-<!--    <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>-->
-<!--    <br />-->
-
-
-
-<!--    <div class="content-part">-->
-<!--      <div class="content-box">-->
-<!--        <div class="content-title">-->
-<!--          <h1 id="ghid">Ghidul utilizatorului</h1>-->
-<!--        </div>-->
-
-<!--        <div class="content-parag">-->
-<!--          <p style="font-family: 'Lato', sans-serif; font-weight: bold;">-->
-<!--            Este usor sa folosesti HonestReviews. Daca nu ai un cont sau nu esti autentificat, vei putea doar sa vezi produsele si review-urile, nu si sa adaugi altele.-->
-<!--            Altfel, daca nu ai un cont, il poti creea apasand butonul "Inscrie-te", pe pagina de acasa sau un partea de sus a ecranului.-->
-<!--            Daca ai deja un cont, te poti autentifica, apasand butonul "Autentifica-te".-->
-<!--            Mai departe, pentru a adauga un produs, trebuie sa apesi pe butonul "Categorii" si sa selectezi categoria in care se incadreaza acesta.-->
-<!--            Pentru a-l adauga, trebuie doar sa completezi formularul ("Adauga un produs").-->
-<!--            Dupa ce produsul a fost agaugat, in cazul in care nu exista deja, facand click pe el, ajungi la pagina unde vezi review-urile existente, si unde poti accesa formularul pentru review.-->
-<!--          </p>-->
-<!--          <br />-->
-<!--          <v-btn @click="goToCat" large class="homebutton text&#45;&#45;black font-weight-bold" plain>-->
-<!--            Categorii-->
-<!--          </v-btn>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="content-image">-->
-<!--        <img src="../assets/calculator.jpg" />-->
-<!--      </div>-->
-
-<!--    </div>-->
     <v-content class="first_content">
 
       <v-container fluid>
@@ -160,11 +36,12 @@
           </v-flex>
         </v-layout>
       </v-container>
+      <br />
     </v-content>
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
-    <v-container style="display: flex; align-content: center; justify-content: center;">
+    <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
         <v-layout style="justify-content: center; display: flex;">
           <v-flex>
               <h1>Ce este HonestReviews?</h1>
@@ -182,7 +59,7 @@
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-right</v-icon></div>
 
-    <v-container style="display: flex; align-content: center; justify-content: center;">
+    <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
       <v-layout style="justify-content: center; display: flex;">
         <v-flex>
           <h1>De ce HonestReviews?</h1>
@@ -201,10 +78,10 @@
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
-    <v-container style="display: flex; align-content: center; justify-content: center;">
+    <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
       <v-layout style="justify-content: center; display: flex;">
         <v-flex>
-          <h1>Ghidul utilizatorului</h1>
+          <h1 id="ghid">Ghidul utilizatorului</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             Este usor sa folosesti HonestReviews. Daca nu ai un cont sau nu esti autentificat, vei putea doar sa vezi produsele si review-urile, nu si sa adaugi altele.
             Altfel, daca nu ai un cont, il poti creea apasand butonul "Inscrie-te", pe pagina de acasa sau un partea de sus a ecranului.
