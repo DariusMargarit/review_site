@@ -222,20 +222,147 @@ export default new Vuex.Store({
     },
     loadProduse ({commit}, payload) {
       commit('setLoading', true)
-      firebase.database().ref('/categorii/' + payload + '/produse').once('value').then((data) => {
+      firebase.database().ref('/categorii/' + payload.id + '/produse').once('value').then((data) => {
         const produse = []
         const obj = data.val()
         for(let key in obj) {
-          produse.push({
-            id: key,
-            descriere: obj[key].descriere,
-            img: obj[key].img,
-            name: obj[key].name,
-            rating: obj[key].rating,
-            reviews: obj[key].reviews,
-            link: obj[key].link
-          })
-        }
+          if(payload.stele.length == 0 && payload.nrrev.length == 0){
+            produse.push({
+              id: key,
+              descriere: obj[key].descriere,
+              img: obj[key].img,
+              name: obj[key].name,
+              rating: obj[key].rating,
+              reviews: obj[key].reviews,
+              link: obj[key].link
+            })
+          }
+           else if(payload.stele.length != 0 && payload.nrrev.length == 0) {
+            for (let i in payload.stele)
+              if (obj[key].rating <= payload.stele[i] && obj[key].rating > payload.stele[i] - 1) {
+                produse.push({
+                  id: key,
+                  descriere: obj[key].descriere,
+                  img: obj[key].img,
+                  name: obj[key].name,
+                  rating: obj[key].rating,
+                  reviews: obj[key].reviews,
+                  link: obj[key].link
+                })
+                }
+              }
+                else if(payload.stele.length == 0 && payload.nrrev.length != 0) {
+                     for(let j in payload.nrrev) {
+                       if(payload.nrrev[j] == 1) {
+                         if(obj[key].reviews >= 1 && obj[key].reviews <= 5) {
+                           produse.push({
+                             id: key,
+                             descriere: obj[key].descriere,
+                             img: obj[key].img,
+                             name: obj[key].name,
+                             rating: obj[key].rating,
+                             reviews: obj[key].reviews,
+                             link: obj[key].link
+                           })
+                         }
+                       }
+                       else if(payload.nrrev[j] == 2) {
+                         if(obj[key].reviews >= 5 && obj[key].reviews <= 10) {
+                           produse.push({
+                             id: key,
+                             descriere: obj[key].descriere,
+                             img: obj[key].img,
+                             name: obj[key].name,
+                             rating: obj[key].rating,
+                             reviews: obj[key].reviews,
+                             link: obj[key].link
+                           })
+                         }
+                       }
+                       else if(payload.nrrev[j] == 3){
+                         if(obj[key].reviews >= 10) {
+                           produse.push({
+                             id: key,
+                             descriere: obj[key].descriere,
+                             img: obj[key].img,
+                             name: obj[key].name,
+                             rating: obj[key].rating,
+                             reviews: obj[key].reviews,
+                             link: obj[key].link
+                           })
+                         }
+                       }
+                       else {
+                         produse.push({
+                           id: key,
+                           descriere: obj[key].descriere,
+                           img: obj[key].img,
+                           name: obj[key].name,
+                           rating: obj[key].rating,
+                           reviews: obj[key].reviews,
+                           link: obj[key].link
+                         })
+                       }
+                     }
+                 }
+                 else {
+                   for (let i in payload.stele)
+                    if (obj[key].rating <= payload.stele[i] && obj[key].rating > payload.stele[i] - 1) {
+                      for(let j in payload.nrrev) {
+                        if(payload.nrrev[j] == 1) {
+                          if(obj[key].reviews >= 1 && obj[key].reviews <= 5) {
+                            produse.push({
+                              id: key,
+                              descriere: obj[key].descriere,
+                              img: obj[key].img,
+                              name: obj[key].name,
+                              rating: obj[key].rating,
+                              reviews: obj[key].reviews,
+                              link: obj[key].link
+                            })
+                          }
+                        }
+                        else if(payload.nrrev[j] == 2) {
+                          if(obj[key].reviews >= 5 && obj[key].reviews <= 10) {
+                            produse.push({
+                              id: key,
+                              descriere: obj[key].descriere,
+                              img: obj[key].img,
+                              name: obj[key].name,
+                              rating: obj[key].rating,
+                              reviews: obj[key].reviews,
+                              link: obj[key].link
+                            })
+                          }
+                        }
+                        else if(payload.nrrev[j] == 3){
+                          if(obj[key].reviews >= 10) {
+                            produse.push({
+                              id: key,
+                              descriere: obj[key].descriere,
+                              img: obj[key].img,
+                              name: obj[key].name,
+                              rating: obj[key].rating,
+                              reviews: obj[key].reviews,
+                              link: obj[key].link
+                            })
+                          }
+                        }
+                        else {
+                          produse.push({
+                            id: key,
+                            descriere: obj[key].descriere,
+                            img: obj[key].img,
+                            name: obj[key].name,
+                            rating: obj[key].rating,
+                            reviews: obj[key].reviews,
+                            link: obj[key].link
+                          })
+                        }
+                      }
+                    }
+                  }
+               }
           commit('setProduse', produse)
           commit('setLoading', false)
 
