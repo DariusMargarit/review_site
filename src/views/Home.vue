@@ -1,6 +1,7 @@
 <template>
   <v-main>
-    <nav-bar />
+
+      <nav-bar />
 
     <v-content class="first_content">
 
@@ -42,8 +43,8 @@
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
     <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-        <v-layout style="justify-content: center; display: flex;">
-          <v-flex>
+        <v-layout >
+          <v-flex align-self-center>
               <h1>Ce este HonestReviews?</h1>
               <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
                 HonestReviews este un website prin intermediul caruia utilizatorii pot lasa review-uri, adica pareri, oricarui produs pe care l-au achizitionat.
@@ -51,8 +52,8 @@
                 De asemenea, sunt mentionate sursa de unde a fost achizitionat produsul, numele intreg al acestuia, pretul si alte informatii utile.
               </p>
             </v-flex>
-          <v-flex style="display: flex; align-content: center; justify-content: center; margin-left: 20%;">
-            <img src="../assets/social-media-3846597_640.png" />
+          <v-flex align-self-center>
+            <img src="../assets/social-media-3846597_640.png" style="margin-left: 20%;" />
           </v-flex>
         </v-layout>
     </v-container>
@@ -60,8 +61,11 @@
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-right</v-icon></div>
 
     <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-layout style="justify-content: center; display: flex;">
-        <v-flex>
+      <v-layout>
+        <v-flex align-self-center style="display: flex; align-content: center; justify-content: center; justify-self: center;">
+          <img style="height: 100%; width: 100%;" src="../assets/bizbiz.png" />
+        </v-flex>
+        <v-flex align-self-center style="margin-left: 20%; justify-self: center;">
           <h1>De ce HonestReviews?</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             Site-ul nostru va ofera o modalitate usoara de a scrie sau de a cauta impresii ale altor utilizatori despre orice fel ce produs.
@@ -70,17 +74,14 @@
             In plus, autentificarea se poate realiza prin intermediul E-Mailului, al contului de Google sau al contului de Facebook, asigurand, astfel, un proces rapid de logare.
           </p>
         </v-flex>
-        <v-flex style="display: flex; align-content: center; justify-content: center; margin-left: 20%;">
-          <img style="width:100%; height: 100%;" src="../assets/social-media-5187243_1280.png" />
-        </v-flex>
       </v-layout>
     </v-container>
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
     <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-layout style="justify-content: center; display: flex;">
-        <v-flex>
+      <v-layout>
+        <v-flex align-self-center>
           <h1 id="ghid">Ghidul utilizatorului</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             Este usor sa folosesti HonestReviews. Daca nu ai un cont sau nu esti autentificat, vei putea doar sa vezi produsele si review-urile, nu si sa adaugi altele.
@@ -95,7 +96,7 @@
             Categorii
           </v-btn>
         </v-flex>
-        <v-flex style="display: flex; align-content: center; justify-content: center; margin-left: 20%;">
+        <v-flex align-self-center style="display: flex; align-content: center; justify-content: center; margin-left: 20%;">
           <img src="../assets/calculator.jpg" />
         </v-flex>
       </v-layout>
@@ -142,7 +143,7 @@ export default {
   url("../assets/tori-1976609_1920.jpg");
   background-position: center;
   background-size: cover;
-  margin-top: 4%;
+  margin-top: 3%;
 }
 
 .home-container {
@@ -168,29 +169,7 @@ export default {
   padding: 25px 15px;
   font-family: 'Archivo Black', sans-serif;
 }
-.subcontent-text {
-  font-size: 34px;
-  font-weight: 800;
-  margin-bottom: 50px;
-  font-family: 'Archivo Black', sans-serif;
-}
-.content {
-  padding: 50px 50px 0px 50px;
-  margin: 5px 50px 0px 50px;
-  text-align: center;
-  justify-content: space-between;
-  display: flex;
-}
-.subcontent{
-  padding-left: 50px;
-  margin-left: 50px;
-  display: flex;
-  text-align: center;
-  justify-content: space-between;
-}
-.content-col {
-  flex-basis: 31%;
-}
+
 .separator {
   display: flex;
   align-items: center;
@@ -209,41 +188,14 @@ export default {
 .separator:not(:empty)::after {
   margin-left: .25em;
 }
-.content-part{
-  flex-basis: 31%;
-  justify-content: space-between;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  padding: 40px;
-  margin: 30px;
-}
+
 .img {
   width: 100%;
   height: 100%;
   padding: 0;
   margin: 0;
 }
-.content-box{
-  width: 40%;
-  padding: 20px;
-  margin: 5px 0px 5px 15px;
-  text-align: center;
-}
-.content-title{
-  margin-bottom: 15px;
-  font-weight: 900;
-  font-family: 'Archivo Black', sans-serif;
-}
-.content-parag{
-  font-size: 20px;
-  font-weight: 200;
-  font-family: 'Lato', sans-serif;
-}
-.content-image{
-  margin-right: 30px;
-  padding-right: 20px;
-}
+
 .ghidul {
   text-align: center;
   padding: 10px;
