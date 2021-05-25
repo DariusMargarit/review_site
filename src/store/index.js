@@ -103,7 +103,6 @@ export default new Vuex.Store({
     },
     logUserInWithFacebook ({commit}, payload) {
       firebase.auth().signInWithPopup(payload).then(() => {
-
       }).catch(err => {
         commit('setError', err)
       })
@@ -239,7 +238,7 @@ export default new Vuex.Store({
           }
            else if(payload.stele.length != 0 && payload.nrrev.length == 0) {
             for (let i in payload.stele)
-              if (obj[key].rating <= payload.stele[i] && obj[key].rating > payload.stele[i] - 1) {
+              if ((obj[key].rating / obj[key].reviews) <= payload.stele[i] && (obj[key].rating / obj[key].reviews) > payload.stele[i] - 1) {
                 produse.push({
                   id: key,
                   descriere: obj[key].descriere,
@@ -307,7 +306,7 @@ export default new Vuex.Store({
                  }
                  else {
                    for (let i in payload.stele)
-                    if (obj[key].rating <= payload.stele[i] && obj[key].rating > payload.stele[i] - 1) {
+                    if ((obj[key].rating / obj[key].reviews) <= payload.stele[i] && (obj[key].rating / obj[key].reviews) > payload.stele[i] - 1) {
                       for(let j in payload.nrrev) {
                         if(payload.nrrev[j] == 1) {
                           if(obj[key].reviews >= 1 && obj[key].reviews <= 5) {
