@@ -5,11 +5,11 @@
 
     <v-content class="first_content">
 
-      <v-container fluid>
-        <a href="#ghid" class="ghidul">
-          <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
-        </a>
-      </v-container>
+<!--      <v-container fluid>-->
+<!--        <a href="#ghid" class="ghidul">-->
+<!--          <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>-->
+<!--        </a>-->
+<!--      </v-container>-->
 
       <v-container class="home-container">
         <v-row>
@@ -43,8 +43,8 @@
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
     
     <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-row class="rows">
-        <v-col align-self-center style=" justify-self: center;  margin-left: 10%;">
+      <v-row class="rows" style="flex-basis: 31%; ">
+        <v-col align-self-center style=" justify-self: center; ">
           <h1>Ce este HonestReviews?</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             HonestReviews este un website prin intermediul caruia utilizatorii pot lasa review-uri, adica pareri, oricarui produs pe care l-au achizitionat.
@@ -61,8 +61,8 @@
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-right</v-icon></div>
 
     <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-row class="rows">
-        <v-col align-self-center style="display: flex; align-content: center; justify-content: center; justify-self: center; margin-left: 10%;">
+      <v-row class="rows" style="flex-basis: 31%;">
+        <v-col align-self-center>
           <img style="height: 100%; width: 100%;" src="../assets/bizbiz.png" />
         </v-col>
         <v-col align-self-center style=" justify-self: center;  margin-left: 25%;">
@@ -80,7 +80,7 @@
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
     <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-row class="rows">
+      <v-row class="rows" style="flex-basis: 31%;">
         <v-col align-self-center>
           <h1 id="ghid">Ghidul utilizatorului</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
@@ -96,7 +96,7 @@
             Categorii
           </v-btn>
         </v-col>
-        <v-col align-self-center style="display: flex; align-content: center; justify-content: center; margin-left: 20%;">
+        <v-col align-self-center >
           <img src="../assets/calculator.jpg"  />
         </v-col>
       </v-row>
