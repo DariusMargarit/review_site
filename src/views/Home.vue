@@ -12,60 +12,60 @@
       </v-container>
 
       <v-container class="home-container">
-        <v-layout>
-          <v-flex>
+        <v-row>
+          <v-col>
             <p class="content-text">Doresti si tu sa lasi un review unui produs? Creeaza-ti un cont chiar acum</p>
             <br />
             <v-btn v-if="userIsAuthenticated" disabled large class="homebutton text--black font-weight-bold" plain >Înscrie-te</v-btn>
             <v-btn v-else large class="homebutton text--black font-weight-bold" plain @click="toSignUp" >Înscrie-te</v-btn>
-          </v-flex>
-        </v-layout>
-        <v-layout>
-          <v-flex style="margin-left: 50%; margin-right: 0; padding-right: 0;">
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col style="margin-left: 50%; margin-right: 0; padding-right: 0;">
             <img src="../assets/rating.png" style="height: 100%; width: 100%;" />
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-container>
 
       <v-container class="second-home-container">
-        <v-layout>
-          <v-flex>
+        <v-row>
+          <v-col>
             <p class="content-text">Ai deja un cont? Conecteaza-te la el aici</p>
             <br />
             <v-btn v-if="userIsAuthenticated" disabled large class="homebutton text--black font-weight-bold" plain >Autentifică-te</v-btn>
             <v-btn v-else large class="homebutton text--black font-weight-bold" plain @click="toLogIn" >Autentifică-te</v-btn>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-container>
       <br />
     </v-content>
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
-
+    
     <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-layout >
-        <v-flex align-self-center>
+      <v-row class="rows">
+        <v-col align-self-center style=" justify-self: center;  margin-left: 10%;">
           <h1>Ce este HonestReviews?</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             HonestReviews este un website prin intermediul caruia utilizatorii pot lasa review-uri, adica pareri, oricarui produs pe care l-au achizitionat.
             Un asa-zis "review" consta in exprimarea propriei opinii in legatura cu produsul ales.
             De asemenea, sunt mentionate sursa de unde a fost achizitionat produsul, numele intreg al acestuia, pretul si alte informatii utile.
           </p>
-        </v-flex>
-        <v-flex align-self-center style="margin-left: 20%;">
-          <img src="../assets/social-media-3846597_640.png"  />
-        </v-flex>
-      </v-layout>
+        </v-col>
+        <v-col align-self-center style="display: flex; align-content: center; justify-content: center; justify-self: center; margin-left: 10%;">
+          <img style="height: 100%; width: 100%;" src="../assets/social-media-3846597_640.png" />
+        </v-col>
+      </v-row>
     </v-container>
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-right</v-icon></div>
 
     <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-layout>
-        <v-flex align-self-center style="display: flex; align-content: center; justify-content: center; justify-self: center; margin-left: 10%;">
+      <v-row class="rows">
+        <v-col align-self-center style="display: flex; align-content: center; justify-content: center; justify-self: center; margin-left: 10%;">
           <img style="height: 100%; width: 100%;" src="../assets/bizbiz.png" />
-        </v-flex>
-        <v-flex align-self-center style=" justify-self: center;  margin-left: 25%;">
+        </v-col>
+        <v-col align-self-center style=" justify-self: center;  margin-left: 25%;">
           <h1>De ce HonestReviews?</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             Site-ul nostru va ofera o modalitate usoara de a scrie sau de a cauta impresii ale altor utilizatori despre orice fel ce produs.
@@ -73,15 +73,15 @@
             Datorita interfatei construita sa fie usor de folosit, oricine poate beneficia de acest site.
             In plus, autentificarea se poate realiza prin intermediul E-Mailului, al contului de Google sau al contului de Facebook, asigurand, astfel, un proces rapid de logare.
           </p>
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-container>
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
     <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-layout>
-        <v-flex align-self-center>
+      <v-row class="rows">
+        <v-col align-self-center>
           <h1 id="ghid">Ghidul utilizatorului</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             Este usor sa folosesti HonestReviews. Daca nu ai un cont sau nu esti autentificat, vei putea doar sa vezi produsele si review-urile, nu si sa adaugi altele.
@@ -95,11 +95,11 @@
           <v-btn @click="goToCat" large class="homebutton text--black font-weight-bold" plain>
             Categorii
           </v-btn>
-        </v-flex>
-        <v-flex align-self-center style="display: flex; align-content: center; justify-content: center; margin-left: 20%;">
+        </v-col>
+        <v-col align-self-center style="display: flex; align-content: center; justify-content: center; margin-left: 20%;">
           <img src="../assets/calculator.jpg"  />
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-container>
 
   </v-main>
@@ -200,5 +200,11 @@
     text-decoration: none;
     margin-top: 10px;
     color: black;
+  }
+
+  .rows {
+    display: flex;
+    align-content: center;
+    justify-content: center;
   }
 </style>
