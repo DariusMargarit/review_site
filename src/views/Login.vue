@@ -1,81 +1,190 @@
 <template>
-<div>
-  <navbar />
-  <snackbar  />
-  <v-main>
+<!--<div>-->
+<!--  <navbar />-->
+<!--  <snackbar  />-->
+<!--  <v-main>-->
 
-    <div class="main">
+<!--    <div class="main">-->
+<!--      <section class="formdesign">-->
+<!--      <form @submit.prevent="submitLogIn">-->
+<!--        <h1>Autentifica-te!</h1>-->
+<!--        <br />-->
+<!--        <hr />-->
+<!--        <br />-->
+<!--        <div>-->
+<!--          <span class="text">Autentifica-te cu</span>-->
+<!--        </div>-->
+<!--        <br />-->
+<!--        <div class="wrapper">-->
+<!--          <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--          -->
+<!--          <div class="button" @click="facebookLogIn">-->
+<!--            <div class="icon-facebook">-->
+<!--              <i><v-icon class="pb-1" size="40">mdi-facebook</v-icon></i>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="button" @click="googleLogIn">-->
+<!--            <div class="icon-google">-->
+<!--              <i><v-icon class="pb-1" size="35">mdi-google</v-icon></i>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <br />-->
+<!--        <div class="separator text">sau prin E-Mail</div>-->
+<!--        <br />-->
+
+<!--        <v-text-field-->
+<!--            prepend-inner-icon="mdi-email"-->
+<!--            clearable-->
+<!--            v-model="email"-->
+<!--            :error-messages="emailErrors"-->
+<!--            label="E-Mail"-->
+<!--            required-->
+<!--            @input="$v.email.$touch()"-->
+<!--            @blur="$v.email.$touch()">-->
+<!--        </v-text-field>-->
+
+<!--        <v-text-field-->
+<!--            prepend-inner-icon="mdi-key"-->
+<!--            clearable-->
+<!--            label="Parola"-->
+<!--            type="password"-->
+<!--            v-model="password"-->
+<!--            :error-messages="passwordErrors"-->
+<!--            required-->
+<!--            @input="$v.password.$touch()"-->
+<!--            @blur="$v.password.$touch()">-->
+<!--        </v-text-field>-->
+<!--        <br />-->
+<!--        <div align="center">-->
+<!--          <v-btn class="mr-4" style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>-->
+<!--          <v-btn class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear">goleste</v-btn>-->
+<!--        </div>-->
+<!--        <br />-->
+<!--        <br />-->
+<!--        <hr class="text"/>-->
+<!--        <div class="text">-->
+<!--          <span>Inca nu ti-ai creat un cont?</span>-->
+<!--          <v-btn text class="ml-3"  style="font-family: 'Lato', sans-serif; font-weight: bold;" float="right" @click="toSignUp">Inscrie-te</v-btn>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--      </section>-->
+<!--      <div class="circle1"></div>-->
+<!--      <div class="circle2"></div>-->
+<!--      <div class="circle3"></div>-->
+<!--      <div class="circle4"></div>-->
+<!--    </div>-->
+<!--  </v-main>-->
+<!--</div>-->
+
+  <v-main class="main">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <navbar />
+    <snackbar />
+
+    <v-container style="margin-top: 4%;" >
       <section class="formdesign">
-      <form @submit.prevent="submitLogIn">
-        <h1>Autentifica-te!</h1>
-        <br />
-        <hr />
-        <br />
-        <div>
-          <span class="text">Autentifica-te cu</span>
-        </div>
-        <br />
-        <div class="wrapper">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-          <div class="button" @click="facebookLogIn">
-            <div class="icon-facebook">
-              <i><v-icon class="pb-1" size="40">mdi-facebook</v-icon></i>
-            </div>
-          </div>
-          <div class="button" @click="googleLogIn">
-            <div class="icon-google">
-              <i><v-icon class="pb-1" size="35">mdi-google</v-icon></i>
-            </div>
-          </div>
-        </div>
-        <br />
-        <div class="separator text">sau prin E-Mail</div>
-        <br />
+        <v-form class="form" @submit.prevent="submitLogIn">
 
-        <v-text-field
-            prepend-inner-icon="mdi-email"
-            clearable
-            v-model="email"
-            :error-messages="emailErrors"
-            label="E-Mail"
-            required
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()">
-        </v-text-field>
+          <v-container fluid>
+            <h1 style="font-family: 'Lato', sans-serif">Autentifica-te!</h1>
+          </v-container>
 
-        <v-text-field
-            prepend-inner-icon="mdi-key"
-            clearable
-            label="Parola"
-            type="password"
-            v-model="password"
-            :error-messages="passwordErrors"
-            required
-            @input="$v.password.$touch()"
-            @blur="$v.password.$touch()">
-        </v-text-field>
-        <br />
-        <div align="center">
-          <v-btn class="mr-4" style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
-          <v-btn class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear">goleste</v-btn>
-        </div>
-        <br />
-        <br />
-        <hr class="text"/>
-        <div class="text">
-          <span>Inca nu ti-ai creat un cont?</span>
-          <v-btn text class="ml-3"  style="font-family: 'Lato', sans-serif; font-weight: bold;" float="right" @click="toSignUp">Inscrie-te</v-btn>
-        </div>
-      </form>
+          <hr />
+
+          <v-container fluid>
+            <span class="text">Autentifica-te cu</span>
+          </v-container>
+
+          <v-container >
+            <v-row no-gutters align-content="center">
+              <v-col>
+                <div class="wrapper">
+<!--                  <meta name="viewport" content="width=device-width, initial-scale=1">-->
+                  <div class="button" @click="facebookLogIn">
+                    <div class="icon-facebook">
+                      <i><v-icon class="pb-1" size="40">mdi-facebook</v-icon></i>
+                    </div>
+                  </div>
+                </div>
+              </v-col>
+              <v-col>
+                <div class="wrapper">
+                  <div class="button" @click="googleLogIn">
+                    <div class="icon-google">
+                      <i><v-icon class="pb-1" size="35">mdi-google</v-icon></i>
+                    </div>
+                  </div>
+                </div>
+              </v-col>
+            </v-row>
+          </v-container>
+
+          <div class="separator text">sau prin E-Mail</div>
+
+          <v-container>
+            <v-text-field
+                class="text"
+                prepend-inner-icon="mdi-email"
+                clearable
+                v-model="email"
+                :error-messages="emailErrors"
+                label="E-Mail"
+                required
+                @input="$v.email.$touch()"
+                @blur="$v.email.$touch()">
+            </v-text-field>
+          </v-container>
+
+          <v-container>
+            <v-text-field
+                class="text"
+                prepend-inner-icon="mdi-key"
+                clearable
+                label="Parola"
+                type="password"
+                v-model="password"
+                :error-messages="passwordErrors"
+                required
+                @input="$v.password.$touch()"
+                @blur="$v.password.$touch()">
+            </v-text-field>
+          </v-container>
+
+          <v-container>
+            <v-row no-gutters>
+              <v-col align-self="end">
+                <v-btn class="mr-4" style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
+              </v-col>
+              <v-col align-self="start">
+                <v-btn class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear">goleste</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+
+          <hr />
+
+          <v-container>
+            <v-row no-gutters>
+              <v-col>
+                <span class="text" >Inca nu ti-ai creat un cont?</span>
+              </v-col>
+              <v-col>
+                <v-btn text class="ml-3 text"  style="font-family: 'Lato', sans-serif; font-weight: bold;" float="right" @click="toSignUp">Inscrie-te</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+
+        </v-form>
       </section>
-      <div class="circle1"></div>
-      <div class="circle2"></div>
-      <div class="circle3"></div>
-      <div class="circle4"></div>
-    </div>
+    </v-container>
+
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="circle3"></div>
+    <div class="circle4"></div>
   </v-main>
-</div>
+
 </template>
 
 <script>
@@ -188,11 +297,11 @@ export default {
   text-align: center;
   justify-content: center;
   align-content: center;
-  padding: 60px;
+  padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
-  min-height: 800px;
-  width: 40%;
+  min-height: 80vh;
+  width: 80vh;
   background: linear-gradient(
       to right bottom,
       rgba(255, 255, 255, 0.7),
@@ -203,6 +312,12 @@ export default {
   backdrop-filter: blur(2rem);
   display: flex;
 }
+
+.form {
+  min-height: 75vh;
+  width: 60vh;
+}
+
 .bttn {
   margin-left: 6px;
 }
@@ -233,7 +348,7 @@ export default {
   display: inline-block;
   height: 60px;
   width: 60px;
-  align-content: center;
+
   margin: 0 5px;
   overflow: hidden;
   background: #fff;
@@ -245,7 +360,6 @@ export default {
   font-size: 20px;
   font-weight: 500;
   line-height: 60px;
-  margin-left: 10px;
 }
 .wrapper .button {
   font-size: 25px;
