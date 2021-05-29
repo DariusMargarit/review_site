@@ -37,11 +37,11 @@
             <v-card class="card">
               <v-card-text class="card_text">
                 <span class="font" style="padding:15px; font-weight:800; font-size: 34px;">- Darius -</span>
-                <br />
+                <br /><br />
                 <v-avatar size="130" style="">
                   <img src="../assets/darius.jpg" />
                 </v-avatar>
-                <br />
+                <br /><br />
                 <span class="font" style="padding-bottom:15px; font-size: 17px; align-content:center; display: flex;">Trei cuvinte prin care colegii de echipă l-au descris: </span>
                 <ul style="list-style-position: inside; list-style-type: square">
                   <li>ambițios</li>
@@ -57,12 +57,12 @@
           <v-card class="card">
             <v-card-text class="card_text">
               <span class="font" style="padding:15px;font-weight:800; font-size: 34px;">- Patri -</span>
-              <br />
+              <br /><br />
               <v-avatar size="130" style="">
                 <img src="../assets/patri.jpg" />
               </v-avatar>
-              <br />
-              <span class="font" style="padding-bottom:15px; font-weight: 200; font-size: 17px; align-content:center; display: flex;">Trei cuvinte prin care colegii de echipă au descris-o: </span>
+              <br /><br />
+              <p class="font" style="padding-bottom:15px; font-weight: 200; font-size: 17px; align-content:center; display: flex;">Trei cuvinte prin care colegii de echipă au descris-o: </p>
               <ul style="list-style-position: inside; list-style-type: square">
                 <li>perfecționistă</li>
                 <li>motivată</li>
@@ -105,9 +105,9 @@
   /*  font-family: 'Archivo Black', sans-serif;*/
   /*}*/
   .card {
-    width: 60%;
-    padding: 5%;
-    margin: 5%;
+    /*width: 60%;*/
+    /*padding: 5%;*/
+    /*margin: 5%;*/
   }
 
   /*.title {*/
@@ -142,5 +142,10 @@
     align-content: center;
     justify-content: center;
     text-align: center;
+  }
+
+  .card_text{
+    text-align: center;
+
   }
 </style>
