@@ -3,13 +3,13 @@
 
     <nav-bar />
 
-    <v-content class="first_content">
+    <v-content class="first_content hidden-xs-only">
 
-<!--      <v-container fluid>-->
-<!--        <a href="#ghid" class="ghidul">-->
-<!--          <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>-->
-<!--        </a>-->
-<!--      </v-container>-->
+      <v-container fluid>
+        <a href="#ghid" class="ghidul">
+          <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
+        </a>
+      </v-container>
 
       <v-container class="home-container">
         <v-row>
@@ -40,11 +40,19 @@
       <br />
     </v-content>
 
-    <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
+    <div style="padding:20px" class="separator hidden-xs-only"><v-icon>mdi-chevron-triple-left</v-icon></div>
+
+    <v-container style="margin-top: 15%;" class="hidden-md-and-up" fluid>
+      <a href="#ghid" class="ghidul">
+        <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
+      </a>
+    </v-container>
+
+    <div style="padding:20px" class="separator hidden-md-and-up"><v-icon>mdi-chevron-triple-left</v-icon></div>
     
-    <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-row class="rows" style="flex-basis: 31%; ">
-        <v-col align-self-center style=" justify-self: center; ">
+    <v-container class="containers">
+      <v-row style="flex-basis: 31%;">
+        <v-col align-self="center" cols="12" sm="6">
           <h1>Ce este HonestReviews?</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             HonestReviews este un website prin intermediul caruia utilizatorii pot lasa review-uri, adica pareri, oricarui produs pe care l-au achizitionat.
@@ -52,7 +60,7 @@
             De asemenea, sunt mentionate sursa de unde a fost achizitionat produsul, numele intreg al acestuia, pretul si alte informatii utile.
           </p>
         </v-col>
-        <v-col align-self-center style="display: flex; align-content: center; justify-content: center; justify-self: center; margin-left: 10%;">
+        <v-col align-self="center">
           <img style="height: 100%; width: 100%;" src="../assets/social-media-3846597_640.png" />
         </v-col>
       </v-row>
@@ -60,12 +68,12 @@
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-right</v-icon></div>
 
-    <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-row class="rows" style="flex-basis: 31%;">
-        <v-col align-self-center>
+    <v-container class="containers">
+      <v-row style="flex-basis: 31%;">
+        <v-col align-self="center">
           <img style="height: 100%; width: 100%;" src="../assets/bizbiz.png" />
         </v-col>
-        <v-col align-self-center style=" justify-self: center;  margin-left: 25%;">
+        <v-col align-self="center" cols="12" sm="6">
           <h1>De ce HonestReviews?</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             Site-ul nostru va ofera o modalitate usoara de a scrie sau de a cauta impresii ale altor utilizatori despre orice fel ce produs.
@@ -79,9 +87,9 @@
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
-    <v-container style="display: flex; align-content: center; justify-content: center; text-align: center;">
-      <v-row class="rows" style="flex-basis: 31%;">
-        <v-col align-self-center>
+    <v-container class="containers">
+      <v-row style="flex-basis: 31%;">
+        <v-col align-self="center" cols="12" sm="6">
           <h1 id="ghid">Ghidul utilizatorului</h1>
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             Este usor sa folosesti HonestReviews. Daca nu ai un cont sau nu esti autentificat, vei putea doar sa vezi produsele si review-urile, nu si sa adaugi altele.
@@ -96,8 +104,8 @@
             Categorii
           </v-btn>
         </v-col>
-        <v-col align-self-center >
-          <img src="../assets/calculator.jpg"  />
+        <v-col align-self="center">
+          <img src="../assets/calculator.jpg" style="width: 110%; height: 110%;" />
         </v-col>
       </v-row>
     </v-container>
@@ -200,11 +208,14 @@
     text-decoration: none;
     margin-top: 10px;
     color: black;
+    font-family: 'Lato', sans-serif;
   }
 
-  .rows {
+  .containers {
     display: flex;
     align-content: center;
     justify-content: center;
+    text-align: center;
   }
+
 </style>
