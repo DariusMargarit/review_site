@@ -244,11 +244,11 @@ export default {
   text-align: center;
   justify-content: center;
   align-content: center;
-  padding: 60px;
+  padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
   height: 60%;
-  width: 70%;
+  width: 50%;
   background: linear-gradient(
       to right bottom,
       rgba(255, 255, 255, 0.7),
@@ -269,7 +269,7 @@ export default {
 
 .form {
   min-height: 75vh;
-  width: 70vh;
+  width: 60vh;
 }
 
 .bttn {
