@@ -23,7 +23,6 @@
             <v-row no-gutters align-content="center">
               <v-col>
                 <div class="wrapper">
-<!--                  <meta name="viewport" content="width=device-width, initial-scale=1">-->
                   <div class="button" @click="facebookLogIn">
                     <div class="icon-facebook">
                       <i><v-icon class="pb-1" size="40">mdi-facebook</v-icon></i>
@@ -74,12 +73,12 @@
             </v-text-field>
           </v-container>
 
-          <v-container>
-            <v-row no-gutters>
-              <v-col align-self="end">
-                <v-btn class="mr-4" style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
+          <v-container class="containers">
+            <v-row style="flex-basis: 31%">
+              <v-col align-self="center" cols="12" sm="6">
+                <v-btn style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
               </v-col>
-              <v-col align-self="start">
+              <v-col align-self="center">
                 <v-btn class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear">goleste</v-btn>
               </v-col>
             </v-row>
@@ -87,12 +86,12 @@
 
           <hr />
 
-          <v-container>
-            <v-row no-gutters>
-              <v-col>
+          <v-container class="containers">
+            <v-row style="flex-basis: 31%">
+              <v-col align-self="center" cols="12" sm="6">
                 <span class="text" >Inca nu ti-ai creat un cont?</span>
               </v-col>
-              <v-col>
+              <v-col align-self="center">
                 <v-btn text class="ml-3 text"  style="font-family: 'Lato', sans-serif; font-weight: bold;" float="right" @click="toSignUp">Inscrie-te</v-btn>
               </v-col>
             </v-row>
@@ -102,10 +101,10 @@
       </section>
     </v-container>
 
-    <div class="circle1"></div>
-    <div class="circle2"></div>
-    <div class="circle3"></div>
-    <div class="circle4"></div>
+    <div class="circle1 hidden-xs-only"></div>
+    <div class="circle2 hidden-xs-only"></div>
+    <div class="circle3 hidden-xs-only"></div>
+    <div class="circle4 hidden-xs-only"></div>
   </v-main>
 
 </template>
@@ -223,8 +222,8 @@ export default {
   padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
-  min-height: 80vh;
-  width: 80vh;
+  height: 60%;
+  width: 50%;
   background: linear-gradient(
       to right bottom,
       rgba(255, 255, 255, 0.7),
@@ -234,6 +233,13 @@ export default {
   z-index: 2;
   backdrop-filter: blur(2rem);
   display: flex;
+}
+
+.containers {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .form {
