@@ -136,7 +136,6 @@ import Signup from "./Signup";
 import Login from "./Login";
 import Navbar from "../components/Navbar";
 
-
 export default {
   components: {
     'sign-up': Signup,

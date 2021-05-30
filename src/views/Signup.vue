@@ -199,6 +199,7 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
 
+
 .main {
   background: rgb(0,204,255);
   background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
