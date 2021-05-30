@@ -3,7 +3,7 @@
 
     <nav-bar />
 
-    <v-content class="first_content hidden-xs-only">
+    <v-content class="first_content hidden-md-and-down">
 
       <v-container justify="center" fluid>
         <v-row justify="center">
@@ -44,10 +44,37 @@
 
     <div style="padding:20px" class="separator hidden-xs-only"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
-    <v-container style="margin-top: 15%;" class="hidden-md-and-up" fluid>
-      <a href="#ghid" class="ghidul">
-        <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
-      </a>
+    <v-container justify-content="center" style="margin-top: 15%;" class="hidden-lg-and-up" fluid>
+      <v-row justify="center">
+        <a href="#ghid" class="ghidul">
+          <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
+        </a>
+      </v-row>
+    </v-container>
+
+    <v-container class="hidden-lg-and-up containers">
+      <v-row style="flex-basis: 31%;">
+        <v-col align-self="center" cols="12" sm="6">
+          <p class="content-text">Doresti si tu sa lasi un review unui produs? Creeaza-ti un cont chiar acum</p>
+          <br />
+          <v-btn v-if="userIsAuthenticated" disabled large class="homebutton text--black font-weight-bold" plain >Înscrie-te</v-btn>
+          <v-btn v-else large class="homebutton text--black font-weight-bold" plain @click="toSignUp" >Înscrie-te</v-btn>
+        </v-col>
+        <v-col align-self="center">
+          <img src="../assets/rating.png" style="height: 100%; width: 100%;" />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container class="hidden-lg-and-up containers">
+      <v-row style="flex-basis: 31%;">
+        <v-col align-self="center" justify-self="center" cols="12" sm="6">
+          <p class="content-text">Ai deja un cont? Conecteaza-te la el aici</p>
+          <br />
+          <v-btn v-if="userIsAuthenticated" disabled large class="homebutton text--black font-weight-bold" plain >Autentifică-te</v-btn>
+          <v-btn v-else large class="homebutton text--black font-weight-bold" plain @click="toLogIn" >Autentifică-te</v-btn>
+        </v-col>
+      </v-row>
     </v-container>
 
     <div style="padding:20px" class="separator hidden-md-and-up"><v-icon>mdi-chevron-triple-left</v-icon></div>
@@ -55,7 +82,7 @@
     <v-container class="containers">
       <v-row style="flex-basis: 31%;">
         <v-col align-self="center" cols="12" sm="6">
-          <h1>Ce este HonestReviews?</h1>
+          <h1 style="font-family: 'Archivo Black', sans-serif;">Ce este HonestReviews?</h1><br />
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             HonestReviews este un website prin intermediul caruia utilizatorii pot lasa review-uri, adica pareri, oricarui produs pe care l-au achizitionat.
             Un asa-zis "review" consta in exprimarea propriei opinii in legatura cu produsul ales.
@@ -76,7 +103,7 @@
           <img style="height: 100%; width: 100%;" src="../assets/bizbiz.png" />
         </v-col>
         <v-col align-self="center" cols="12" sm="6">
-          <h1>De ce HonestReviews?</h1>
+          <h1 style="font-family: 'Archivo Black', sans-serif;">De ce HonestReviews?</h1><br />
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             Site-ul nostru va ofera o modalitate usoara de a scrie sau de a cauta impresii ale altor utilizatori despre orice fel ce produs.
             De la frigidere la computere, de la masini la biciclete, de la resorturi turistice la restaurante, aici puteti gasi un review pentru orice categorie imaginabila.
@@ -92,7 +119,7 @@
     <v-container class="containers">
       <v-row style="flex-basis: 31%;">
         <v-col align-self="center" cols="12" sm="6">
-          <h1 id="ghid">Ghidul utilizatorului</h1>
+          <h1 style="font-family: 'Archivo Black', sans-serif;" id="ghid">Ghidul utilizatorului</h1><br />
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             Este usor sa folosesti HonestReviews. Daca nu ai un cont sau nu esti autentificat, vei putea doar sa vezi produsele si review-urile, nu si sa adaugi altele.
             Altfel, daca nu ai un cont, il poti creea apasand butonul "Inscrie-te", pe pagina de acasa sau un partea de sus a ecranului.
