@@ -231,6 +231,19 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
 
+@media screen and (max-width: 960px) {
+  .formdesign {
+    background: rgba(0,204,255, 0) !important;
+    height: 80% !important;
+    width: 80% !important;
+  }
+
+  .form {
+    min-height: 80% !important;
+    width: 100% !important;
+  }
+}
+
 .main {
   background: rgb(0,204,255);
   background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
