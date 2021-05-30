@@ -42,7 +42,7 @@
                   <img src="../assets/darius.jpg" />
                 </v-avatar>
                 <br /><br />
-                <span class="font" style="padding-bottom:15px; font-size: 17px; align-content:center; display: flex;">Trei cuvinte prin care colegii de echipă l-au descris: </span>
+                <span class="font" style="padding-bottom:15px; font-size: 17px; justify-content: center; align-content:center; display: flex;">Trei cuvinte prin care colegii de echipă l-au descris: </span>
                 <ul style="list-style-position: inside; list-style-type: square">
                   <li>ambițios</li>
                   <li>bun lider</li>
@@ -62,7 +62,7 @@
                 <img src="../assets/patri.jpg" />
               </v-avatar>
               <br /><br />
-              <p class="font" style="padding-bottom:15px; font-weight: 200; font-size: 17px; align-content:center; display: flex;">Trei cuvinte prin care colegii de echipă au descris-o: </p>
+              <p class="font" style="padding-bottom:15px; font-weight: 200; font-size: 17px; justify-content: center; align-content:center; text-align: center; display: flex;">Trei cuvinte prin care colegii de echipă au descris-o: </p>
               <ul style="list-style-position: inside; list-style-type: square">
                 <li>perfecționistă</li>
                 <li>motivată</li>
@@ -146,6 +146,5 @@
 
   .card_text{
     text-align: center;
-
   }
 </style>
