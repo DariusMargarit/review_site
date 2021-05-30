@@ -5,10 +5,12 @@
 
     <v-content class="first_content hidden-xs-only">
 
-      <v-container fluid>
-        <a href="#ghid" class="ghidul">
-          <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
-        </a>
+      <v-container justify="center" fluid>
+        <v-row justify="center">
+          <a href="#ghid" class="ghidul">
+            <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
+          </a>
+        </v-row>
       </v-container>
 
       <v-container class="home-container">
@@ -49,7 +51,7 @@
     </v-container>
 
     <div style="padding:20px" class="separator hidden-md-and-up"><v-icon>mdi-chevron-triple-left</v-icon></div>
-    
+
     <v-container class="containers">
       <v-row style="flex-basis: 31%;">
         <v-col align-self="center" cols="12" sm="6">
@@ -114,108 +116,102 @@
 </template>
 
 <script>
-  import Signup from "./Signup";
-  import Login from "./Login";
-  import Navbar from "../components/Navbar";
-  export default {
-    components: {
-      'sign-up': Signup,
-      'log-in': Login,
-      'nav-bar': Navbar
+import Signup from "./Signup";
+import Login from "./Login";
+import Navbar from "../components/Navbar";
+export default {
+  components: {
+    'sign-up': Signup,
+    'log-in': Login,
+    'nav-bar': Navbar
+  },
+  methods: {
+    toSignUp () {
+      this.$router.push('/Signup')
     },
-    methods: {
-      toSignUp () {
-        this.$router.push('/Signup')
-      },
-      toLogIn () {
-        this.$router.push('/Login')
-      },
-      goToCat () {
-        this.$router.push('/categorii/')
-      }
+    toLogIn () {
+      this.$router.push('/Login')
     },
-    computed: {
-      userIsAuthenticated () {
-        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-      }
+    goToCat () {
+      this.$router.push('/categorii/')
+    }
+  },
+  computed: {
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
   }
+}
 </script>
 
 <style>
-  .homebutton{
-    background-color: hsl(47, 95%, 49%);
-  }
-  .first_content{
-    background-image: linear-gradient(180deg, rgba(0,204,255,0.05) 0%, rgba(0,204,255,0.1) 100%),
-    url("../assets/tori-1976609_1920.jpg");
-    background-position: center;
-    background-size: cover;
-    margin-top: 3%;
-  }
-
-  .home-container {
-    width: 100%;
-    align-content: center;
-    justify-content: center;
-    display: flex;
-    text-align: center;
-    margin-left: 5%;
-  }
-
-  .second-home-container {
-    width: 30%;
-    align-content: center;
-    justify-content: center;
-    display: flex;
-    text-align: center;
-    margin-left: 5%;
-  }
-  .content-text{
-    font-size: 34px;
-    font-weight: 800;
-    padding: 25px 15px;
-    font-family: 'Archivo Black', sans-serif;
-  }
-
-  .separator {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    font-family: 'Arvo', serif;
-  }
-  .separator::before,
-  .separator::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid #e0eaf5;
-  }
-  .separator:not(:empty)::before {
-    margin-right: .25em;
-  }
-  .separator:not(:empty)::after {
-    margin-left: .25em;
-  }
-
-  .ghidul {
-    text-align: center;
-    padding: 10px;
-    border: 1px solid black;
-    width: 300px;
-    border-radius: 10px;
-    transition-duration: 1s;
-    transition: all;
-    text-decoration: none;
-    margin-top: 10px;
-    color: black;
-    font-family: 'Lato', sans-serif;
-  }
-
-  .containers {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    text-align: center;
-  }
-
+.homebutton{
+  background-color: hsl(47, 95%, 49%);
+}
+.first_content{
+  background-image: linear-gradient(180deg, rgba(0,204,255,0.05) 0%, rgba(0,204,255,0.1) 100%),
+  url("../assets/tori-1976609_1920.jpg");
+  background-position: center;
+  background-size: cover;
+  margin-top: 4%;
+}
+.home-container {
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  margin-left: 5%;
+}
+.second-home-container {
+  width: 30%;
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  margin-left: 5%;
+}
+.content-text{
+  font-size: 34px;
+  font-weight: 800;
+  padding: 25px 15px;
+  font-family: 'Archivo Black', sans-serif;
+}
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-family: 'Arvo', serif;
+}
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e0eaf5;
+}
+.separator:not(:empty)::before {
+  margin-right: .25em;
+}
+.separator:not(:empty)::after {
+  margin-left: .25em;
+}
+.ghidul {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid black;
+  width: 300px;
+  border-radius: 10px;
+  transition-duration: 1s;
+  transition: all;
+  text-decoration: none;
+  margin-top: 10px;
+  color: black;
+  font-family: 'Lato', sans-serif;
+}
+.containers {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
 </style>
