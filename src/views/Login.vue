@@ -6,8 +6,8 @@
     <snackbar />
 
     <v-container style="margin-top: 4%; justify-content: center; display: flex;" >
-      <section class="formdesign">
-        <v-form class="form" @submit.prevent="submitLogIn">
+      <section align="center" class="formdesign">
+        <v-form align-self="center" class="form" @submit.prevent="submitLogIn">
 
           <v-container fluid>
             <h1 style="font-family: 'Lato', sans-serif">Autentifica-te!</h1>
@@ -223,13 +223,14 @@ export default {
 .main {
   background: rgb(0,204,255);
   background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
-  min-height: 100vh;
+  min-height: 75vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .formdesign {
+  align-items: center;
   text-align: center;
   justify-content: center;
   align-content: center;

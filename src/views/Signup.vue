@@ -5,7 +5,7 @@
     <navbar />
     <snackbar />
 
-    <v-container style="margin-top: 4%;" >
+    <v-container style="margin-top: 4%; justify-content: center; display: flex;" >
       <section class="formdesign">
         <v-form class="form">
           <v-container fluid>
@@ -115,10 +115,10 @@
       </section>
     </v-container>
 
-    <div class="circle1 hidden-xs-only"></div>
-    <div class="circle2 hidden-xs-only"></div>
-    <div class="circle3 hidden-xs-only"></div>
-    <div class="circle4 hidden-xs-only"></div>
+    <div class="circle1 hidden-md-and-down"></div>
+    <div class="circle2 hidden-md-and-down"></div>
+    <div class="circle3 hidden-md-and-down"></div>
+    <div class="circle4 hidden-md-and-down"></div>
 
   </v-main>
 
@@ -231,7 +231,7 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1264px) {
   .formdesign {
     background: rgba(0,204,255, 0) !important;
     height: 80% !important;
