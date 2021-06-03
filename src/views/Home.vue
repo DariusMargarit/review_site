@@ -1,7 +1,7 @@
 <template>
   <v-main>
 
-    <nav-bar />
+<!--    <nav-bar />-->
 
     <v-content class="first_content hidden-md-and-down">
 
@@ -180,7 +180,7 @@ export default {
   url("../assets/tori-1976609_1920.jpg");
   background-position: center;
   background-size: cover;
-  margin-top: 5%;
+  margin-top: 4%;
 }
 .home-container {
   width: 100%;
