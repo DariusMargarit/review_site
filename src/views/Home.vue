@@ -150,7 +150,7 @@ export default {
   components: {
     'sign-up': Signup,
     'log-in': Login,
-    'nav-bar': Navbar
+    // 'nav-bar': Navbar
   },
   methods: {
     toSignUp () {

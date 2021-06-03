@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <navbar />
+<!--    <navbar />-->
     <br />
     <br />
     <br />
@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
 export default {
   components: {
-    'navbar': Navbar
+    // 'navbar': Navbar
   },
   data () {
     return {
@@ -67,7 +67,6 @@ export default {
 .text{
   color: black;
   text-align: center;
-  font-family:"Arial Black";
 }
 .text1{
   opacity: 1;

@@ -1,6 +1,5 @@
 <template>
     <v-main style="margin:auto;width:65%">
-        <navbar />
         <br><br><br><br><br>
         <v-progress-circular
                 :size="50"
@@ -62,13 +61,11 @@
 </template>
 
 <script>
-    import Navbar from "../components/Navbar";
     import AddProdusPopup from "../components/AddProdusPopup";
     export default {
         name: "categorie",
         props: ['id'],
         components: {
-            'navbar': Navbar,
             'add-product': AddProdusPopup
         },
         created () {

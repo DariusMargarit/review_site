@@ -2,7 +2,7 @@
   <v-main>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
     <div style="height:350px;width:2000px;position: absolute;top: 0px;z-index: 1;" class="grey lighten-3"></div>
-    <navbar />
+<!--    <navbar />-->
     <br><br><br><br>
     <v-progress-circular
             :size="50"
@@ -87,13 +87,13 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import AddReviewPopup from "../components/AddReviewPopup";
 export default {
   name: "categorie",
   props: ['catId','prodId'],
   components: {
-    'navbar': Navbar,
+    // 'navbar': Navbar,
     'add-review-popup': AddReviewPopup
   },
   created() {

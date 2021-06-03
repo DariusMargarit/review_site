@@ -22,7 +22,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar align="center" fixed v-if="userIsAuthenticated" color=rgba(64,64,64,1) class="marimeNav" height="75%">
+    <v-app-bar flat align="center" fixed v-if="userIsAuthenticated" color=rgba(64,64,64,1) class="marimeNav" height="75%">
       <v-app-bar-nav-icon @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up" ></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-sm-and-down">
         <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
@@ -84,7 +84,7 @@
         </v-menu>
       </div>
     </v-app-bar>
-    <v-app-bar align="center" fixed v-else color=rgba(64,64,64,1) height="75%">
+    <v-app-bar flat align="center" fixed v-else color=rgba(64,64,64,1) height="75%">
       <v-app-bar-nav-icon @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-md-and-down">
         <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">

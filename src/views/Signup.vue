@@ -2,7 +2,7 @@
 
   <v-main class="main">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <navbar />
+<!--    <navbar />-->
     <snackbar />
 
     <v-container style="margin-top: 4%; justify-content: center; display: flex;" >
@@ -130,13 +130,13 @@ import { required, maxLength, email, minLength } from 'vuelidate/lib/validators'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import snackbar from "../components/snackbar";
 
 export default {
   name: "signup",
   components: {
-    'navbar': Navbar,
+    // 'navbar': Navbar,
     'snackbar': snackbar
   },
   mixins: [validationMixin],
