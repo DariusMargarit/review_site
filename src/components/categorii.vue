@@ -1,6 +1,5 @@
 <template>
   <v-main>
-<!--    <navbar />-->
     <br />
     <br />
     <br />
@@ -11,10 +10,10 @@
         indeterminate
         v-if="loading"
     ></v-progress-circular>
-    <v-container v-if="!loading">
-      <v-row>
-        <v-col>
-          <v-card class="cat" v-for="categorie in categorii" :key="categorie.id" @click="goToCat(categorie.id)">
+    <v-container v-if="!loading" >
+      <v-row style="">
+        <v-col align="center" style="justify-content: center;display: flex;" v-for="categorie in categorii" :key="categorie.id">
+          <v-card  class="cat"  @click="goToCat(categorie.id)">
             <img class="imagini" :src="categorie.img" alt="alt text" />
             <v-container class="center"><h4 class="text1">{{categorie.description}}</h4></v-container>
             <v-card-text>
@@ -28,10 +27,10 @@
 </template>
 
 <script>
-// import Navbar from "./Navbar";
+
 export default {
   components: {
-    // 'navbar': Navbar
+
   },
   data () {
     return {
@@ -59,14 +58,21 @@ export default {
 
 <style>
 .cat{
-  margin: 23px;
+  margin: 1.5em;
   border: 1px solid #ccc;
-  float: left;
   cursor: pointer;
+  float: left;
+
+
+}
+@media screen and (max-width: 720px) {
+  card{
+    padding-left: 1em;}
 }
 .text{
   color: black;
   text-align: center;
+  font-family:"Arial Black";
 }
 .text1{
   opacity: 1;
