@@ -22,37 +22,41 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar flat align="center" fixed v-if="userIsAuthenticated" color=rgba(64,64,64,1) class="marimeNav" height="75%">
-      <v-app-bar-nav-icon @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up" ></v-app-bar-nav-icon>
-      <v-app-bar-title class="hidden-sm-and-down">
+
+
+
+    <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem">
+      <v-app-bar-nav-icon @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
+      <v-app-bar-title class="hidden-md-and-down">
         <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
       </v-app-bar-title>
-      <div class="search-input">
-        <table class="search-container">
-          <tr>
-            <td>
-              <v-icon class="icon">mdi-magnify</v-icon>
-            </td>
-            <td>
-              <input v-model="search" type="text" class="font font-weight-bold" placeholder="Type to search..."  />
-            </td>
-            <td>
-              <v-icon class="icon mr-4" style="">mdi-close</v-icon>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <v-spacer></v-spacer>
+
       <div class="hidden-md-and-down">
         <router-link to="/" style="text-decoration: none; padding:15px" class="white--text font">ACASA</router-link>
         <router-link to="/categorii" style="text-decoration: none; padding:15px" class="white--text font">CATEGORII </router-link>
         <router-link to="/despreNoi" style="text-decoration: none; padding:15px" class="white--text font">DESPRE NOI</router-link>
+        <router-link to="/Login" v-if="!userIsAuthenticated" style="text-decoration: none; padding:15px" class="white--text font">AUTENTIFICA-TE</router-link>
+        <router-link to="/Signup" v-if="!userIsAuthenticated" style="text-decoration: none; padding:15px" class="white--text font">INSCRIE-TE</router-link>
       </div>
-      <div class="text-center ml-10">
+
+      <v-spacer />
+
+      <div class="wrapper">
+        <div class="search-input">
+          <a href="" target="_blank" hidden></a>
+          <input type="text" placeholder="Type to search..">
+          <div class="autocom-box">
+            <!-- here list are inserted from javascript -->
+          </div>
+          <div class="icon"><v-icon>mdi-magnify</v-icon></div>
+        </div>
+      </div>
+
+      <div v-if="userIsAuthenticated" style="margin-left: 1rem">
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
-            <v-avatar v-on="on">
-              <img :src="user.profileImg" class="avatarr">
+            <v-avatar v-on="on" class="avatarr">
+              <img :src="user.profileImg">
             </v-avatar>
           </template>
           <v-list class="list">
@@ -83,36 +87,7 @@
           </v-list>
         </v-menu>
       </div>
-    </v-app-bar>
-    <v-app-bar flat align="center" fixed v-else color=rgba(64,64,64,1) height="75%">
-      <v-app-bar-nav-icon @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
-      <v-app-bar-title class="hidden-md-and-down">
-        <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
-      </v-app-bar-title>
-      <v-spacer class="hidden-lg-and-up" />
-      <div algin="center" justify="center" class="search-input">
-        <table class="search-container">
-          <tr>
-            <td>
-              <v-icon class="icon">mdi-magnify</v-icon>
-            </td>
-            <td>
-              <input v-model="search" type="text" class="font font-weight-bold" placeholder="Type to search..."  />
-            </td>
-            <td>
-              <v-icon class="icon mr-4" style="">mdi-close</v-icon>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <v-spacer></v-spacer>
-      <div class="hidden-md-and-down">
-        <router-link to="/" style="text-decoration: none; padding:15px" class="white--text font">ACASA</router-link>
-        <router-link to="/categorii" style="text-decoration: none; padding:15px" class="white--text font">CATEGORII </router-link>
-        <router-link to="/despreNoi" style="text-decoration: none; padding:15px" class="white--text font">DESPRE NOI</router-link>
-        <router-link to="/Login" style="text-decoration: none; padding:15px" class="white--text font">AUTENTIFICA-TE</router-link>
-        <router-link to="/Signup" style="text-decoration: none; padding:15px" class="white--text font">INSCRIE-TE</router-link>
-      </div>
+
     </v-app-bar>
   </div>
 </template>
@@ -158,40 +133,11 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width:1264px) {
-  .marimeNav {
-    height: 10% !important;
-  }
-}
 .font {
   font-family: 'Lato', sans-serif;
   font-weight: bold;
-  /*font-family: 'Archivo Black', sans-serif;*/
 }
-.v-toolbar__items{
-  height:auto;
-}
-.navbar {
-  /*position: fixed;*/
-  /*display:flex;*/
-  /*align-items: center;*/
-  /*justify-content: space-between;*/
-  /*top: 0;
-  left: 0;
-  width: 100%;*/
-  /*padding: 9px;*/
-  background-color: hsl(135, 0%, 25%);
-  z-index: 100000;
-}
-.theme--light.v-btn.v-btn--icon{
-  color:whitesmoke;
-}
-.theme--light.v-navigation-drawer {
-  background: #f1f1f1;
-}
-.theme--light.v-btn.v-btn--has-bg {
-  background-color: hsl(47, 95%, 49%);
-}
+
 .logo {
   padding: 0;
   margin: 0;
@@ -201,50 +147,92 @@ export default {
 }
 .avatarr{
   cursor: pointer;
-  font-size:32px;
-  height: 42px;
-  width: 42px;
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
 }
 .list{
-  width:230px;
+  width:15rem;
 }
 .ava{
-  font-size:30px;
+  font-size:5rem;
 }
 .haha:hover{
   background-color: rgba(0,204,255,0.1);
 }
-.search-input{
-  background: white;
-  border-radius: 30px;
-  /*position: relative;*/
-}
-.marimeNav{
-  height:50%;
-}
-input{
-  height: 35px;
-  width: 100%;
-  border: none;
-  border-radius: 50px;
-  padding: 0 5px 0 5px;
-  font-size: 20px;
-}
 
-input:focus {
-  outline: none;
-}
 .button {
   margin-bottom: 30px;
   text-align: center;
   background-color: hsl(47, 95%, 49%);
 }
-.icon{
-  width: 30px;
+
+.wrapper{
+  max-width: 450px;
+  margin: 150px auto;
+}
+.wrapper .search-input{
+  background: #fff;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);
+}
+.search-input input{
+  height: 55px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 60px 0 20px;
+  font-size: 18px;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+}
+.search-input.active input{
+  border-radius: 5px 5px 0 0;
+}
+.search-input .autocom-box{
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  max-height: 280px;
+  overflow-y: auto;
+}
+.search-input.active .autocom-box{
+  padding: 10px 8px;
+  opacity: 1;
+  pointer-events: auto;
+}
+.autocom-box li{
+  list-style: none;
+  padding: 8px 12px;
+  display: none;
+  width: 100%;
+  cursor: default;
+  border-radius: 3px;
+}
+.search-input.active .autocom-box li{
+  display: block;
+}
+.autocom-box li:hover{
+  background: #efefef;
+}
+.search-input .icon{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 55px;
+  width: 55px;
   text-align: center;
+  line-height: 55px;
   font-size: 20px;
-  color: black;
+  color: #644bff;
   cursor: pointer;
-  margin-left: 10px;
+}
+
+.button {
+  margin-bottom: 30px;
+  text-align: center;
+  background-color: hsl(47, 95%, 49%);
 }
 </style>
