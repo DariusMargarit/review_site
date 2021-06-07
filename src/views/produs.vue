@@ -1,99 +1,122 @@
 <template>
   <v-main>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
-    <div style="height:350px;width:2000px;position: absolute;top: 0px;z-index: 1;" class="grey lighten-3"></div>
-<!--    <navbar />-->
-    <br><br><br><br>
-    <v-progress-circular
-            :size="50"
-            color="primary"
-            indeterminate
-            v-if="loading"
-    ></v-progress-circular>
-    <div v-if="!loading" style="z-index:999;position: relative;margin:auto;width:70%">
-      <div>
-        <v-container>
-          <v-row>
-            <v-col>
+    <v-container fluid class="grey lighten-3" style="text-align: justify; text-justify: inter-word;">
+      <br><br><br>
+      <v-progress-circular
+          :size="50"
+          color="primary"
+          indeterminate
+          v-if="loading"
+      ></v-progress-circular>
+      <v-container style="min-width:70%;max-width:100%;width: fit-content">
+        <div style="width:100%">
+          <v-row >
+            <v-col lg="8" md="6" sm="6" cols="12">
               <div>
-                <div class="stangaDivProd">
-                  <img class="imagDesc" :src="theProd.img" alt="alt text" />
-                  <div class="rat">
-                    ({{ (isNaN(theProd.rating/theProd.reviews)) ? 0 : (theProd.rating/theProd.reviews) | toFixed }})
-                  </div>
-                  <v-rating class="ste"
-                            background-color="warning lighten-1"
-                            color="warning"
-                            half-increments
-                            length="5"
-                            readonly
-                            size="25"
-                            :value=(theProd.rating/theProd.reviews)
-                  ></v-rating>
-                  <v-card-title class="titlu">{{theProd.name}}</v-card-title>
-                  <v-card-subtitle class="tex">Rewiews: {{theProd.reviews}}</v-card-subtitle>
+                <v-row no-gutters>
+                  <v-col lg="7" cols="12">
+                    <v-card-title class="titlu">{{theProd.name}}</v-card-title>
+                    <v-card-subtitle class="tex">Rewiews: {{theProd.reviews}}</v-card-subtitle>
+                  </v-col>
+                  <v-spacer class="hidden-sm-and-down"></v-spacer>
+                  <v-col lg="3">
+                    <v-rating class="ste"
+                              background-color="warning lighten-1"
+                              color="warning"
+                              half-increments
+                              length="5"
+                              readonly
+                              size="25"
+                              :value=(theProd.rating/theProd.reviews)
+                    ></v-rating>
+                  </v-col>
+                  <v-col lg="1">
+                    <div class="rat">
+                      ({{ (isNaN(theProd.rating/theProd.reviews)) ? 0 : (theProd.rating/theProd.reviews) | toFixed }})
+                    </div>
+                  </v-col>
+                  <v-spacer class="hidden-lg-and-up"></v-spacer>
+                </v-row>
+                <v-row>
                   <v-card-text class="tex">{{ theProd.descriere}}</v-card-text>
-                  <div>
-                    <v-btn :href="theProd.link" class="button text--black font-weight-bold" plain>
-                      Link
-                    </v-btn>
-                    <add-review-popup :Ids="Ids" v-if="userIsAuthenticated" />
-                  </div>
-                </div>
+                </v-row>
               </div>
             </v-col>
-          </v-row>
-        </v-container>
-      </div>
-      <br />
-      <div style="margin:auto;width:60%">
-        <v-container>
-          <v-row>
-            <v-col>
-              <v-card class="pa-7 mb-4" style="overflow:hidden" v-for="review in reviews" :key="review.id">
-                <div>
-                  <div style="float: right">
-                    <div class="rat">
-                      ({{review.rating}})</div>
-                      <v-rating class="ste"
-                                background-color="warning lighten-1"
-                                color="warning"
-                                half-increments
-                                length="5"
-                                readonly
-                                size="25"
-                                :value=review.rating
-                      ></v-rating>
-
-                  </div>
-
-                  <v-avatar style="float: left; cursor: pointer" @click="goToUserProfile(review.userKey)">
-                    <img :src="review.userImg" class="avatarr">
-                  </v-avatar>
-
-                  <v-card-title class="titlu">{{review.name}}</v-card-title>
-                  <div v-if="review.img" style="float: right;"><v-img class="imag" :src="review.img" /></div>
-                  <v-card-title class="texti">{{review.title}}</v-card-title>
-                  <v-card-text class="tex">{{review.text | quotes}}</v-card-text>
-
-                </div>
-              </v-card>
+            <v-col lg="4" md="6" sm="6" cols="12" align="center">
+              <img class="imagDesc" :src="theProd.img" alt="Imagine Produs" />
             </v-col>
           </v-row>
-        </v-container>
-      </div>
-    </div>
+          <v-row>
+            <v-col align="center">
+              <v-btn :href="theProd.link" class="button text--black font-weight-bold" plain>
+                Link
+              </v-btn>
+              <add-review-popup :Ids="Ids" v-if="userIsAuthenticated" />
+            </v-col>
+          </v-row>
+        </div>
+      </v-container>
+    </v-container>
+    <br><br>
+    <v-container >
+      <v-row justify="center">
+        <v-col xl="5" lg="8" md="10" sm="11" justify="center">
+          <v-card align="center" class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
+            <v-container>
+              <div>
+                <v-row no-gutters style="max-height:10rem">
+                  <v-col md="1" sm="1">
+                    <v-avatar>
+                      <img :src="review.userImg" class="avatarr">
+                    </v-avatar>
+                  </v-col>
+                  <v-col md="6" class="hidden-sm-and-down">
+                    <v-card-title class="titlu">{{review.name}}</v-card-title>
+                  </v-col>
+                  <v-col md="3" sm="4">
+                    <v-rating class="ste"
+                              background-color="warning lighten-1"
+                              color="warning"
+                              half-increments
+                              length="5"
+                              readonly
+                              size="1.5rem"
+                              :value=review.rating
+                    ></v-rating>
+                  </v-col>
+                  <v-col cols="2" class="hidden-sm-and-down">
+                    <div class="rat">
+                      ({{review.rating}})</div>
+                  </v-col>
+                  <v-col class="hidden-md-and-up" cols="12">
+                    <v-card-title class="titlu">{{review.name}}</v-card-title>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <v-card-text class="texti">{{review.title}}</v-card-text>
+                    <v-card-text class="tex">{{review.text | quotes}}</v-card-text>
+                  </v-col>
+                  <v-col v-if="review.img">
+                    <v-img class="imag" :src="review.img" />
+                  </v-col>
+                </v-row>
+              </div>
+            </v-container>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-main>
 </template>
 
 <script>
-// import Navbar from "../components/Navbar";
 import AddReviewPopup from "../components/AddReviewPopup";
 export default {
   name: "categorie",
   props: ['catId','prodId'],
   components: {
-    // 'navbar': Navbar,
     'add-review-popup': AddReviewPopup
   },
   created() {
@@ -136,6 +159,12 @@ export default {
 }
 </script>
 <style scoped>
+@media screen and (max-width:1264px) {
+  .imagDesc{
+    max-height: 100% !important;
+    max-width: 100% !important;
+  }
+}
 .divProd{
   z-index: 999;
 }
@@ -146,8 +175,8 @@ export default {
   width:300px;
   max-height: 220px;
   max-width: 300px;
-  float:right;
-  margin: 20px;
+  /*float:right;
+  margin: 20px;*/
 }
 .imag{
   max-width:220px;
@@ -170,14 +199,13 @@ export default {
   font-family: 'Archivo Black', sans-serif;
   font-weight: bolder;
   font-size: 25px;
+  word-break: break-word;
 }
 .ste{
   color: #ff9454;
-  float: right;
   margin-top: 17px;
 }
 .rat{
-  float: right;
   font-size: 20px;
   padding: 3px;
   margin-top: 13px;
