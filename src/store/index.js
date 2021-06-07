@@ -400,16 +400,34 @@ export default new Vuex.Store({
             const reviews = []
             const obj = data.val()
         for(let key in obj) {
-          reviews.push({
-            id: key,
-            name: obj[key].name,
-            title: obj[key].title,
-            rating: obj[key].rating,
-            text: obj[key].text,
-            img: obj[key].img,
-            userImg: obj[key].userImg,
-            userKey: obj[key].userKey
+          firebase.database().ref('/reviews/' + obj[key].reviewKey).once('value')
+              .then((val) => {
+            const obj = val.val()
+            reviews.push({
+              id: key,
+              title: obj.title,
+              rating: obj.rating,
+              text: obj.text,
+              img: obj.img,
+              userKey: obj.userKey,
+              name: '',
+              userImg: null
+            })
+
+                firebase.database().ref('/users/' + reviews[reviews.length - 1].userKey).once('value')
+                    .then((val) => {
+                      const obj = val.val()
+                      reviews[reviews.length - 1].name = obj.userName
+                      reviews[reviews.length - 1].userImg = obj.profileImg
+                    }).catch(err => {
+                  console.log(err)
+                })
+
+          }).catch(err => {
+            commit('setLoading', false)
+            console.log(err)
           })
+
         }
           commit('setReviews', reviews)
           commit('setLoading', false)
@@ -446,39 +464,38 @@ export default new Vuex.Store({
       })
     },
     uploadReview ({commit}, payload) {
-      commit('setLoading', true)
       if(payload.picture != null && payload.picture != undefined) {
+        commit('setLoading', true)
         firebase.storage().ref('reviews_img/' + payload.picture.name).put(payload.picture)
             .then((fileData) => {
               fileData.ref.getDownloadURL().then((url) => {
-                firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
-                payload.prodId + '/pareri').push({
+                firebase.database().ref('/reviews/').push({
                   rating: payload.rating,
                   text: payload.review,
                   title: payload.titluReview,
                   img: url,
-                  name: payload.userName,
-                  userImg: payload.userImg,
                   userKey: payload.userKey
-                }).then(() => {
+                }).then(data => {
+                  firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
+                      payload.prodId + '/pareri').push({
+                    reviewKey: data.key
+                  })
                   firebase.database().ref('/users/' + payload.userKey + '/reviews').push({
-                    rating: payload.rating,
-                    text: payload.review,
-                    title: payload.titluReview,
-                    img: url,
-                    name: payload.userName,
-                    userImg: payload.userImg,
-                    userKey: payload.userKey
+                    reviewKey: data.key
                   }).then(() => {
-                    firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
-                    payload.prodId).update({
-                      rating: payload.newRating,
-                      reviews: payload.newReviews
+                      firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
+                          payload.prodId).update({
+                        rating: payload.newRating,
+                        reviews: payload.newReviews
+                      }).catch(err => {
+                        commit('setLoading', false)
+                        console.log(err)
+                      })
+                      commit('setLoading', false)
                     }).catch(err => {
                       commit('setLoading', false)
                       console.log(err)
                     })
-                    commit('setLoading', false)
                   }).catch(err => {
                     commit('setLoading', false)
                     console.log(err)
@@ -491,35 +508,32 @@ export default new Vuex.Store({
                 commit('setLoading', false)
                 console.log(err)
               })
-            }).catch(err => {
-          commit('setLoading', false)
-          console.log(err)
-        })
       }
        else {
-        firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
-            payload.prodId + '/pareri').push({
+        commit('setLoading', true)
+         firebase.database().ref('/reviews/').push({
           rating: payload.rating,
           text: payload.review,
           title: payload.titluReview,
           img: '',
-          name: payload.userName,
-          userImg: payload.userImg,
           userKey: payload.userKey
-        }).then(() => {
+        }).then(data => {
+          firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
+              payload.prodId + '/pareri').push({
+            reviewKey: data.key
+          })
           firebase.database().ref('/users/' + payload.userKey + '/reviews').push({
-            rating: payload.rating,
-            text: payload.review,
-            title: payload.titluReview,
-            img: '',
-            name: payload.userName,
-            userImg: payload.userImg,
-            userKey: payload.userKey
+            reviewKey: data.key
           }).then(() => {
-            firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
-                payload.prodId).update({
-              rating: payload.newRating,
-              reviews: payload.newReviews
+              firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
+                  payload.prodId).update({
+                rating: payload.newRating,
+                reviews: payload.newReviews
+              }).catch(err => {
+                commit('setLoading', false)
+                console.log(err)
+              })
+            commit('setLoading', false)
             }).catch(err => {
               commit('setLoading', false)
               console.log(err)
@@ -528,10 +542,6 @@ export default new Vuex.Store({
             commit('setLoading', false)
             console.log(err)
           })
-        }).catch(err => {
-          commit('setLoading', false)
-          console.log(err)
-        })
       }
     },
     loadUserReviews ({commit}, payload) {
