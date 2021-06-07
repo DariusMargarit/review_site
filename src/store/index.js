@@ -551,22 +551,43 @@ export default new Vuex.Store({
             const reviews = []
             const obj = data.val()
             for(let key in obj) {
-              reviews.push({
-                id: key,
-                img: obj[key].img,
-                name: obj[key].name,
-                rating: obj[key].rating,
-                text: obj[key].text,
-                title: obj[key].title,
-                userImg: obj[key].userImg,
+              firebase.database().ref('/reviews/' + obj[key].reviewKey).once('value')
+                  .then((data) => {
+                    const x = data.val()
+
+                    reviews.push({
+                      id: key,
+                      title: x.title,
+                      rating: x.rating,
+                      text: x.text,
+                      img: x.img,
+                      userKey: x.userKey,
+                      name: '',
+                      userImg: null
+                    })
+
+                    firebase.database().ref('/users/' + payload).once('value').then((val) => {
+                      reviews[reviews.length - 1].name = val.val().userName
+                      reviews[reviews.length - 1].userImg = val.val().profileImg
+                    }).catch(err => {
+                      console.log(err)
+                      commit('setLoading', false)
+                    })
+
+                  }).catch(err => {
+                    console.log(err)
+                   commit('setLoading', false)
               })
-              commit('setUserReviews', reviews)
-              commit('setLoading', false)
+
             }
+
+            commit('setUserReviews', reviews)
+            commit('setLoading', false)
           }).catch(err => {
-        commit('setLoading', true)
+        commit('setLoading', false)
         console.log(err)
       })
+
     },
     loadCatName ({commit}, payload) {
       commit('setLoading', true)
