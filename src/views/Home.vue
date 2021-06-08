@@ -42,7 +42,7 @@
 
     <div style="padding:20px" class="separator hidden-xs-only"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
-    <v-container style="margin-top: 1rem;" justify-content="center" class="hidden-lg-and-up" fluid>
+    <v-container style="margin-top: 5rem;" justify-content="center" class="hidden-lg-and-up" fluid>
       <v-row justify="center">
         <a href="#ghid" class="ghidul">
           <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
