@@ -13,7 +13,7 @@ import footerul from "@/components/footerul";
 export default {
   components: {
     'nav-bar' : Navbar,
-    'footerul' : footerul
+    'footerul' : footerul,
   }
 };
 </script>
