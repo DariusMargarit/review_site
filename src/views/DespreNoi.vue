@@ -3,7 +3,6 @@
   <v-main class="font">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
-    <navbar />
 
     <v-container style="margin-top: 4%;" class="containers">
       <v-row style="flex-basis: 31%;">
@@ -81,11 +80,10 @@
 </template>
 
 <script>
-  import Navbar from "../components/Navbar";
 
   export default {
     components: {
-      'navbar': Navbar
+
     }
   }
 </script>

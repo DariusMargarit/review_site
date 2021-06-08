@@ -199,6 +199,7 @@
       align-content: flex-end;
       justify-content: center;
       display: flex;
-      width:60%;
+      width:100%;
+      height: 100%;
     }
 </style>

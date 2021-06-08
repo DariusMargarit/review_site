@@ -1,74 +1,142 @@
 <template>
-    <v-main style="margin:auto;width:65%">
-        <navbar />
-        <br><br><br><br><br>
-        <v-progress-circular
-                :size="50"
-                color="primary"
-                indeterminate
-                v-if="loading"
-        ></v-progress-circular>
-        <div class="d-flex flex-no-wrap" v-if="!loading">
-            <div style="width:30%">
-                <div class="button" v-if="userIsAuthenticated">
-                    <add-product :catKey="catKey" />
+  <v-main style="margin:auto;width:65%">
+    <br><br><br><br><br>
+    <v-progress-circular
+        :size="50"
+        color="primary"
+        indeterminate
+        v-if="loading"
+    ></v-progress-circular>
+    <v-col md='6' class="hidden-md-and-up">
+      <v-col align="center" class="cattitle mb-7">
+        {{ numeCat }} ({{ produse.length }})
+      </v-col>
+      <v-col class="button1" v-if="userIsAuthenticated">
+        <add-product :catKey="catKey" />
+      </v-col>
+      <v-col>
+        <v-dialog v-model="dialogadd" width="400">
+          <template v-slot:activator="{ on }">
+            <v-row style="display: flex;align-content: center">
+              <v-col class="button1">
+                <v-btn class="homebutton text--black font-weight-bold" plain v-on="on">FILTRE DE CAUTARE</v-btn>
+              </v-col>
+            </v-row>
+          </template>
+          <v-container class="d-flex flex-no-wrap main"  v-if="!loading">
+            <v-col>
+              <v-col class="Filtre" style="padding:15px;">
+                <H3 style="margin-bottom:2%">Cauta dupa nr. de stele</H3>
+                <div style="margin-top: 0" v-for="(filtru, index) in stele">
+                  <v-checkbox  class="stele" v-model="selected.stele" :value="index + 1" :label="filtru"></v-checkbox>
                 </div>
-                <div class="zonaFiltre">
-                    <div class="Filtre" style="padding:15px;">
-                        <H3 style="margin-bottom:8px">Cauta dupa nr. de stele</H3>
-                        <div style="margin-top: 0px" v-for="(filtru, index) in stele">
-                            <v-checkbox  class="stele" v-model="selected.stele" :value="index + 1" :label="filtru"></v-checkbox>
-                        </div>
-                    </div>
-                    <div class="Filtre" style="padding:15px">
-                        <H3 style="margin-bottom:8px;">Cauta dupa nr. de review-uri</H3>
-                        <div style="margin-top: 0px" v-for="(filtru, index) in nrrev">
-                            <v-checkbox class="stele" v-model="selected.nrrev" :value="index + 1" :label="filtru"></v-checkbox>
-                        </div>
-                    </div>
+                <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;" >Goleste</v-btn>
+              </v-col>
+              <v-col class="Filtre" style="padding:15px;">
+                <H3 style="margin-bottom:8px;">Cauta dupa nr. de review-uri</H3>
+                <div style="margin-top: 0px" v-for="(filtru, index) in nrrev">
+                  <v-checkbox class="stele" v-model="selected.nrrev" :value="index + 1" :label="filtru"></v-checkbox>
                 </div>
-            </div>
-            <v-container>
-                <v-row>
-                    <v-col>
-                        <div align="center" class="cattitle mb-7">
-                            {{ numeCat }} ({{ produse.length }})
-                        </div>
-                        <v-card class="pa-7 mb-4" v-for="produs in produse" :key="produs.id">
-                            <div><img @click="goToProduct(produs.id)" class="imagini" :src="produs.img" alt="alt text" /></div>
-                            <div>
-                                <div class="rat" style="margin-top: 2px; font-family: 'Lato', sans-serif;">
-                                    ({{ (isNaN(produs.rating/produs.reviews)) ? 0 : (produs.rating/produs.reviews) | toFixed }})
-                                </div>
-                                <v-rating class="ste"
-                                          background-color="warning lighten-1"
-                                          color="warning"
-                                          half-increments
-                                          length="5"
-                                          readonly
-                                          size="25"
-                                          :value=(produs.rating/produs.reviews)
-                                ></v-rating>
-                                <v-card-title @click="goToProduct(produs.id)" class="texti">{{ produs.name }}</v-card-title>
-                                <v-card-subtitle class="tex">Reviews: {{ produs.reviews}}</v-card-subtitle>
-                                <v-card-text class="tex">{{ produs.descriere }}</v-card-text>
-                            </div>
-                        </v-card>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </div>
-    </v-main>
+                <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste</v-btn>
+              </v-col>
+              <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste tot</v-btn>
+            </v-col>
+          </v-container>
+        </v-dialog>
+      </v-col>
+
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-card class="pa-7 mb-4"  v-for="produs in produse" :key="produs.id">
+              <v-row><img @click="goToProduct(produs.id)" class="imagini" :src="produs.img" alt="alt text" />
+                <v-col><v-card-title @click="goToProduct(produs.id)" class="texti">{{ produs.name }}</v-card-title>
+                  <v-card-subtitle class="tex">Reviews: {{ produs.reviews}}</v-card-subtitle></v-col>
+                <v-col><v-row><v-rating class="stea"
+                                        background-color="warning lighten-1"
+                                        color="warning"
+                                        half-increments
+                                        length="5"
+                                        readonly
+                                        size="25"
+                                        :value=(produs.rating/produs.reviews)
+                ></v-rating>
+                  <p class="rat" style="margin-top: 2px; font-family: 'Lato', sans-serif;">
+                    ({{ (isNaN(produs.rating/produs.reviews)) ? 0 : (produs.rating/produs.reviews) | toFixed }})
+                  </p></v-row></v-col></v-row>
+              <v-col>
+                <v-card-text class="tex">{{ produs.descriere }}</v-card-text>
+              </v-col>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-col>
+
+    <v-col  md='12' class="hidden-sm-and-down">
+      <v-col align="center" class="cattitle mb-7">
+        {{ numeCat }} ({{ produse.length }})
+      </v-col>
+      <v-container class="d-flex flex-no-wrap"   v-if="!loading">
+        <v-col>
+          <v-col class="button" v-if="userIsAuthenticated">
+            <add-product :catKey="catKey" />
+          </v-col>
+          <v-col class="zonaFiltre">
+            <v-col class="Filtre" style="padding:15px;">
+              <H3 style="margin-bottom:8px">Cauta dupa nr. de stele</H3>
+              <div style="margin-top: 0px" v-for="(filtru, index) in stele">
+                <v-checkbox  class="stele" v-model="selected.stele" :value="index + 1" :label="filtru"></v-checkbox>
+              </div>
+              <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;" >Goleste</v-btn>
+            </v-col>
+            <v-col class="Filtre" style="padding:15px;">
+              <H3 style="margin-bottom:8px;">Cauta dupa nr. de review-uri</H3>
+              <div style="margin-top: 0px" v-for="(filtru, index) in nrrev">
+                <v-checkbox class="stele" v-model="selected.nrrev" :value="index + 1" :label="filtru"></v-checkbox>
+              </div>
+              <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste</v-btn>
+            </v-col>
+            <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste tot</v-btn>
+          </v-col>
+        </v-col>
+        <v-row>
+          <v-col>
+            <v-card class="pa-7 mb-4"  v-for="produs in produse" :key="produs.id">
+              <v-row><img @click="goToProduct(produs.id)" class="imagini" :src="produs.img" alt="alt text" />
+                <v-col><v-card-title @click="goToProduct(produs.id)" class="texti">{{ produs.name }}</v-card-title>
+                  <v-card-subtitle class="tex">Reviews: {{ produs.reviews}}</v-card-subtitle></v-col>
+                <v-col><v-row><v-rating class="stea"
+                                        background-color="warning lighten-1"
+                                        color="warning"
+                                        half-increments
+                                        length="5"
+                                        readonly
+                                        size="25"
+                                        :value=(produs.rating/produs.reviews)
+                ></v-rating>
+                  <p class="rat" style="margin-top: 2px; font-family: 'Lato', sans-serif;">
+                    ({{ (isNaN(produs.rating/produs.reviews)) ? 0 : (produs.rating/produs.reviews) | toFixed }})
+                  </p></v-row></v-col></v-row>
+              <v-col>
+
+                <v-card-text class="tex">{{ produs.descriere }}</v-card-text>
+              </v-col>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+
+    </v-col>
+  </v-main>
 </template>
 
 <script>
-    import Navbar from "../components/Navbar";
     import AddProdusPopup from "../components/AddProdusPopup";
     export default {
         name: "categorie",
         props: ['id'],
         components: {
-            'navbar': Navbar,
             'add-product': AddProdusPopup
         },
         created () {
@@ -125,53 +193,58 @@
 </script>
 
 <style scoped>
-    .Filtre{
-        border: 1px solid #ccc;
-        margin: 7px;
-    }
-    .zonaFiltre{
-        border: 2px solid #ccc;
-        margin-right: 20px;
-    }
-    .stele{
-        margin-top: 0;
-      font-family: 'Lato', sans-serif;
-      font-weight: bold;
-    }
-    .imagini{
-        width: auto;
-        height: 110px;
-        float: left;
-        cursor: pointer;
-        margin: 20px;
-    }
-    .texti{
-        font-family: 'Arial Black', sans-serif;
-        padding:10px;
-        cursor: pointer;
+.Filtre{
+  border: 1px solid #ccc;
+  margin: 0.2em;
 
-    }
-    .tex{
-        font-size: 16px;
-        text-align: left;
-        padding-top: 8px;
-        font-family: 'Lato', sans-serif;
-        font-weight: bold;
-    }
-    .ste{
-        color: #ff9454;
-        float: right;
-    }
-    .rat{
-        float: right;
-        font-size: 14px;
-        padding: 3px;
-    }
-    .button {
-        margin-bottom: 30px;
-        text-align: center;
-    }
-    .cattitle{
-        font-size: 30px;
-    }
+}
+.zonaFiltre{
+  border: 2px solid #ccc;
+  margin-right: 3em;
+  width: 15em;
+}
+.stele{
+  margin-top: 0;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+}
+.imagini{
+  width: 10em;
+  height: auto;
+  float: left;
+  cursor: pointer;
+  margin: 0.5em;
+}
+.texti{
+  font-family: 'Arial Black', sans-serif;
+  padding-left:0.5em;
+  cursor: pointer;
+  word-break: break-word;
+}
+.tex{
+  font-size: 1em;
+  text-align: left;
+  padding-top: 0.2em;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+}
+.stea{
+  color: #ff9454;
+  padding-top: 1.7em;
+}
+.rat{
+  font-size: 0.85em;
+  padding-top: 2.1em;
+}
+.button {
+  margin-bottom: 1.5em;
+}
+button1{
+  margin-bottom: 1.5em;
+  display: flex;
+  justify-content: center;
+}
+.cattitle{
+  font-size: 2em;
+}
 </style>

@@ -1,8 +1,6 @@
 <template>
   <v-main>
 
-    <nav-bar />
-
     <v-content class="first_content hidden-md-and-down">
 
       <v-container justify="center" fluid>
@@ -44,7 +42,7 @@
 
     <div style="padding:20px" class="separator hidden-xs-only"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
-    <v-container justify-content="center" style="margin-top: 30%;" class="hidden-lg-and-up" fluid>
+    <v-container style="margin-top: 1rem;" justify-content="center" class="hidden-lg-and-up" fluid>
       <v-row justify="center">
         <a href="#ghid" class="ghidul">
           <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
@@ -150,7 +148,7 @@ export default {
   components: {
     'sign-up': Signup,
     'log-in': Login,
-    'nav-bar': Navbar
+    // 'nav-bar': Navbar
   },
   methods: {
     toSignUp () {
@@ -180,7 +178,7 @@ export default {
   url("../assets/tori-1976609_1920.jpg");
   background-position: center;
   background-size: cover;
-  margin-top: 5%;
+  margin-top: 5rem;
 }
 .home-container {
   width: 100%;

@@ -2,10 +2,10 @@
 
   <v-main class="main">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <navbar />
+<!--    <navbar />-->
     <snackbar />
 
-    <v-container style="margin-top: 4%; justify-content: center; display: flex;" >
+    <v-container style="justify-content: center; display: flex;" >
       <section align="center" class="formdesign">
         <v-form align-self="center" class="form" @submit.prevent="submitLogIn">
 
@@ -116,13 +116,13 @@ import { required, email, minLength } from 'vuelidate/lib/validators'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import snackbar from "../components/snackbar";
 
 export default {
   name: "login",
   components: {
-    'navbar': Navbar,
+    // 'navbar': Navbar,
     'snackbar': snackbar
   },
   mixins: [validationMixin],
@@ -223,7 +223,7 @@ export default {
 .main {
   background: rgb(0,204,255);
   background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
-  min-height: 75vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;

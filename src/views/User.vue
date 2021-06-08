@@ -1,86 +1,109 @@
 <template>
   <div>
     <v-main class="main">
-      <nav-bar />
-      <br><br><br><br>
-      <div class="profileCard" >
-        <v-divider vertical dark inset/>
-        <v-progress-circular
-            :size="50"
-            color="primary"
-            indeterminate
-            v-if="loading"
-        ></v-progress-circular>
-
-        <table v-if="!loading">
-          <tr>
-            <td>
-              <img :src="user.profileImg" width="300" height="300" class="profilePic">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Nume: {{ user.userName }}</p>
-              <p v-if="authUser">E-mail: {{ authUser.email }}</p>
-            </td>
-          </tr>
-          <tr>
-            <td><hr class="tableLine"></td>
-          </tr>
-          <br>
-          <tr>
-            <td>
-              <H4>Biografie:</H4><br>
-              <p></p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p v-if="reviews" class="descriere">Nr de review-uri: {{ reviews.length }}</p>
-              <p v-else class="descriere">Nr de review-uri: 0</p>
-            </td>
-          </tr>
-        </table>
-        <br><br>
-        <div style="margin:auto;width:60%">
-          <v-container>
-            <v-row>
+      <br><br>
+      <v-container class="profileCard" style="justify-content: center; display: flex;">
+        <div>
+          <v-divider vertical dark inset/>
+          <v-progress-circular
+              :size="50"
+              color="primary"
+              indeterminate
+              v-if="loading"
+          ></v-progress-circular>
+          <v-container fluid>
+            <v-row no-gutters justify="center" align="center">
               <v-col>
-
-                <v-card class="pa-7 mb-4" style="overflow:hidden" v-for="review in reviews" :key="review.id">
-                  <div>
-                    <div style="float: right">
-                      <div class="rat">
-                        ({{review.rating}})</div>
-                      <v-rating class="ste"
-                                background-color="warning lighten-1"
-                                color="warning"
-                                half-increments
-                                length="5"
-                                readonly
-                                size="25"
-                                :value=review.rating
-                      ></v-rating>
-
-                    </div>
-
-                    <v-avatar style="float: left">
-                      <img :src="review.userImg" class="avatarr">
-                    </v-avatar>
-
-                    <v-card-title class="titlu">{{review.name}}</v-card-title>
-                    <div style="float: right;"><v-img class="imag" :src="review.img" /></div>
-                    <v-card-title class="texti">{{review.title}}</v-card-title>
-                    <v-card-text class="tex">{{review.text | quotes}}</v-card-text>
-
-                  </div>
-                </v-card>
+                <div class="wrapper">
+                  <img :src="user.profileImg" width="300" height="300" class="profilePic">
+                </div>
               </v-col>
             </v-row>
           </v-container>
+          <v-container>
+            <v-row>
+              <v-col>
+                <p>Nume: {{ user.userName }}</p>
+                <p v-if="authUser">E-mail: {{ authUser.email }}</p>
+              </v-col>
+            </v-row>
+          </v-container>
+          <v-container>
+            <v-row>
+              <v-col>
+                <hr class="tableLine">
+              </v-col>
+            </v-row>
+          </v-container>
+          <v-container>
+            <v-row>
+              <v-col>
+                <H4>Biografie:</H4><br>
+                <p></p>
+              </v-col>
+            </v-row>
+          </v-container>
+          <v-container>
+            <v-row >
+              <v-col>
+                <p v-if="reviews">Nr de review-uri: {{ reviews.length }}</p>
+                <p v-else>Nr de review-uri: 0</p>
+              </v-col>
+            </v-row>
+          </v-container>
+          <div style="margin:auto;width:75%">
+            <v-container>
+              <v-row>
+                <v-col>
+                  <v-card class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
+                    <v-container>
+                      <div>
+                        <v-row no-gutters style="max-height:10rem">
+                          <v-col md="1" sm="1">
+                            <v-avatar>
+                              <img :src="review.userImg" class="avatarr">
+                            </v-avatar>
+                          </v-col>
+                          <v-col md="6" class="hidden-sm-and-down">
+                            <v-card-title class="titlu">{{review.name}}</v-card-title>
+                          </v-col>
+                          <v-col md="3" sm="9">
+                            <v-rating class="ste"
+                                      background-color="warning lighten-1"
+                                      color="warning"
+                                      half-increments
+                                      length="5"
+                                      readonly
+                                      size="1.5rem"
+                                      :value=review.rating
+                            ></v-rating>
+                          </v-col>
+                          <v-col cols="2" class="hidden-sm-and-down">
+                            <div class="rat">
+                              ({{review.rating}})</div>
+                          </v-col>
+                          <v-col class="hidden-md-and-up" cols="12">
+                            <v-card-title class="titlu">{{review.name}}</v-card-title>
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col>
+                            <v-card-title class="texti">{{review.title}}</v-card-title>
+                            <v-card-text class="tex">{{review.text | quotes}}</v-card-text>
+                          </v-col>
+                          <v-col v-if="review.img">
+                            <div><v-img class="imag" :src="review.img" /></div>
+                          </v-col>
+                        </v-row>
+                      </div>
+                    </v-container>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
+          </div>
         </div>
-
-      </div>
+      </v-container>
     </v-main>
     <br />
   </div>
@@ -88,19 +111,13 @@
 
 
 <script>
-import Navbar from "../components/Navbar";
-
 export default {
   props: ['id'],
   data: () => ({
-
   }),
   created() {
     this.$store.dispatch('loadUsers')
     this.$store.dispatch('loadUserReviews', this.id)
-  },
-  components: {
-    'nav-bar': Navbar
   },
   computed: {
     user () {
@@ -123,18 +140,37 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width:1264px) {
+  .titlu {
+    font-size: 1rem !important;
+  }
+
+  .avatarr {
+    font-size: 1rem !important;
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+  }
+  .v-card__title{
+    word-break: break-word !important;
+  }
+  .rat{
+    font-size: 1rem !important;
+  }
+}
 .main {
   background-color: #ffffff;
   font-family: 'Lato', sans-serif;
 }
 .profileCard {
-  position: center;
-  margin: auto;
+  /*position: center;
+  margin: auto;*/
   /*display:flex;
   justify-content: space-between;*/
   top: 5px;
   left: 0;
-  width: 60%;
+  max-width: 100%;
+  min-width:60%;
+  width: fit-content;
   padding: 20px;
   background-color: #f5f5f5;
   border-radius: 10px;
@@ -154,10 +190,11 @@ th, td {
 table{
   position:center;
   margin:auto;
-
 }
 .tableLine{
-  width:100%;
+  min-width:60%;
+  max-width:100%;
+  width: available;
   margin:auto;
 }
 .imag{
@@ -172,8 +209,6 @@ table{
 }
 .tex{
   font-size:18px;
-  padding-top:7px;
-  padding-right: 10px;
   font-family: 'Lato', sans-serif;
   font-weight: bolder;
   text-align: left;
@@ -182,18 +217,17 @@ table{
   font-family: 'Archivo Black', sans-serif;
   font-weight: bolder;
   font-size: 25px;
+  text-align: justify;
+  text-justify: inter-word;
 }
-
 .ste{
   color: #ff9454;
   float: right;
   margin-top: 17px;
 }
 .rat{
-  float: right;
   font-size: 20px;
-  padding: 3px;
-  margin-top: 13px;
+  margin-top: 16px;
   font-family: 'Lato', sans-serif;
   font-weight: bold;
 }
@@ -202,5 +236,8 @@ table{
   font-size:32px;
   height: 42px;
   width: 42px;
+}
+.v-card__title{
+  word-break: normal;
 }
 </style>
