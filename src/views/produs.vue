@@ -59,7 +59,7 @@
       </v-container>
     </v-container>
     <br><br>
-    <v-container >
+    <v-container  style="min-height: 65vh">
       <v-row justify="center">
         <v-col xl="5" lg="8" md="10" sm="11" justify="center">
           <v-card align="center" class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
