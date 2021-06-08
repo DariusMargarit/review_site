@@ -1,19 +1,15 @@
 <template>
   <v-app>
-    <nav-bar />
-    <router-view />
-    <footerul />
+    <maincpp />
   </v-app>
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
-import footerul from "@/components/footerul";
+import maincpp from "@/components/maincpp";
 
 export default {
   components: {
-    'nav-bar' : Navbar,
-    'footerul' : footerul,
+    'maincpp' : maincpp
   }
 };
 </script>

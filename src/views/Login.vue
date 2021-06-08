@@ -5,7 +5,7 @@
 <!--    <navbar />-->
     <snackbar />
 
-    <v-container style="margin-top: 4%; justify-content: center; display: flex;" >
+    <v-container style="justify-content: center; display: flex;" >
       <section align="center" class="formdesign">
         <v-form align-self="center" class="form" @submit.prevent="submitLogIn">
 
@@ -223,7 +223,7 @@ export default {
 .main {
   background: rgb(0,204,255);
   background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
-  min-height: 75vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;

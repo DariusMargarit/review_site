@@ -58,7 +58,10 @@ export default {
 
 <style>
 .cat{
-  margin: 1.5em;
+  margin-top: 0;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+  margin-bottom: 1.5em;
   border: 1px solid #ccc;
   cursor: pointer;
   float: left;
