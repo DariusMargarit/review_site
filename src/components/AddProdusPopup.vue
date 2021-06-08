@@ -167,6 +167,7 @@
     .homebutton{
         background-color: hsl(47, 95%, 49%);
         font-family: 'Archivo-Black', sans-serif;
+      padding-left: 0;
     }
 
     .closeIcon {

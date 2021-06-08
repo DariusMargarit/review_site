@@ -25,7 +25,7 @@
 
 
 
-    <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem; position: relative;">
+    <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem; position: sticky; top:0 ; width: 100%;">
       <v-app-bar-nav-icon @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-md-and-down">
         <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
@@ -61,7 +61,7 @@
           </template>
           <v-list class="list">
             <v-list-item-group>
-              <v-list-item @click="goToMyAcc" class="haha">
+              <v-list-item @click="goToMyAcc" class="item_list">
                 <v-list-item-icon>
                   <v-icon class="ava">
                     mdi-account-circle
@@ -72,7 +72,7 @@
                   <v-list-item-title style="font-family: 'Lato', sans-serif;font-weight: bold;">Profil</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item style="font-family: 'Lato', sans-serif;font-weight: bold;" @click="logout" class="haha">
+              <v-list-item style="font-family: 'Lato', sans-serif;font-weight: bold;" @click="logout" class="item_list">
                 <v-list-item-icon>
                   <v-icon class="ava">
                     mdi-logout
@@ -157,7 +157,7 @@ export default {
 .ava{
   font-size:5rem;
 }
-.haha:hover{
+.item_list:hover{
   background-color: rgba(0,204,255,0.1);
 }
 
