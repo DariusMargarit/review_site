@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="position: sticky; float: top;top:0 ; width: 100%;z-index:1000000000000000">
     <v-navigation-drawer v-model="sideNav" absolute temporary>
       <v-list>
         <v-list-item>
@@ -25,7 +25,7 @@
 
 
 
-    <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem; position: sticky; top:0 ; width: 100%;">
+    <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem; position: sticky; top:0 ; width: 100%; float: top;">
       <v-app-bar-nav-icon @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-md-and-down">
         <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
