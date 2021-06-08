@@ -1,6 +1,6 @@
 <template>
-  <div style="position: sticky; float: top;top:0 ; width: 100%;z-index:1000000000000000">
-    <v-navigation-drawer v-model="sideNav" absolute temporary>
+  <div>
+    <v-navigation-drawer v-model="sideNav" temporary absolute class="sidenav">
       <v-list>
         <v-list-item>
           <v-btn @click="sideNav=false" class="button" depressed><v-icon>mdi-arrow-left-bold</v-icon></v-btn>
@@ -24,8 +24,7 @@
     </v-navigation-drawer>
 
 
-
-    <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem; position: sticky; top:0 ; width: 100%; float: top;">
+    <v-app-bar flat align="center" fixed color=rgba(64,64,64,1)  class="bigdiv" style="height: 4.75rem; padding: 0.5rem;">
       <v-app-bar-nav-icon @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-md-and-down">
         <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
@@ -93,8 +92,6 @@
 </template>
 
 <script>
-
-
 export default {
   name: 'nav-bar',
   data () {
@@ -133,11 +130,33 @@ export default {
 </script>
 
 <style scoped>
+
+@media screen and (max-width: 1264px) {
+
+
+
+}
+
+.sidenav {
+  /*z-index: 100000;*/
+  /*position: absolute;*/
+  /*float: bottom;*/
+  /*top:0 ;*/
+  /*width: 100%;*/
+}
+
+.bigdiv {
+  position: sticky;
+  float: top;
+  top:0 ;
+  width: 100%;
+  z-index:10000;
+}
+
 .font {
   font-family: 'Lato', sans-serif;
   font-weight: bold;
 }
-
 .logo {
   padding: 0;
   margin: 0;
@@ -160,13 +179,11 @@ export default {
 .item_list:hover{
   background-color: rgba(0,204,255,0.1);
 }
-
 .button {
   margin-bottom: 30px;
   text-align: center;
   background-color: hsl(47, 95%, 49%);
 }
-
 .wrapper{
   max-width: 450px;
   margin: 150px auto;
@@ -229,7 +246,6 @@ export default {
   color: #644bff;
   cursor: pointer;
 }
-
 .button {
   margin-bottom: 30px;
   text-align: center;
