@@ -24,7 +24,7 @@
     </v-navigation-drawer>
 
 
-    <v-app-bar flat align="center" fixed color=rgba(64,64,64,1)  class="bigdiv" style="height: 4.75rem; padding: 0.5rem;">
+    <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem;" class="bigdiv">
       <v-app-bar-nav-icon @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-md-and-down">
         <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
@@ -150,7 +150,7 @@ export default {
   float: top;
   top:0 ;
   width: 100%;
-  z-index:10000;
+  z-index:100000000;
 }
 
 .font {
