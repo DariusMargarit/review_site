@@ -77,7 +77,7 @@
       <v-col align="center" class="cattitle mb-7">
         {{ numeCat }} ({{ produse.length }})
       </v-col>
-      <v-container class="d-flex flex-no-wrap"   v-if="!loading">
+      <v-container style="min-height: 65vh" class="d-flex flex-no-wrap"   v-if="!loading">
         <v-col>
           <v-col class="button" v-if="userIsAuthenticated">
             <add-product :catKey="catKey" />
