@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="sideNav" temporary absolute class="sidenav">
+    <v-navigation-drawer v-model="sideNav" temporary absolute>
       <v-list>
         <v-list-item>
           <v-btn @click="sideNav=false" class="button" depressed><v-icon>mdi-arrow-left-bold</v-icon></v-btn>
@@ -131,20 +131,6 @@ export default {
 
 <style scoped>
 
-@media screen and (max-width: 1264px) {
-
-
-
-}
-
-.sidenav {
-  /*z-index: 100000;*/
-  /*position: absolute;*/
-  /*float: bottom;*/
-  /*top:0 ;*/
-  /*width: 100%;*/
-}
-
 .bigdiv {
   position: sticky;
   float: top;
@@ -160,8 +146,8 @@ export default {
 .logo {
   padding: 0;
   margin: 0;
-  height:55%;
-  width: 55%;
+  height:6.5rem;
+  width: 6.5rem;
   float: left;
 }
 .avatarr{
