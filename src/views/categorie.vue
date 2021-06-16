@@ -7,7 +7,7 @@
         indeterminate
         v-if="loading"
     ></v-progress-circular>
-    <v-col md='6' class="hidden-md-and-up">
+    <v-col md='6' class="hidden-lg-and-up">
       <v-col align="center" class="cattitle mb-7">
         {{ numeCat }} ({{ produse.length }})
       </v-col>
@@ -73,7 +73,7 @@
       </v-container>
     </v-col>
 
-    <v-col  md='12' class="hidden-sm-and-down">
+    <v-col  md='12' class="hidden-md-and-down">
       <v-col align="center" class="cattitle mb-7">
         {{ numeCat }} ({{ produse.length }})
       </v-col>
@@ -106,6 +106,7 @@
               <v-row><img @click="goToProduct(produs.id)" class="imagini" :src="produs.img" alt="alt text" />
                 <v-col><v-card-title @click="goToProduct(produs.id)" class="titlu-prod">{{ produs.name }}</v-card-title>
                   <v-card-subtitle class="descriere">Reviews: {{ produs.reviews}}</v-card-subtitle></v-col>
+                <v-spacer />
                 <v-col><v-row><v-rating class="stea"
                                         background-color="warning lighten-1"
                                         color="warning"
@@ -235,7 +236,7 @@
 }
 .rating{
   font-size: 0.85em;
-  padding-top: 2.1em;
+  padding-top: 1.8em;
 }
 .button {
   margin-bottom: 1.5em;
