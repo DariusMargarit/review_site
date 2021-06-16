@@ -1,5 +1,5 @@
 <template>
-  <v-main style="margin:auto;width:65%">
+  <v-main style="margin:auto;width:65%; min-height:93vh">
     <br><br><br><br><br>
     <v-progress-circular
         :size="50"
@@ -30,16 +30,16 @@
                 <div style="margin-top: 0" v-for="(filtru, index) in stele">
                   <v-checkbox  class="stele" v-model="selected.stele" :value="index + 1" :label="filtru"></v-checkbox>
                 </div>
-                <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;" >Goleste</v-btn>
+                <v-btn @click="golesteStele" class="text--black font-weight-bold" outlined text style="margin-top: 1em;" >Goleste</v-btn>
               </v-col>
               <v-col class="Filtre" style="padding:15px;">
                 <H3 style="margin-bottom:8px;">Cauta dupa nr. de review-uri</H3>
                 <div style="margin-top: 0" v-for="(filtru, index) in nrrev">
                   <v-checkbox class="stele" v-model="selected.nrrev" :value="index + 1" :label="filtru"></v-checkbox>
                 </div>
-                <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste</v-btn>
+                <v-btn @click="golesteRev" class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste</v-btn>
               </v-col>
-              <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste tot</v-btn>
+              <v-btn @click="clear" class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste tot</v-btn>
             </v-col>
           </v-container>
         </v-dialog>
@@ -88,16 +88,16 @@
               <div style="margin-top: 0" v-for="(filtru, index) in stele">
                 <v-checkbox  class="stele" v-model="selected.stele" :value="index + 1" :label="filtru"></v-checkbox>
               </div>
-              <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;" >Goleste</v-btn>
+              <v-btn @click="golesteStele" class="text--black font-weight-bold" outlined text style="margin-top: 1em;" >Goleste</v-btn>
             </v-col>
             <v-col class="Filtre" style="padding:15px;">
               <H3 style="margin-bottom:8px;">Cauta dupa nr. de review-uri</H3>
               <div style="margin-top: 0" v-for="(filtru, index) in nrrev">
                 <v-checkbox class="stele" v-model="selected.nrrev" :value="index + 1" :label="filtru"></v-checkbox>
               </div>
-              <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste</v-btn>
+              <v-btn @click="golesteRev" class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste</v-btn>
             </v-col>
-            <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste tot</v-btn>
+            <v-btn @click="clear" class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste tot</v-btn>
           </v-col>
         </v-col>
         <v-row>
@@ -169,7 +169,7 @@
                     })
                 },
                 deep: true
-            }
+            },
         },
         computed: {
             produse () {
@@ -189,6 +189,16 @@
             goToProduct (id) {
                 this.$router.push('/categorii/' + this.id + '/produs/' + id)
             },
+          golesteStele () {
+            this.selected.stele = []
+          },
+          golesteRev () {
+            this.selected.nrrev = []
+          },
+          clear () {
+            this.selected.stele = [],
+            this.selected.nrrev = []
+          }
         }
     }
 </script>
