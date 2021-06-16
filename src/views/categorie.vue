@@ -34,7 +34,7 @@
               </v-col>
               <v-col class="Filtre" style="padding:15px;">
                 <H3 style="margin-bottom:8px;">Cauta dupa nr. de review-uri</H3>
-                <div style="margin-top: 0px" v-for="(filtru, index) in nrrev">
+                <div style="margin-top: 0" v-for="(filtru, index) in nrrev">
                   <v-checkbox class="stele" v-model="selected.nrrev" :value="index + 1" :label="filtru"></v-checkbox>
                 </div>
                 <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste</v-btn>
@@ -50,8 +50,8 @@
           <v-col>
             <v-card class="pa-7 mb-4"  v-for="produs in produse" :key="produs.id">
               <v-row><img @click="goToProduct(produs.id)" class="imagini" :src="produs.img" alt="alt text" />
-                <v-col><v-card-title @click="goToProduct(produs.id)" class="texti">{{ produs.name }}</v-card-title>
-                  <v-card-subtitle class="tex">Reviews: {{ produs.reviews}}</v-card-subtitle></v-col>
+                <v-col><v-card-title @click="goToProduct(produs.id)" class="titlu-prod">{{ produs.name }}</v-card-title>
+                  <v-card-subtitle class="descriere">Reviews: {{ produs.reviews}}</v-card-subtitle></v-col>
                 <v-col><v-row><v-rating class="stea"
                                         background-color="warning lighten-1"
                                         color="warning"
@@ -61,11 +61,11 @@
                                         size="25"
                                         :value=(produs.rating/produs.reviews)
                 ></v-rating>
-                  <p class="rat" style="margin-top: 2px; font-family: 'Lato', sans-serif;">
-                    ({{ (isNaN(produs.rating/produs.reviews)) ? 0 : (produs.rating/produs.reviews) | toFixed }})
+                  <p class="rating" style="margin-top: 2px; font-family: 'Lato', sans-serif;">
+<!--                    ({{ (isNaN(produs.rating/produs.reviews)) ? 0 : (produs.rating/produs.reviews) | toFixed }})-->
                   </p></v-row></v-col></v-row>
               <v-col>
-                <v-card-text class="tex">{{ produs.descriere }}</v-card-text>
+                <v-card-text class="descriere">{{ produs.descriere }}</v-card-text>
               </v-col>
             </v-card>
           </v-col>
@@ -85,14 +85,14 @@
           <v-col class="zonaFiltre">
             <v-col class="Filtre" style="padding:15px;">
               <H3 style="margin-bottom:8px">Cauta dupa nr. de stele</H3>
-              <div style="margin-top: 0px" v-for="(filtru, index) in stele">
+              <div style="margin-top: 0" v-for="(filtru, index) in stele">
                 <v-checkbox  class="stele" v-model="selected.stele" :value="index + 1" :label="filtru"></v-checkbox>
               </div>
               <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;" >Goleste</v-btn>
             </v-col>
             <v-col class="Filtre" style="padding:15px;">
               <H3 style="margin-bottom:8px;">Cauta dupa nr. de review-uri</H3>
-              <div style="margin-top: 0px" v-for="(filtru, index) in nrrev">
+              <div style="margin-top: 0" v-for="(filtru, index) in nrrev">
                 <v-checkbox class="stele" v-model="selected.nrrev" :value="index + 1" :label="filtru"></v-checkbox>
               </div>
               <v-btn  class="text--black font-weight-bold" outlined text style="margin-top: 1em;">Goleste</v-btn>
@@ -104,8 +104,8 @@
           <v-col>
             <v-card class="pa-7 mb-4"  v-for="produs in produse" :key="produs.id">
               <v-row><img @click="goToProduct(produs.id)" class="imagini" :src="produs.img" alt="alt text" />
-                <v-col><v-card-title @click="goToProduct(produs.id)" class="texti">{{ produs.name }}</v-card-title>
-                  <v-card-subtitle class="tex">Reviews: {{ produs.reviews}}</v-card-subtitle></v-col>
+                <v-col><v-card-title @click="goToProduct(produs.id)" class="titlu-prod">{{ produs.name }}</v-card-title>
+                  <v-card-subtitle class="descriere">Reviews: {{ produs.reviews}}</v-card-subtitle></v-col>
                 <v-col><v-row><v-rating class="stea"
                                         background-color="warning lighten-1"
                                         color="warning"
@@ -115,12 +115,12 @@
                                         size="25"
                                         :value=(produs.rating/produs.reviews)
                 ></v-rating>
-                  <p class="rat" style="margin-top: 2px; font-family: 'Lato', sans-serif;">
+                  <p class="rating" style="margin-top: 2px; font-family: 'Lato', sans-serif;">
                     ({{ (isNaN(produs.rating/produs.reviews)) ? 0 : (produs.rating/produs.reviews) | toFixed }})
                   </p></v-row></v-col></v-row>
               <v-col>
 
-                <v-card-text class="tex">{{ produs.descriere }}</v-card-text>
+                <v-card-text class="descriere">{{ produs.descriere }}</v-card-text>
               </v-col>
             </v-card>
           </v-col>
@@ -215,13 +215,13 @@
   cursor: pointer;
   margin: 0.5em;
 }
-.texti{
+.titlu-prod{
   font-family: 'Arial Black', sans-serif;
   padding-left:0.5em;
   cursor: pointer;
   word-break: break-word;
 }
-.tex{
+.descriere{
   font-size: 1em;
   text-align: left;
   padding-top: 0.2em;
@@ -230,9 +230,10 @@
 }
 .stea{
   color: #ff9454;
-  padding-top: 1.7em;
+  padding-top: 1.3rem;
+  padding-bottom: 1.3rem;
 }
-.rat{
+.rating{
   font-size: 0.85em;
   padding-top: 2.1em;
 }
