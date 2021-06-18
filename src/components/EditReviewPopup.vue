@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="editReview" width="600">
     <template v-slot:activator="{ on }">
-      <v-button class="buton-edit" v-on="on">
+      <button class="buton-edit" v-on="on">
 <!--        <v-btn-->
 <!--            fab-->
 <!--            dark-->
@@ -12,7 +12,7 @@
             mdi-lead-pencil
           </v-icon>
 <!--        </v-btn>-->
-      </v-button>
+      </button>
     </template>
 
     <v-card class="main-content">

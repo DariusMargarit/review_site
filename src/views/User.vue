@@ -61,7 +61,7 @@
                         <v-row no-gutters>
                           <v-spacer></v-spacer>
                           <v-col cols="1">
-                            <EditAccPopup />
+                            <EditReviewPopup />
                           </v-col>
                         </v-row>
                         <v-row no-gutters style="max-height:10rem">
@@ -118,9 +118,9 @@
 
 <script>
 
-import EditAccPopup from "@/components/EditAccPopup";
+import EditReviewPopup from "@/components/EditReviewPopup";
 export default {
-  components: {EditAccPopup},
+  components: {EditReviewPopup},
   props: ['id'],
   data: () => ({
   }),
