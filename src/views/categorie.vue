@@ -8,7 +8,7 @@
         v-if="loading"
     ></v-progress-circular>
     <v-col md='6' class="hidden-lg-and-up">
-      <v-col align="center" class="cattitle mb-7">
+      <v-col align="center" class="font cattitle mb-7">
         {{ numeCat }} ({{ produse.length }})
       </v-col>
       <v-col class="button1" v-if="userIsAuthenticated">
@@ -73,8 +73,8 @@
       </v-container>
     </v-col>
 
-    <v-col  md='12' class="hidden-md-and-down">
-      <v-col align="center" class="cattitle mb-7">
+    <v-col md='12' class="hidden-md-and-down">
+      <v-col align="center" class="font cattitle mb-7">
         {{ numeCat }} ({{ produse.length }})
       </v-col>
       <v-container style="min-height: 65vh" class="d-flex flex-no-wrap"   v-if="!loading">
@@ -259,4 +259,9 @@ button1{
 .cattitle{
   font-size: 2em;
 }
+
+.font {
+  font-family: 'Archivo Black', sans-serif;
+}
+
 </style>

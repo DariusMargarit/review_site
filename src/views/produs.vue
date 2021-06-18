@@ -62,27 +62,78 @@
     <v-container  style="min-height: 65vh">
       <v-row justify="center">
         <v-col xl="5" lg="8" md="10" sm="11" justify="center">
-          <v-card align="center" class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
+<!--          <v-card align="center" class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">-->
+<!--            <v-container>-->
+<!--              <div>-->
+<!--                <v-row no-gutters>-->
+<!--                  <v-spacer></v-spacer>-->
+<!--                  <v-col cols="1">-->
+<!--                    <EditReviewPopup />-->
+<!--                  </v-col>-->
+<!--                </v-row>-->
+<!--                <v-row no-gutters style="max-height:10rem">-->
+<!--                  <v-col md="1" sm="1">-->
+<!--                    <v-avatar @click="goToUserProfile(review.userKey)">-->
+<!--                      <img :src="review.userImg" class="avatarr" style="cursor: pointer">-->
+<!--                    </v-avatar>-->
+<!--                  </v-col>-->
+<!--                  <v-col md="6" class="hidden-sm-and-down">-->
+<!--                    <v-card-title @click="goToUserProfile(review.userKey)" class="titlu" style="cursor: pointer">-->
+<!--                      {{review.name}}-->
+<!--                    </v-card-title>-->
+<!--                  </v-col>-->
+<!--                  <v-col md="3" sm="4">-->
+<!--                    <v-rating class="ste"-->
+<!--                              background-color="warning lighten-1"-->
+<!--                              color="warning"-->
+<!--                              half-increments-->
+<!--                              length="5"-->
+<!--                              readonly-->
+<!--                              size="1.5rem"-->
+<!--                              :value=review.rating-->
+<!--                    ></v-rating>-->
+<!--                  </v-col>-->
+<!--                  <v-col cols="2" class="hidden-sm-and-down">-->
+<!--                    <div class="rat">-->
+<!--                      ({{review.rating}})</div>-->
+<!--                  </v-col>-->
+<!--                  <v-col class="hidden-md-and-up" cols="12">-->
+<!--                    <v-card-title class="titlu">{{review.name}}</v-card-title>-->
+<!--                  </v-col>-->
+<!--                </v-row>-->
+<!--                <v-row>-->
+<!--                  <v-col>-->
+<!--                    <v-card-text class="texti">{{review.title}}</v-card-text>-->
+<!--                    <v-card-text class="tex">{{review.text | quotes}}</v-card-text>-->
+<!--                  </v-col>-->
+<!--                  <v-col v-if="review.img">-->
+<!--                    <v-img class="imag" :src="review.img" />-->
+<!--                  </v-col>-->
+<!--                </v-row>-->
+<!--              </div>-->
+<!--            </v-container>-->
+<!--          </v-card>-->
+
+
+          <v-card class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
             <v-container>
               <div>
                 <v-row no-gutters>
                   <v-spacer></v-spacer>
                   <v-col cols="1">
-                    <EditReviewPopup />
+                    <EditAccPopup />
                   </v-col>
                 </v-row>
                 <v-row no-gutters style="max-height:10rem">
                   <v-col md="1" sm="1">
-                    <v-avatar @click="goToUserProfile(review.userKey)">
-                      <img :src="review.userImg" class="avatarr" style="cursor: pointer">
+                    <v-avatar @click="goToUserProfile">
+                      <img :src="review.userImg" class="avatarr">
                     </v-avatar>
                   </v-col>
                   <v-col md="6" class="hidden-sm-and-down">
-                    <v-card-title @click="goToUserProfile(review.userKey)" class="titlu" style="cursor: pointer">
-                      {{review.name}}
-                    </v-card-title>
+                    <v-card-title class="titlu">{{review.name}}</v-card-title>
                   </v-col>
-                  <v-col md="3" sm="4">
+                  <v-col md="3" sm="9">
                     <v-rating class="ste"
                               background-color="warning lighten-1"
                               color="warning"
@@ -93,7 +144,7 @@
                               :value=review.rating
                     ></v-rating>
                   </v-col>
-                  <v-col cols="2" class="hidden-sm-and-down">
+                  <v-col cols="2" class="hidden-md-and-down">
                     <div class="rat">
                       ({{review.rating}})</div>
                   </v-col>
@@ -103,16 +154,17 @@
                 </v-row>
                 <v-row>
                   <v-col>
-                    <v-card-text class="texti">{{review.title}}</v-card-text>
+                    <v-card-title class="texti">{{review.title}}</v-card-title>
                     <v-card-text class="tex">{{review.text | quotes}}</v-card-text>
                   </v-col>
                   <v-col v-if="review.img">
-                    <v-img class="imag" :src="review.img" />
+                    <div><v-img class="imag" :src="review.img" /></div>
                   </v-col>
                 </v-row>
               </div>
             </v-container>
           </v-card>
+
         </v-col>
       </v-row>
     </v-container>
@@ -236,4 +288,9 @@ export default {
   height: 42px;
   width: 42px;
 }
+
+.avatarr:hover {
+  cursor: pointer;
+}
+
 </style>

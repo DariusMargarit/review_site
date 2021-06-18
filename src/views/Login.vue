@@ -223,22 +223,20 @@ export default {
 .main {
   background: rgb(0,204,255);
   background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
-  min-height: 70vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  align-content: center;
 }
 
 .formdesign {
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  align-content: center;
+  margin-top: 5rem;
   padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
-  height: 60%;
-  width: 50%;
+  height: 80vh;
+  width: 70vh;
   background: linear-gradient(
       to right bottom,
       rgba(255, 255, 255, 0.7),

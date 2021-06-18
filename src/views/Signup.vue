@@ -251,17 +251,16 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  align-content: center;
 }
 
 .formdesign {
-  text-align: center;
-  justify-content: center;
-  align-content: center;
+  margin-top: 3rem;
   padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
-  height: 60%;
-  width: 50%;
+  height: 80vh;
+  width: 70vh;
   background: linear-gradient(
       to right bottom,
       rgba(255, 255, 255, 0.7),

@@ -1,17 +1,17 @@
 <template>
   <v-dialog v-model="editReview" width="600">
     <template v-slot:activator="{ on }">
-      <v-button v-on="on">
-        <v-btn
-            fab
-            dark
-            small
-            color=rgba(64,64,64,1)
-        >
-          <v-icon dark>
-            mdi-pencil
+      <v-button class="buton-edit" v-on="on">
+<!--        <v-btn-->
+<!--            fab-->
+<!--            dark-->
+<!--            small-->
+<!--            color=rgba(64,64,64,1)-->
+<!--        >-->
+          <v-icon>
+            mdi-lead-pencil
           </v-icon>
-        </v-btn>
+<!--        </v-btn>-->
       </v-button>
     </template>
 
@@ -175,12 +175,11 @@ export default {
   color: #cccccc;
 }
 
-.imagine {
-  float: right;
-  align-content: flex-end;
-  justify-content: center;
-  display: flex;
-  width:100%;
-  height: 100%;
+.buton-edit :hover {
+  cursor: pointer;
+  background-color: #e9e9e9;
+  border-radius: 2rem;
 }
+
+
 </style>

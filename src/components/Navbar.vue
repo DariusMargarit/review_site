@@ -6,19 +6,19 @@
           <v-btn @click="sideNav=false" class="button" depressed><v-icon>mdi-arrow-left-bold</v-icon></v-btn>
         </v-list-item>
         <v-list-item tabindex="2">
-          <router-link to="/" style="text-decoration: none; padding:15px" class="black--text font">ACASA</router-link>
+          <router-link to="/" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">ACASA</router-link>
         </v-list-item>
         <v-list-item tabindex="3">
-          <router-link to="/categorii" style="text-decoration: none; padding:15px" class="black--text font">CATEGORII </router-link>
+          <router-link to="/categorii" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">CATEGORII </router-link>
         </v-list-item>
         <v-list-item tabindex="4">
-          <router-link to="/despreNoi" style="text-decoration: none; padding:15px" class="black--text font">DESPRE NOI</router-link>
+          <router-link to="/despreNoi" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">DESPRE NOI</router-link>
         </v-list-item>
         <v-list-item v-if="!userIsAuthenticated" tabindex="5">
-          <router-link to="/Login" style="text-decoration: none; padding:15px" class="black--text font">AUTENTIFICA-TE</router-link>
+          <router-link to="/Login" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">AUTENTIFICA-TE</router-link>
         </v-list-item>
         <v-list-item v-if="!userIsAuthenticated" tabindex="6">
-          <router-link to="/Signup" style="text-decoration: none; padding:15px" class="black--text font">INSCRIE-TE</router-link>
+          <router-link to="/Signup" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">INSCRIE-TE</router-link>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
