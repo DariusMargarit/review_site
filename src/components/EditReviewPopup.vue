@@ -1,27 +1,38 @@
 <template>
   <v-dialog v-model="editReview" width="600">
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on"><v-icon>mdi-pencil</v-icon></v-btn>
+      <v-button v-on="on">
+        <v-btn
+            fab
+            dark
+            small
+            color=rgba(64,64,64,1)
+        >
+          <v-icon dark>
+            mdi-pencil
+          </v-icon>
+        </v-btn>
+      </v-button>
     </template>
 
-    <v-card>
-      <div class="main">
+    <v-card class="main-content">
+      <div>
         <v-form>
           <div @click="editReview = !editReview"><v-icon class="closeIcon">mdi-close</v-icon></div>
 
           <h1>Editeaza review-ul pentru</h1>
           <br />
           <br />
-          <div>
-            <v-row>
-              <v-col>
-                <div><h2 style="float: left; justify-content: center; align-content: center; display: flex;">{{ theProd.name }}</h2></div>
-              </v-col>
-              <v-col>
-                <div><img class="imagine" :src="theProd.img"/></div>
-              </v-col>
-            </v-row>
-          </div>
+<!--          <div>-->
+<!--            <v-row>-->
+<!--              <v-col>-->
+<!--                <div><h2 style="float: left; justify-content: center; align-content: center; display: flex;">{{ theProd.name }}</h2></div>-->
+<!--              </v-col>-->
+<!--              <v-col>-->
+<!--                <div><img class="imagine" :src="theProd.img"/></div>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--          </div>-->
           <br />
           <br />
           <div align="center">
@@ -129,7 +140,7 @@ export default {
 </script>
 
 <style>
-.main {
+.main-content {
   background: rgb(255,255,255);
   background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(0,204,255,0.05) 23%, rgba(0,204,255,0.1) 100%);
   min-height: 60vh;

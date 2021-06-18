@@ -65,6 +65,12 @@
           <v-card align="center" class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
             <v-container>
               <div>
+                <v-row no-gutters>
+                  <v-spacer></v-spacer>
+                  <v-col cols="1">
+                    <EditReviewPopup />
+                  </v-col>
+                </v-row>
                 <v-row no-gutters style="max-height:10rem">
                   <v-col md="1" sm="1">
                     <v-avatar @click="goToUserProfile(review.userKey)">
@@ -114,11 +120,13 @@
 </template>
 
 <script>
+import EditReviewPopup from "@/components/EditReviewPopup";
 import AddReviewPopup from "../components/AddReviewPopup";
 export default {
   name: "categorie",
   props: ['catId','prodId'],
   components: {
+    'EditReviewPopup': EditReviewPopup,
     'add-review-popup': AddReviewPopup
   },
   created() {

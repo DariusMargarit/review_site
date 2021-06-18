@@ -58,6 +58,12 @@
                   <v-card class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
                     <v-container>
                       <div>
+                        <v-row no-gutters>
+                          <v-spacer></v-spacer>
+                          <v-col cols="1">
+                            <EditAccPopup />
+                          </v-col>
+                        </v-row>
                         <v-row no-gutters style="max-height:10rem">
                           <v-col md="1" sm="1">
                             <v-avatar>
@@ -78,7 +84,7 @@
                                       :value=review.rating
                             ></v-rating>
                           </v-col>
-                          <v-col cols="2" class="hidden-sm-and-down">
+                          <v-col cols="2" class="hidden-md-and-down">
                             <div class="rat">
                               ({{review.rating}})</div>
                           </v-col>
@@ -111,7 +117,10 @@
 
 
 <script>
+
+import EditAccPopup from "@/components/EditAccPopup";
 export default {
+  components: {EditAccPopup},
   props: ['id'],
   data: () => ({
   }),
@@ -160,6 +169,7 @@ export default {
 .main {
   background-color: #ffffff;
   font-family: 'Lato', sans-serif;
+  margin-top: 5rem;
 }
 .profileCard {
   /*position: center;
