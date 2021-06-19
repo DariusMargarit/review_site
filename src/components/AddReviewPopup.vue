@@ -131,15 +131,14 @@
                     review: this.review,
                     titluReview: this.titluReview,
                     picture: this.picture,
-                    userName: this.user.userName,
                     userKey: this.user.key,
                     catId: this.Ids.IdCat,
                     prodId: this.Ids.IdProd,
-                    userImg: this.user.profileImg,
                     newRating: this.$store.getters.theProd.rating + this.rating,
                     newReviews: this.$store.getters.theProd.reviews + 1
                 }
                 this.$store.dispatch('uploadReview', det)
+                this.loading = false
             },
             clear () {
                 this.$v.$reset()

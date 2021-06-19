@@ -23,20 +23,20 @@
           <h1>Editeaza review-ul pentru</h1>
           <br />
           <br />
-<!--          <div>-->
-<!--            <v-row>-->
-<!--              <v-col>-->
-<!--                <div><h2 style="float: left; justify-content: center; align-content: center; display: flex;">{{ theProd.name }}</h2></div>-->
-<!--              </v-col>-->
-<!--              <v-col>-->
-<!--                <div><img class="imagine" :src="theProd.img"/></div>-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--          </div>-->
+          <div>
+            <v-row>
+              <v-col>
+                <div><h2 style="float: left; justify-content: center; align-content: center; display: flex;">{{ theProd.name }}</h2></div>
+              </v-col>
+              <v-col>
+                <div><img class="imagine" :src="theProd.img"/></div>
+              </v-col>
+            </v-row>
+          </div>
           <br />
           <br />
           <div align="center">
-            <p>Acorda o nota:</p>
+            <p>Modifica nota:</p>
             <v-rating class="ste"
                       background-color="warning lighten-1"
                       color="warning"
@@ -60,7 +60,6 @@
             ></v-textarea>
             <v-textarea
                 prepend-inner-icon="mdi-format-title"
-                v-model="titluReview"
                 label="Descriere noua cu un cuvant"
                 rows="1"
                 no-resize
@@ -107,11 +106,16 @@ export default {
   data: () => ({
     rating: 0,
     review: '',
-    titlureview: '',
     picture: null,
     loading: false,
     editReview: false,
   }),
+
+  computed: {
+    theProd () {
+      return this.$store.getters.theProd
+    }
+  },
 
   methods: {
     submitForm () {
@@ -119,7 +123,6 @@ export default {
       const det = {
         rating: this.rating,
         review: this.review,
-        titluReview: this.titluReview,
         picture: this.picture,
         userName: this.user.userName,
         userKey: this.user.key,
@@ -132,7 +135,6 @@ export default {
       this.imageUrl = null
       this.picture = null
       this.rating = 0
-      this.titluReview = ''
     }
   }
 }
@@ -180,6 +182,13 @@ export default {
   background-color: #e9e9e9;
   border-radius: 2rem;
 }
-
+.imagine {
+  float: right;
+  align-content: flex-end;
+  justify-content: center;
+  display: flex;
+  width:100%;
+  height: 100%;
+}
 
 </style>

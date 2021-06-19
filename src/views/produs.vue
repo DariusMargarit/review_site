@@ -126,12 +126,14 @@
                 </v-row>
                 <v-row no-gutters style="max-height:10rem">
                   <v-col md="1" sm="1">
-                    <v-avatar @click="goToUserProfile">
+                    <v-avatar @click="goToUserProfile(review.userKey)">
                       <img :src="review.userImg" class="avatarr">
                     </v-avatar>
                   </v-col>
                   <v-col md="6" class="hidden-sm-and-down">
-                    <v-card-title class="titlu">{{review.name}}</v-card-title>
+                    <v-card-title @click="goToUserProfile(review.userKey)" style="cursor: pointer" class="titlu">
+                      {{review.name}}
+                    </v-card-title>
                   </v-col>
                   <v-col md="3" sm="9">
                     <v-rating class="ste"
@@ -196,7 +198,8 @@ export default {
       Ids: {
         IdCat: this.catId,
         IdProd: this.prodId
-      }
+      },
+      revId: null
     }
   },
   computed: {
