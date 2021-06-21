@@ -59,7 +59,7 @@
                 required
                 clearable
             ></v-textarea>
-            <div>
+            <v-row no-gutters>
               <v-file-input
                   prepend-inner-icon="mdi-image"
                   label="Schimba imaginea"
@@ -69,12 +69,15 @@
                   v-model="picture"
               ></v-file-input>
               <img :src="this.imageUrl" class="imagePreview" v-if="this.picture">
-            </div>
+              <v-btn plain text style="margin-right: 0; padding:0;">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </v-row>
           </div>
 
           <div align="center">
             <br />
-            <v-btn class="mr-4 " depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">salveaza</v-btn>
+            <v-btn class="mr-4 " depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
             <v-btn @click="clear" depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
           </div>
 
@@ -135,6 +138,13 @@ export default {
 </script>
 
 <style>
+
+/*@media screen and (max-width: 1264px) {*/
+/*  .top-button {*/
+/*    margin-bottom: 0.1rem;*/
+/*  }*/
+/*}*/
+
 .main-content {
   background-color: white;
   min-height: 60vh;
