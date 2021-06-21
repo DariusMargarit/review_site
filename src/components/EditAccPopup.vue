@@ -3,16 +3,9 @@
   <v-dialog v-model="EditAcc" width="600">
     <template v-slot:activator="{ on }">
       <v-button class="buton-edit" v-on="on">
-        <!--        <v-btn-->
-        <!--            fab-->
-        <!--            dark-->
-        <!--            small-->
-        <!--            color=rgba(64,64,64,1)-->
-        <!--        >-->
         <v-icon>
           mdi-lead-pencil
         </v-icon>
-        <!--        </v-btn>-->
       </v-button>
     </template>
 
@@ -64,8 +57,8 @@
             <br />
             <v-row>
               <v-col cols="12" md="6">
-                <v-btn cols="12" md="6" class="mr-4 " text outlined style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">salveaza</v-btn>
-                <v-btn cols="12" md="6" @click="clear" text outlined style="font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
+                <v-btn cols="12" md="6" class="mr-4 " depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">salveaza</v-btn>
+                <v-btn cols="12" md="6" @click="clear" depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
               </v-col>
 
             </v-row>
@@ -124,8 +117,7 @@ export default {
 
 <style>
 .main-content {
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(0,204,255,0.05) 23%, rgba(0,204,255,0.1) 100%);
+  background-color: white;
   min-height: 60vh;
   min-width: 40vh;
   text-align: center;
@@ -144,7 +136,7 @@ export default {
 }
 .closeIcon:hover {
   cursor:pointer;
-  background-color: lightskyblue;
+  background-color: hsl(47, 95%, 49%);
 }
 
 .imagePreview {
