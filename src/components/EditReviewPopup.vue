@@ -2,27 +2,20 @@
   <v-dialog v-model="editReview" width="600">
     <template v-slot:activator="{ on }">
       <button class="buton-edit" v-on="on">
-<!--        <v-btn-->
-<!--            fab-->
-<!--            dark-->
-<!--            small-->
-<!--            color=rgba(64,64,64,1)-->
-<!--        >-->
           <v-icon>
             mdi-lead-pencil
           </v-icon>
-<!--        </v-btn>-->
       </button>
     </template>
 
     <v-card class="main-content">
       <div>
-        <v-form>
-          <div @click="editReview = !editReview"><v-icon class="closeIcon">mdi-close</v-icon></div>
+          <div @click="this.editReview = !this.editReview"><v-icon class="closeIcon">mdi-close</v-icon></div>
 
           <h1>Editeaza review-ul pentru</h1>
           <br />
           <br />
+        <br />
           <div>
             <v-row>
               <v-col>
@@ -35,6 +28,7 @@
           </div>
           <br />
           <br />
+        <v-form @submit.prevent="submitForm">
           <div align="center">
             <p>Modifica nota:</p>
             <v-rating class="ste"
@@ -42,18 +36,18 @@
                       color="warning"
                       half-increments
                       hover
+                      v-model="rating"
                       length="5"
                       size="40"
-                      v-model="rating"
                       required
                       clearable
             ></v-rating>
             <br />
             <v-textarea
                 prepend-inner-icon="mdi-lead-pencil"
-                v-model="review"
                 label="Review nou"
                 auto-grow
+                v-model="text"
                 no-resize
                 required
                 clearable
@@ -64,25 +58,28 @@
                 rows="1"
                 no-resize
                 required
+                v-model="title"
                 clearable
             ></v-textarea>
             <div>
               <v-file-input
                   prepend-inner-icon="mdi-image"
-                  label="Schimba imaginea"
+                  :label="this.imgUrl ? 'Schimba imaginea' : 'Adauga o imagine'"
                   dense
+                  @change="hideImg()"
+                  v-model="picture"
                   show-size
                   prepend-icon=""
-                  v-model="picture"
               ></v-file-input>
-              <img :src="this.imageUrl" class="imagePreview" v-if="this.picture">
+              <img v-if="this.imgUrl" :src="this.imgUrl" class="imagePreview" id="firstImgPrev">
+              <img v-if="this.picture" :src="this.newImg" class="imagePreview">
             </div>
           </div>
 
           <div align="center">
             <br />
             <v-btn class="mr-4 " text outlined style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">salveaza</v-btn>
-            <v-btn @click="clear" text outlined style="font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
+            <v-btn @click="clear()" text outlined style="font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
           </div>
 
         </v-form>
@@ -103,13 +100,76 @@ export default {
     description: {required, maxLength: maxLength(100)},
   },
 
+  props: ['reviewDet'],
+
   data: () => ({
     rating: 0,
-    review: '',
-    picture: null,
     loading: false,
     editReview: false,
+    text: '',
+    title: '',
+    imgUrl: '',
+    newImg: '',
+    picture: null,
+    cleared: false,
+    datamod: false,
+    id: null,
+    IdCat: null,
+    IdProd: null
   }),
+
+  beforeUpdate() {
+    if(!this.datamod) {
+      if(!this.editReview && this.cleared) {
+        this.cleared = false
+      }
+
+      if(!this.cleared) {
+        this.rating = this.reviewDet.rating
+        this.text = this.reviewDet.text
+        this.title = this.reviewDet.title
+        this.imgUrl = this.reviewDet.img
+        this.id = this.reviewDet.id
+        this.IdCat = this.reviewDet.IdCat
+        this.IdProd = this.reviewDet.IdProd
+      }
+    }
+  },
+
+  watch : {
+    picture (value) {
+      if(value != null && value != undefined)
+      {
+        const reader = new FileReader();
+        const vm = this
+        reader.addEventListener("load", function () {
+          vm.newImg = this.result
+          vm.imgUrl = ''
+        })
+        reader.readAsDataURL(value)
+      }
+    },
+    rating (value) {
+      if(value != this.reviewDet.rating && !this.cleared) {
+        this.datamod = true
+      }
+    },
+    text (value) {
+      if(value != this.reviewDet.text && !this.cleared) {
+        this.datamod = true
+      }
+    },
+    title (value) {
+      if(value != this.reviewDet.title && !this.cleared) {
+        this.datamod = true
+      }
+    },
+    newImg (value) {
+      if(value != '' && !this.cleared) {
+        this.datamod = true
+      }
+    }
+  },
 
   computed: {
     theProd () {
@@ -118,23 +178,38 @@ export default {
   },
 
   methods: {
-    submitForm () {
-      this.loading=true
-      const det = {
-        rating: this.rating,
-        review: this.review,
-        picture: this.picture,
-        userName: this.user.userName,
-        userKey: this.user.key,
-      }
-    },
     clear () {
       this.$v.$reset()
-      this.review = ''
+      this.text = ''
       this.loading = false
-      this.imageUrl = null
-      this.picture = null
+      this.imgUrl = ''
+      this.title = null
       this.rating = 0
+      this.picture = null
+      this.cleared = true
+      this.datamod = false
+    },
+    hideImg() {
+      document.getElementById('firstImgPrev').style.display="none"
+    },
+    submitForm () {
+      this.cleared = false
+      this.loading = true
+      const det = {
+        rating: this.rating,
+        text: this.text,
+        title: this.title,
+        picture: this.picture,
+        id: this.id,
+        IdCat: this.IdCat,
+        IdProd: this.IdProd,
+        oldRating: this.reviewDet.rating,
+        bigRating: this.theProd.rating,
+        imgUrl: this.imgUrl
+      }
+      this.$store.dispatch('updateReview', det)
+      this.loading = false
+      this.editReview = false
     }
   }
 }
