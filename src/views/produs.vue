@@ -177,18 +177,11 @@ export default {
     max-width: 100% !important;
   }
 }
-.divProd{
-  z-index: 999;
-}
-.review{
-  margin-bottom:15px;
-}
+
 .imagDesc{
   width:300px;
   max-height: 220px;
   max-width: 300px;
-  /*float:right;
-  margin: 20px;*/
 }
 .imag{
   max-width:220px;
@@ -224,9 +217,7 @@ export default {
   font-family: 'Lato', sans-serif;
   font-weight: bold;
 }
-.stangaDivProd{
-  margin-right:7%;
-}
+
 .button {
   margin-bottom: 30px;
   text-align: center;

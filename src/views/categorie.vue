@@ -62,7 +62,6 @@
                                         :value=(produs.rating/produs.reviews)
                 ></v-rating>
                   <p class="rating" style="margin-top: 2px; font-family: 'Lato', sans-serif;">
-<!--                    ({{ (isNaN(produs.rating/produs.reviews)) ? 0 : (produs.rating/produs.reviews) | toFixed }})-->
                   </p></v-row></v-col></v-row>
               <v-col>
                 <v-card-text class="descriere">{{ produs.descriere }}</v-card-text>

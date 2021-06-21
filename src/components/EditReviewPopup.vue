@@ -1,11 +1,11 @@
 <template>
   <v-dialog v-model="editReview" width="600">
     <template v-slot:activator="{ on }">
-      <button class="buton-edit" v-on="on">
+      <v-btn icon v-on="on">
           <v-icon>
             mdi-lead-pencil
           </v-icon>
-      </button>
+      </v-btn>
     </template>
 
     <v-card class="main-content">
@@ -69,7 +69,7 @@
                   v-model="picture"
               ></v-file-input>
               <img :src="this.imageUrl" class="imagePreview" v-if="this.picture">
-              <v-btn plain text style="margin-right: 0; padding:0;">
+              <v-btn @click="clear" icon style="margin: 0; padding:0;">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </v-row>
@@ -139,11 +139,6 @@ export default {
 
 <style>
 
-/*@media screen and (max-width: 1264px) {*/
-/*  .top-button {*/
-/*    margin-bottom: 0.1rem;*/
-/*  }*/
-/*}*/
 
 .main-content {
   background-color: white;
