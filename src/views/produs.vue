@@ -68,7 +68,9 @@
                 <v-row no-gutters>
                   <v-spacer></v-spacer>
                   <v-col cols="1">
-                    <EditReviewPopup />
+                    <div @mouseover="transfData(review)">
+                      <EditReviewPopup :reviewDet="reviewDet" />
+                    </div>
                   </v-col>
                 </v-row>
                 <v-row no-gutters style="max-height:10rem">
@@ -146,7 +148,18 @@ export default {
         IdCat: this.catId,
         IdProd: this.prodId
       },
-      revId: null
+      reviewDet: {
+        id: null,
+        img: null,
+        name: '',
+        rating: 0,
+        text: '',
+        title: '',
+        userImg: null,
+        userKey: null,
+        IdCat: this.catId,
+        IdProd: this.prodId
+      }
     }
   },
   computed: {
@@ -166,6 +179,16 @@ export default {
   methods: {
     goToUserProfile (id) {
       this.$router.push('/user/' + id)
+    },
+    transfData(value) {
+      this.reviewDet.id = value.id
+      this.reviewDet.img = value.img
+      this.reviewDet.name = value.name
+      this.reviewDet.rating = value.rating
+      this.reviewDet.text = value.text
+      this.reviewDet.title = value.title
+      this.reviewDet.userImg = value.userImg
+      this.reviewDet.userKey = value.userKey
     }
   }
 }
