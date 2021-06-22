@@ -97,26 +97,7 @@
     background: rgb(255,255,255);
     background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(0,204,255,0.05) 23%, rgba(0,204,255,0.1) 100%);
   }
-  /*.container {*/
-  /*  display:flex;*/
-  /*  align-content: center;*/
-  /*  justify-content: center;*/
-  /*  font-family: 'Archivo Black', sans-serif;*/
-  /*}*/
-  .card {
-    /*width: 60%;*/
-    /*padding: 5%;*/
-    /*margin: 5%;*/
-  }
 
-  /*.title {*/
-  /*  margin-bottom: 15px;*/
-  /*  font-size: 200px;*/
-  /*  font-weight: 800;*/
-  /*  padding: 25px 15px;*/
-  /*  font-family: 'Archivo Black', sans-serif;*/
-  /*  position: center;*/
-  /*}*/
   .separator {
     display: flex;
     align-items: center;

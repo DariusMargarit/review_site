@@ -75,7 +75,7 @@ export default {
 .text{
   color: black;
   text-align: center;
-  font-family:"Arial Black";
+  font-family:'Arial Black';
 }
 .text1{
   opacity: 1;

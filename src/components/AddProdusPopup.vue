@@ -54,8 +54,8 @@
                     </div>
                     <div align="center">
                         <br />
-                        <v-btn class="mr-4 " outlined text style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
-                        <v-btn @click="clear" outlined text style="font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
+                        <v-btn class="mr-4 "depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
+                        <v-btn @click="clear" depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
                     </div>
                 </form>
 
@@ -152,7 +152,7 @@
 <style>
 
     .main {
-        background-color: ghostwhite;
+        background-color: white;
         min-height: 60vh;
         min-width: 40vh;
         text-align: center;
@@ -176,7 +176,7 @@
     }
     .closeIcon:hover {
         cursor:pointer;
-        background-color: lightskyblue;
+        background-color: hsl(47, 95%, 49%);
     }
 
     .imagePreview {
@@ -189,6 +189,5 @@
         display: flex;
         color: #cccccc;
     }
-
 
 </style>

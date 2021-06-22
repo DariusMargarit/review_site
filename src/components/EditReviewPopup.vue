@@ -1,11 +1,11 @@
 <template>
   <v-dialog v-model="editReview" width="600">
     <template v-slot:activator="{ on }">
-      <button class="buton-edit" v-on="on">
+      <v-btn icon v-on="on">
           <v-icon>
             mdi-lead-pencil
           </v-icon>
-      </button>
+      </v-btn>
     </template>
 
     <v-card class="main-content">
@@ -61,7 +61,7 @@
                 v-model="title"
                 clearable
             ></v-textarea>
-            <div>
+            <v-row no-gutters>
               <v-file-input
                   prepend-inner-icon="mdi-image"
                   :label="this.imgUrl ? 'Schimba imaginea' : 'Adauga o imagine'"
@@ -71,15 +71,19 @@
                   show-size
                   prepend-icon=""
               ></v-file-input>
+
               <img v-if="this.imgUrl" :src="this.imgUrl" class="imagePreview" id="firstImgPrev">
               <img v-if="this.picture" :src="this.newImg" class="imagePreview">
-            </div>
+              <v-btn @click="clear" icon style="margin: 0; padding:0;">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </v-row>
           </div>
 
           <div align="center">
             <br />
-            <v-btn class="mr-4 " text outlined style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">salveaza</v-btn>
-            <v-btn @click="clear()" text outlined style="font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
+            <v-btn class="mr-4 " depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">salveaza</v-btn>
+            <v-btn @click="clear()" depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
           </div>
 
         </v-form>
@@ -217,9 +221,10 @@ export default {
 </script>
 
 <style>
+
+
 .main-content {
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(0,204,255,0.05) 23%, rgba(0,204,255,0.1) 100%);
+  background-color: white;
   min-height: 60vh;
   min-width: 40vh;
   text-align: center;
@@ -238,7 +243,7 @@ export default {
 }
 .closeIcon:hover {
   cursor:pointer;
-  background-color: lightskyblue;
+  background-color: hsl(47, 95%, 49%);
 }
 
 .imagePreview {

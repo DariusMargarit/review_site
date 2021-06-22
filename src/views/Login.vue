@@ -116,7 +116,6 @@ import { required, email, minLength } from 'vuelidate/lib/validators'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-// import Navbar from "../components/Navbar";
 import snackbar from "../components/snackbar";
 
 export default {

@@ -172,10 +172,6 @@ export default {
   margin-top: 5rem;
 }
 .profileCard {
-  /*position: center;
-  margin: auto;*/
-  /*display:flex;
-  justify-content: space-between;*/
   top: 5px;
   left: 0;
   max-width: 100%;
@@ -189,14 +185,10 @@ export default {
   border-radius: 10px;
 }
 th, td {
-  /*max-width:150px;*/
   padding-left: 150px;
   padding-right: 150px;
 }
-.descriere{
-  text-align: justify;
-  max-width: 300px;
-}
+
 table{
   position:center;
   margin:auto;
@@ -247,7 +239,5 @@ table{
   height: 42px;
   width: 42px;
 }
-.v-card__title{
-  word-break: normal;
-}
+
 </style>
