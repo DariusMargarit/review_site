@@ -71,13 +71,14 @@
                   show-size
                   prepend-icon=""
               ></v-file-input>
-
-              <img v-if="this.imgUrl" :src="this.imgUrl" class="imagePreview" id="firstImgPrev">
-              <img v-if="this.picture" :src="this.newImg" class="imagePreview">
-              <v-btn @click="clear" icon style="margin: 0; padding:0;">
+              <v-btn @click="clearImg()" icon style="margin: 0; padding:0;" v-if="this.imgUrl">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </v-row>
+
+              <img v-if="this.imgUrl" :src="this.imgUrl" class="imagePreview" id="firstImgPrev">
+              <img v-if="this.picture" :src="this.newImg" class="imagePreview">
+
           </div>
 
           <div align="center">
@@ -214,6 +215,10 @@ export default {
       this.$store.dispatch('updateReview', det)
       this.loading = false
       this.editReview = false
+    },
+    clearImg () {
+      this.imgUrl = ''
+      document.getElementById('firstImgPrev').style.display="none"
     }
   }
 }
