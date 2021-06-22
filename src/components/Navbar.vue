@@ -54,6 +54,30 @@
       <div v-if="userIsAuthenticated" style="margin-left: 1rem">
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
+            <v-icon v-on="on" class="avatarr" style="color: white">
+              mdi-bell-ring
+            </v-icon>
+          </template>
+          <v-list class="list" v-for="notificare in notificare" :key="notificare.mesaj" style=" width: 100%">
+            <v-list-item-group>
+              <v-list-item @click="" class="item_list">
+                <v-list-item-icon>
+                  <v-icon class="ava">
+                    {{ notificare.icon }}
+                  </v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title style="font-family: 'Lato', sans-serif;font-weight: bold; ">{{ notificare.mesaj}}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-menu>
+      </div>
+
+      <div v-if="userIsAuthenticated" style="margin-left: 1rem">
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
             <v-avatar v-on="on" class="avatarr">
               <img :src="user.profileImg">
             </v-avatar>
@@ -96,6 +120,10 @@ export default {
   name: 'nav-bar',
   data () {
     return {
+      notificare: [
+        {mesaj:'xxx a adaugat un review la produsul tau, yyy', icon:'mdi-book-arrow-up'},
+        {mesaj:'xxx ti-a apreciat review-ul la produsul yyy', icon:'mdi-thumb-up'},
+      ],
       search: '',
       sideNav:false
     }
