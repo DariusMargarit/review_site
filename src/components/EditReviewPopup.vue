@@ -9,7 +9,7 @@
     </template>
 
     <v-card class="main-content">
-      <div>
+      <v-container class="form">
           <div @click="closeCard()"><v-icon class="closeIcon">mdi-close</v-icon></div>
 
           <h1>Editeaza review-ul pentru</h1>
@@ -88,7 +88,7 @@
           </div>
 
         </v-form>
-      </div>
+      </v-container>
     </v-card>
 
   </v-dialog>
@@ -230,6 +230,10 @@ export default {
 
 <style>
 
+.form {
+  min-height: 55vh;
+  min-width: 35vh;
+}
 
 .main-content {
   background-color: white;
