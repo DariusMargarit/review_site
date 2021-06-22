@@ -68,7 +68,7 @@
                 <v-row no-gutters>
                   <v-spacer></v-spacer>
                   <v-col cols="1">
-                    <div @mouseover="transfData(review)">
+                    <div @mouseover="transfData(review)" v-if="userKey === review.userKey">
                       <EditReviewPopup :reviewDet="reviewDet" />
                     </div>
                   </v-col>
@@ -141,6 +141,7 @@ export default {
       catId: this.catId,
       prodId: this.prodId
     })
+
   },
   data () {
     return {
@@ -159,7 +160,7 @@ export default {
         userKey: null,
         IdCat: this.catId,
         IdProd: this.prodId
-      }
+      },
     }
   },
   computed: {
@@ -175,6 +176,9 @@ export default {
     userIsAuthenticated () {
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     },
+    userKey () {
+      return this.$store.getters.user.key
+    }
   },
   methods: {
     goToUserProfile (id) {

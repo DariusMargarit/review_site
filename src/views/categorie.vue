@@ -9,7 +9,7 @@
     ></v-progress-circular>
     <v-col md='6' class="hidden-lg-and-up">
       <v-col align="center" class="font cattitle mb-7">
-        {{ numeCat }} ({{ produse.length }})
+        {{ numeCat }} ({{ nrProduse }})
       </v-col>
       <v-col class="button1" v-if="userIsAuthenticated">
         <add-product :catKey="catKey" />
@@ -155,7 +155,8 @@
                 selected: {
                     stele: [],
                     nrrev: []
-                }
+                },
+              dialogadd: false
             }
         },
         watch: {
@@ -182,6 +183,9 @@
             },
             numeCat () {
                 return this.$store.getters.numeCat
+            },
+            nrProduse () {
+              return this.$store.getters.produse ? this.$store.getters.produse.length : 0
             }
         },
         methods: {
