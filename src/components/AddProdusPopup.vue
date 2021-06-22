@@ -54,8 +54,8 @@
                     </div>
                     <div align="center">
                         <br />
-                        <v-btn class="mr-4 " style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
-                        <v-btn @click="clear" style="font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
+                        <v-btn class="mr-4 " outlined text style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
+                        <v-btn @click="clear" outlined text style="font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
                     </div>
                 </form>
 

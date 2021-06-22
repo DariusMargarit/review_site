@@ -69,8 +69,8 @@
                     </div>
                     <div align="center">
                         <br />
-                        <v-btn class="mr-4 " style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
-                        <v-btn @click="clear" style="font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
+                        <v-btn class="mr-4 " outlined text style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
+                        <v-btn @click="clear" outlined text style="font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
                     </div>
                 </form>
               </div>
@@ -131,15 +131,14 @@
                     review: this.review,
                     titluReview: this.titluReview,
                     picture: this.picture,
-                    userName: this.user.userName,
                     userKey: this.user.key,
                     catId: this.Ids.IdCat,
                     prodId: this.Ids.IdProd,
-                    userImg: this.user.profileImg,
                     newRating: this.$store.getters.theProd.rating + this.rating,
                     newReviews: this.$store.getters.theProd.reviews + 1
                 }
                 this.$store.dispatch('uploadReview', det)
+                this.loading = false
             },
             clear () {
                 this.$v.$reset()

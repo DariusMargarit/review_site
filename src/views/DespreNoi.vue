@@ -90,6 +90,7 @@
 
 <style>
   .font {
+    margin-top: 5rem;
     font-family: 'Archivo Black', sans-serif;
   }
   .grad {

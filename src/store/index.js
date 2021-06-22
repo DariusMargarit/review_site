@@ -599,6 +599,67 @@ export default new Vuex.Store({
         commit('setLoading', false)
         console.log(err)
       })
+    },
+    updateReview ({commit}, payload) {
+      commit('setLoading', true)
+      if(payload.oldRating != payload.rating){
+        firebase.database().ref('/categorii/' + payload.IdCat + '/produse/' + payload.IdProd)
+            .update({
+            rating: payload.bigRating - payload.oldRating + payload.rating
+        })
+      }
+
+      firebase.database().ref('/categorii/' + payload.IdCat + '/produse/' + payload.IdProd +
+      '/pareri/' + payload.id).once('value').then((data) => {
+        const vm = data.val()
+        if(payload.picture != null && payload.picture != undefined) {
+          if(payload.imgUrl != ''){
+            firebase.storage().ref('reviews_img/' + payload.imageUrl).delete().then(() => {
+
+            }).catch(err => {
+              commit('setLoading', false)
+              console.log(err)
+            })
+          }
+
+          firebase.storage().ref('reviews_img/' + payload.picture.lastModified).put(payload.picture)
+              .then((fileData) => {
+                fileData.ref.getDownloadURL().then((url) => {
+                  firebase.database().ref('/reviews/' + vm.reviewKey).update({
+                    img: url,
+                    rating: payload.rating,
+                    text: payload.text,
+                    title: payload.title
+                  }).catch(err => {
+                    console.log(err)
+                    commit('setLoading', false)
+                  })
+                }).catch(err => {
+                  console.log(err)
+                  commit('setLoading', false)
+                })
+              }).catch(err => {
+            console.log(err)
+            commit('setLoading', false)
+          })
+
+
+        }
+         else {
+          firebase.database().ref('/reviews/' + vm.reviewKey).update({
+            rating: payload.rating,
+            text: payload.text,
+            title: payload.title
+          }).catch(err => {
+            console.log(err)
+            commit('setLoading', false)
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+        commit('setLoading', false)
+      })
+      commit('setLoading', false)
     }
   },
   getters: {
