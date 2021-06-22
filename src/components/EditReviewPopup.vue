@@ -10,7 +10,7 @@
 
     <v-card class="main-content">
       <div>
-          <div @click="this.editReview = !this.editReview"><v-icon class="closeIcon">mdi-close</v-icon></div>
+          <div @click="closeCard()"><v-icon class="closeIcon">mdi-close</v-icon></div>
 
           <h1>Editeaza review-ul pentru</h1>
           <br />
@@ -219,6 +219,9 @@ export default {
     clearImg () {
       this.imgUrl = ''
       document.getElementById('firstImgPrev').style.display="none"
+    },
+    closeCard () {
+      this.editReview = false
     }
   }
 }
@@ -236,7 +239,7 @@ export default {
   justify-content: center;
   align-content: center;
   display: flex;
-  padding: 60px;
+  padding: 2rem;
   font-family: 'Lato', sans-serif;
   font-weight: bold;
 }
