@@ -66,16 +66,31 @@
             <v-container>
               <div>
                 <v-row no-gutters>
+                  <v-col md="1" sm="2" class="hidden-sm-and-up">
+                    <v-avatar @click="goToUserProfile(review.userKey)" size="42">
+                      <img :src="review.userImg" class="avatarr">
+                    </v-avatar>
+                  </v-col>
                   <v-spacer></v-spacer>
-                  <v-col cols="1">
+                  <v-col cols="4" sm="2" md="2" align="right" align-self="center"><!--v-if="daca e editat"-->
+                    (editat)
+                  </v-col>
+                  <v-col class="centru" cols="2" sm="1">
+                    <v-btn icon>
+                      <v-icon>
+                        mdi-alert-octagon
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="2" sm="1" v-if="userKey === review.userKey">
                     <div @mouseover="transfData(review)" v-if="userKey === review.userKey">
                       <EditReviewPopup :reviewDet="reviewDet" />
                     </div>
                   </v-col>
                 </v-row>
-                <v-row no-gutters style="max-height:10rem">
-                  <v-col md="1" sm="1">
-                    <v-avatar @click="goToUserProfile(review.userKey)">
+                <v-row style="max-height:12rem">
+                  <v-col md="1" sm="2" class="hidden-xs-only">
+                    <v-avatar @click="goToUserProfile(review.userKey)" size="42">
                       <img :src="review.userImg" class="avatarr">
                     </v-avatar>
                   </v-col>
@@ -84,20 +99,26 @@
                       {{review.name}}
                     </v-card-title>
                   </v-col>
-                  <v-col md="3" sm="9">
-                    <v-rating class="ste"
-                              background-color="warning lighten-1"
-                              color="warning"
-                              half-increments
-                              length="5"
-                              readonly
-                              size="1.5rem"
-                              :value=review.rating
-                    ></v-rating>
-                  </v-col>
-                  <v-col cols="2" class="hidden-md-and-down">
-                    <div class="rat">
-                      ({{review.rating}})</div>
+                  <v-col cols="12" sm="6" md="5">
+                    <v-row>
+                      <v-spacer></v-spacer>
+                      <v-col cols="8" sm="7" align="right">
+                        <v-rating class="ste"
+                                  background-color="warning lighten-1"
+                                  color="warning"
+                                  half-increments
+                                  length="5"
+                                  readonly
+                                  size="1.5rem"
+                                  :value=review.rating
+                        ></v-rating>
+                      </v-col>
+                      <v-col cols="4" sm="5" align="left">
+                        <div class="rat">
+                          ({{review.rating}})</div>
+                      </v-col>
+                      <v-spacer></v-spacer>
+                    </v-row>
                   </v-col>
                   <v-col class="hidden-md-and-up" cols="12">
                     <v-card-title class="titlu">{{review.name}}</v-card-title>
@@ -108,8 +129,24 @@
                     <v-card-title class="texti">{{review.title}}</v-card-title>
                     <v-card-text class="tex">{{review.text | quotes}}</v-card-text>
                   </v-col>
-                  <v-col v-if="review.img">
+                  <v-col cols="12"sm="6" v-if="review.img" align="center">
                     <div><v-img class="imag" :src="review.img" /></div>
+                  </v-col>
+                </v-row>
+                <v-row no-gutters>
+                  <v-col cols="2" sm="1">
+                    <v-btn icon>
+                      <v-icon>
+                        mdi-heart
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="4" align-self="center" align="left">
+                    nr. like-uri
+                  </v-col>
+                  <v-spacer></v-spacer>
+                  <v-col cols="6" sm="2" align-self="center" align="right">
+                    data postarii
                   </v-col>
                 </v-row>
               </div>
@@ -251,14 +288,17 @@ export default {
   background-color: hsl(47, 95%, 49%);
 }
 .avatarr{
-  float:left;
   font-size:32px;
-  height: 42px;
-  width: 42px;
 }
 
 .avatarr:hover {
   cursor: pointer;
+}
+
+.centru {
+  align-content: center;
+  justify-content: center;
+  display: flex;
 }
 
 </style>

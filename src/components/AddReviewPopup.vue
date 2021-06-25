@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialogadd" width="500">
         <template v-slot:activator="{ on }">
-            <v-btn class="homebutton text--black font-weight-bold" plain v-on="on">Adauga un review nou</v-btn>
+            <v-btn  class="homebutton text--black" plain v-on="on">Adauga un review nou</v-btn>
         </template>
         <v-card>
             <div class="main">
@@ -69,8 +69,8 @@
                     </div>
                     <div align="center">
                         <br />
-                        <v-btn class="mr-4 " depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
-                        <v-btn @click="clear" depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
+                        <v-btn class="mr-4 butoane" depressed type="submit" :loading="loading">trimite</v-btn>
+                        <v-btn @click="clear" class="butoane" depressed>goleste</v-btn>
                     </div>
                 </form>
               </div>
@@ -201,4 +201,11 @@
       width:100%;
       height: 100%;
     }
+
+    .butoane {
+      background-color: hsl(47, 95%, 49%);
+      font-family: 'Lato', sans-serif;
+      font-weight: bold;
+    }
+
 </style>

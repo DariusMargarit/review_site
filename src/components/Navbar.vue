@@ -122,7 +122,7 @@ export default {
     return {
       notificare: [
         {mesaj:'xxx a adaugat un review la produsul tau, yyy', icon:'mdi-book-arrow-up'},
-        {mesaj:'xxx ti-a apreciat review-ul la produsul yyy', icon:'mdi-thumb-up'},
+        {mesaj:'xxx ti-a apreciat review-ul la produsul yyy', icon:'mdi-heart'},
       ],
       search: '',
       sideNav:false
