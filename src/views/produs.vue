@@ -72,7 +72,7 @@
                     </v-avatar>
                   </v-col>
                   <v-spacer></v-spacer>
-                  <v-col cols="4" sm="2" md="2" align="right" align-self="center"><!--v-if="daca e editat"-->
+                  <v-col cols="4" sm="2" md="2" align="right" align-self="center" v-if="review.edited === true">
                     (editat)
                   </v-col>
                   <v-col class="centru" cols="2" sm="1">
@@ -83,7 +83,7 @@
                     </v-btn>
                   </v-col>
                   <v-col cols="2" sm="1" v-if="userKey === review.userKey">
-                    <div @mouseover="transfData(review)" v-if="userKey === review.userKey">
+                    <div @mouseover="transfData(review)">
                       <EditReviewPopup :reviewDet="reviewDet" />
                     </div>
                   </v-col>
@@ -146,7 +146,7 @@
                   </v-col>
                   <v-spacer></v-spacer>
                   <v-col cols="6" sm="2" align-self="center" align="right">
-                    data postarii
+                    {{ review.date }}
                   </v-col>
                 </v-row>
               </div>

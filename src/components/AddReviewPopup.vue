@@ -82,6 +82,7 @@
 <script>
     import { validationMixin } from 'vuelidate'
     import { required, maxLength, minLength } from 'vuelidate/lib/validators'
+    let current = new Date()
     export default {
         mixins: [validationMixin],
         validations: {
@@ -93,6 +94,18 @@
                 type: Object
             }
         },
+
+        created() {
+            if((current.getMonth() + 1) < 10) {
+                this.date = current.getDate() + '/' + 0 + (current.getMonth() + 1) + '/'
+                    + current.getFullYear()
+            }
+             else {
+                this.date = current.getDate() + '/' + (current.getMonth() + 1) + '/'
+                    + current.getFullYear()
+            }
+        },
+
         data: () => ({
             review: '',
             titluReview:'',
@@ -100,7 +113,8 @@
             picture: null,
             loading: false,
             dialogadd: false,
-            rating: 0
+            rating: 0,
+            date: ''
         }),
         watch : {
             picture (value) {
@@ -135,10 +149,12 @@
                     catId: this.Ids.IdCat,
                     prodId: this.Ids.IdProd,
                     newRating: this.$store.getters.theProd.rating + this.rating,
-                    newReviews: this.$store.getters.theProd.reviews + 1
+                    newReviews: this.$store.getters.theProd.reviews + 1,
+                    date: this.date
                 }
                 this.$store.dispatch('uploadReview', det)
                 this.loading = false
+                this.dialogadd = false
             },
             clear () {
                 this.$v.$reset()
@@ -148,6 +164,7 @@
                 this.picture = null
                 this.rating = 0
                 this.titluReview = ''
+                console.log(this.date)
             },
         }
     }

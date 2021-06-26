@@ -410,6 +410,8 @@ export default new Vuex.Store({
               text: obj.text,
               img: obj.img,
               userKey: obj.userKey,
+              date: obj.date,
+              edited: obj.edited,
               name: '',
               userImg: null
             })
@@ -474,7 +476,9 @@ export default new Vuex.Store({
                   text: payload.review,
                   title: payload.titluReview,
                   img: url,
-                  userKey: payload.userKey
+                  userKey: payload.userKey,
+                  date: payload.date,
+                  edited: false
                 }).then(data => {
                   firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
                       payload.prodId + '/pareri').push({
@@ -516,7 +520,9 @@ export default new Vuex.Store({
           text: payload.review,
           title: payload.titluReview,
           img: '',
-          userKey: payload.userKey
+          userKey: payload.userKey,
+          date: payload.date,
+          edited: false
         }).then(data => {
           firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
               payload.prodId + '/pareri').push({
@@ -562,6 +568,8 @@ export default new Vuex.Store({
                       text: x.text,
                       img: x.img,
                       userKey: x.userKey,
+                      date: x.date,
+                      edited: x.edited,
                       name: '',
                       userImg: null
                     })
@@ -629,7 +637,8 @@ export default new Vuex.Store({
                     img: url,
                     rating: payload.rating,
                     text: payload.text,
-                    title: payload.title
+                    title: payload.title,
+                    edited: true
                   }).catch(err => {
                     console.log(err)
                     commit('setLoading', false)
@@ -649,7 +658,8 @@ export default new Vuex.Store({
           firebase.database().ref('/reviews/' + vm.reviewKey).update({
             rating: payload.rating,
             text: payload.text,
-            title: payload.title
+            title: payload.title,
+            edited: true
           }).catch(err => {
             console.log(err)
             commit('setLoading', false)
