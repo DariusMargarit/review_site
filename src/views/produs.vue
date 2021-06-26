@@ -88,7 +88,7 @@
                     </div>
                   </v-col>
                 </v-row>
-                <v-row style="max-height:12rem">
+                <v-row style="max-height:12rem; margin-top: 0.2rem;">
                   <v-col md="1" sm="2" class="hidden-xs-only">
                     <v-avatar @click="goToUserProfile(review.userKey)" size="42">
                       <img :src="review.userImg" class="avatarr">
@@ -124,7 +124,7 @@
                     <v-card-title class="titlu">{{review.name}}</v-card-title>
                   </v-col>
                 </v-row>
-                <v-row>
+                <v-row style="margin-bottom: 0.5rem;">
                   <v-col>
                     <v-card-title class="texti">{{review.title}}</v-card-title>
                     <v-card-text class="tex">{{review.text | quotes}}</v-card-text>
@@ -133,16 +133,16 @@
                     <div><v-img class="imag" :src="review.img" /></div>
                   </v-col>
                 </v-row>
-                <v-row no-gutters>
+                <v-row no-gutters class="font">
                   <v-col cols="2" sm="1">
-                    <v-btn icon>
+                    <v-btn class="heart-btn-click" icon>
                       <v-icon>
-                        mdi-heart
+                        mdi-heart-outline
                       </v-icon>
                     </v-btn>
                   </v-col>
                   <v-col cols="4" align-self="center" align="left">
-                    nr. like-uri
+                    369
                   </v-col>
                   <v-spacer></v-spacer>
                   <v-col cols="6" sm="2" align-self="center" align="right">
@@ -178,7 +178,6 @@ export default {
       catId: this.catId,
       prodId: this.prodId
     })
-
   },
   data () {
     return {
@@ -241,7 +240,6 @@ export default {
     max-width: 100% !important;
   }
 }
-
 .imagDesc{
   width:300px;
   max-height: 220px;
@@ -281,7 +279,6 @@ export default {
   font-family: 'Lato', sans-serif;
   font-weight: bold;
 }
-
 .button {
   margin-bottom: 30px;
   text-align: center;
@@ -290,15 +287,22 @@ export default {
 .avatarr{
   font-size:32px;
 }
-
 .avatarr:hover {
   cursor: pointer;
 }
-
 .centru {
   align-content: center;
   justify-content: center;
   display: flex;
+}
+
+.font {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+}
+
+.heart-btn-click :hover {
+  color: red;
 }
 
 </style>
