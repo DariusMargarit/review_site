@@ -67,14 +67,14 @@
                         <v-row no-gutters style="max-height:10rem">
                           <v-col md="1" sm="1">
                             <v-avatar>
-                              <img :src="review.userImg" class="avatarr">
+                              <img :src="review.userImg" class="avatar">
                             </v-avatar>
                           </v-col>
                           <v-col md="6" class="hidden-sm-and-down">
-                            <v-card-title class="titlu">{{review.name}}</v-card-title>
+                            <v-card-title class="nume-review">{{review.name}}</v-card-title>
                           </v-col>
                           <v-col md="3" sm="9">
-                            <v-rating class="ste"
+                            <v-rating class="stele"
                                       background-color="warning lighten-1"
                                       color="warning"
                                       half-increments
@@ -85,17 +85,17 @@
                             ></v-rating>
                           </v-col>
                           <v-col cols="2" class="hidden-md-and-down">
-                            <div class="rat">
+                            <div class="rating">
                               ({{review.rating}})</div>
                           </v-col>
                           <v-col class="hidden-md-and-up" cols="12">
-                            <v-card-title class="titlu">{{review.name}}</v-card-title>
+                            <v-card-title class="nume-review">{{review.name}}</v-card-title>
                           </v-col>
                         </v-row>
                         <v-row>
                           <v-col>
-                            <v-card-title class="texti">{{review.title}}</v-card-title>
-                            <v-card-text class="tex">{{review.text | quotes}}</v-card-text>
+                            <v-card-title class="titlu-review">{{review.title}}</v-card-title>
+                            <v-card-text class="text-review">{{review.text | quotes}}</v-card-text>
                           </v-col>
                           <v-col v-if="review.img">
                             <div><v-img class="imag" :src="review.img" /></div>
@@ -117,7 +117,6 @@
 
 
 <script>
-
 import EditReviewPopup from "@/components/EditReviewPopup";
 export default {
   components: {EditReviewPopup},
@@ -150,11 +149,10 @@ export default {
 
 <style scoped>
 @media screen and (max-width:1264px) {
-  .titlu {
+  .nume-review {
     font-size: 1rem !important;
   }
-
-  .avatarr {
+  .avatar {
     font-size: 1rem !important;
     height: 2.5rem !important;
     width: 2.5rem !important;
@@ -188,7 +186,6 @@ th, td {
   padding-left: 150px;
   padding-right: 150px;
 }
-
 table{
   position:center;
   margin:auto;
@@ -204,40 +201,39 @@ table{
   max-height: 220px;
   padding: 5px;
 }
-.texti{
+.titlu-review{
   padding:10px;
   font-family: 'Archivo Black', sans-serif;
   font-size: 20px;
 }
-.tex{
+.text-review{
   font-size:18px;
   font-family: 'Lato', sans-serif;
   font-weight: bolder;
   text-align: left;
 }
-.titlu {
+.nume-review {
   font-family: 'Archivo Black', sans-serif;
   font-weight: bolder;
   font-size: 25px;
   text-align: justify;
   text-justify: inter-word;
 }
-.ste{
+.stele{
   color: #ff9454;
   float: right;
   margin-top: 17px;
 }
-.rat{
+.rating{
   font-size: 20px;
   margin-top: 16px;
   font-family: 'Lato', sans-serif;
   font-weight: bold;
 }
-.avatarr{
+.avatar{
   float:left;
   font-size:32px;
   height: 42px;
   width: 42px;
 }
-
 </style>
