@@ -62,9 +62,11 @@ export default new Vuex.Store({
     signUserUp ({commit}, payload) {
       const newUser = {
         userName: payload.username,
+        biografie: "Salut! Folosesc HonestReviews!",
         profileImg: "https://firebasestorage.googleapis.com/v0/b/itec-8b9cf.appspot.com/o/FREE-PROFILE-AVATARS.png?alt=media&token=a6b17192-ac3a-44ca-928f-08856f438d15",
       }
-      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then((cred) => {
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+          .then((cred) => {
         const id = cred.user.uid
 
         firebase.database().ref('users').push(newUser).then((data) => {
@@ -113,13 +115,14 @@ export default new Vuex.Store({
 
         const newUser = {
           userName: cred.additionalUserInfo.profile.name,
-          profileImg: cred.additionalUserInfo.profile.picture
+          profileImg: cred.additionalUserInfo.profile.picture,
+          biografie: "Salut! Folosesc HonestReviews!"
         }
         firebase.database().ref('users').push(newUser).then((data) => {
           const newUserWithId = {
             userName: cred.additionalUserInfo.profile.name,
             profileImg: cred.additionalUserInfo.profile.picture,
-            key: data.key
+            key: data.key,
           }
           firebase.firestore().collection('users').doc(id).set(newUserWithId).then((data) => {
             commit('newUser', newUserWithId)
@@ -140,7 +143,8 @@ export default new Vuex.Store({
 
         const newUser = {
           userName: cred.additionalUserInfo.profile.name,
-          profileImg: cred.additionalUserInfo.profile.picture.data.url
+          profileImg: cred.additionalUserInfo.profile.picture.data.url,
+          biografie: "Salut! Folosesc HonestReviews!"
         }
         firebase.database().ref('users').push(newUser).then((data) => {
           const newUserWithId = {
@@ -157,7 +161,7 @@ export default new Vuex.Store({
           console.log(err)
         })
 
-      }).then(err => {
+      }).catch(err => {
         commit('setError', err)
       })
     },
@@ -168,7 +172,8 @@ export default new Vuex.Store({
             userName: doc.data().userName,
             email: payload.email,
             profileImg: doc.data().profileImg,
-            key: doc.data().key
+            key: doc.data().key,
+            biografie: doc.data().biografie
           }
           commit('userInfo', userInfo)
         } else commit('setError', 'Acest user nu exista sau a fost sters!')
@@ -188,7 +193,8 @@ export default new Vuex.Store({
           users.push({
             id: key,
             userName: obj[key].userName,
-            profileImg: obj[key].profileImg
+            profileImg: obj[key].profileImg,
+            biografie: obj[key].biografie
           })
         }
         commit('setAllUsers', users)

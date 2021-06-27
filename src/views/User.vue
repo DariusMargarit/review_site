@@ -39,7 +39,8 @@
             <v-row>
               <v-col>
                 <H4>Biografie:</H4><br>
-                <p></p>
+                <p v-if="user.biografie">{{ user.biografie }}</p>
+                <p v-else>(nu exista)</p>
               </v-col>
             </v-row>
           </v-container>

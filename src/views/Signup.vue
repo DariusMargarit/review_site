@@ -7,7 +7,7 @@
 
     <v-container style="margin-top: 4%; justify-content: center; display: flex;" >
       <section class="formdesign">
-        <v-form class="form">
+        <v-form class="form" @submit.prevent="submitForm()">
           <v-container fluid>
             <h1 style="font-family: 'Lato', sans-serif">Inscrie-te!</h1>
           </v-container>
@@ -22,7 +22,7 @@
             <v-row no-gutters align-content="center">
               <v-col>
                 <div class="wrapper">
-                  <div class="button" @click="facebookSignUp">
+                  <div class="button" @click="facebookSignUp()">
                     <div class="icon-facebook">
                       <i><v-icon class="pb-1" size="40">mdi-facebook</v-icon></i>
                     </div>
@@ -31,7 +31,7 @@
               </v-col>
               <v-col>
                 <div class="wrapper">
-                  <div class="button" @click="googleSignUp">
+                  <div class="button" @click="googleSignUp()">
                     <div class="icon-google">
                       <i><v-icon class="pb-1" size="35">mdi-google</v-icon></i>
                     </div>
@@ -93,7 +93,7 @@
                 <v-btn style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
               </v-col>
               <v-col align-self="center">
-                <v-btn class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear">goleste</v-btn>
+                <v-btn class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear()">goleste</v-btn>
               </v-col>
             </v-row>
           </v-container>
@@ -135,7 +135,6 @@ import snackbar from "../components/snackbar";
 export default {
   name: "signup",
   components: {
-    // 'navbar': Navbar,
     'snackbar': snackbar
   },
   mixins: [validationMixin],
@@ -187,7 +186,6 @@ export default {
     user (value) {
       if(value !== null && value !== undefined) {
         this.$router.push('/')
-        this.loading = false
       }
     },
     error (value) {
@@ -202,8 +200,10 @@ export default {
   },
   methods: {
     submitForm () {
-      this.loading = true;
+      this.loading = true
       this.$store.dispatch('signUserUp', {email: this.email, password: this.password, username:this.name})
+      this.loading = false
+
     },
     googleSignUp () {
       var provider = new firebase.auth.GoogleAuthProvider();
