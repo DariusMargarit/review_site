@@ -76,11 +76,7 @@
                     (editat)
                   </v-col>
                   <v-col class="centru" cols="2" sm="1">
-                    <v-btn icon>
-                      <v-icon>
-                        mdi-alert-octagon
-                      </v-icon>
-                    </v-btn>
+                    <ReportReviewPopup />
                   </v-col>
                   <v-col cols="2" sm="1" v-if="userKey === review.userKey">
                     <div @mouseover="transfData(review)">
@@ -162,12 +158,14 @@
 <script>
 import EditReviewPopup from "@/components/EditReviewPopup";
 import AddReviewPopup from "../components/AddReviewPopup";
+import ReportReviewPopup from "../components/ReportReviewPopup";
 export default {
   name: "categorie",
   props: ['catId','prodId'],
   components: {
     'EditReviewPopup': EditReviewPopup,
-    'add-review-popup': AddReviewPopup
+    'add-review-popup': AddReviewPopup,
+    'ReportReviewPopup' : ReportReviewPopup
   },
   created() {
     this.$store.dispatch('loadProd', {
