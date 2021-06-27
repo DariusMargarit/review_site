@@ -58,7 +58,7 @@
 
         <v-row style="justify-content: center; display: flex;margin-top: 4rem" no-gutters align="center">
           <v-col cols="6" md="3">
-            <v-btn depressed style="background-color:#f4c006; font-family: 'Lato', sans-serif; font-weight: bolder;" class="mr-4 buton-golit" @click="clear()">GOLESTE</v-btn>
+            <v-btn depressed style="background-color:#f4c006; font-family: 'Lato', sans-serif; font-weight: bolder;" class="mr-4 buton-golit" @click="renunta()">RENUNTA</v-btn>
           </v-col>
           <v-col cols="6" md="3">
             <v-btn depressed style="background-color:#ff665a; font-family: 'Lato', sans-serif; font-weight: bolder;" class="buton-send" :loading="loading">TRIMITE</v-btn>
@@ -81,7 +81,7 @@ export default {
     irelevant: false,
     limbaj: false,
     pozaindecenta: false,
-    alttext: false,
+    alttext: '',
     loading: false
   }),
 
@@ -89,13 +89,14 @@ export default {
     closeCard() {
       this.reportReview = false
     },
-    clear ()
+    renunta ()
     {
       this.altceva = false
       this.irelevant = false
       this.limbaj = false
       this.pozaindecenta = false
-      this.alttext = false
+      this.alttext = ''
+      this.reportReview = false
     }
   }
 
@@ -131,17 +132,5 @@ export default {
   cursor:pointer;
   background-color: hsl(47, 95%, 49%);
 }
-
-/*.buton-send {*/
-/*  background-color: #ff665a;*/
-/*  font-family: 'Lato', sans-serif;*/
-/*  font-weight: bolder;*/
-/*}*/
-
-/*.buton-golit {*/
-/*  background-color: #f4c006;*/
-/*  font-family: 'Lato', sans-serif;*/
-/*  font-weight: bolder;*/
-/*}*/
 
 </style>
