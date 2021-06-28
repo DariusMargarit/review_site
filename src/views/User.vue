@@ -31,7 +31,7 @@
           <v-container>
             <v-row>
               <v-col>
-                <hr class="tableLine">
+                <hr class="tableLine" />
               </v-col>
             </v-row>
           </v-container>
@@ -44,11 +44,14 @@
               </v-col>
             </v-row>
           </v-container>
+          <hr class="tableLine" />
           <v-container>
             <v-row >
               <v-col>
-                <p v-if="reviews">Nr de review-uri: {{ reviews.length }}</p>
-                <p v-else>Nr de review-uri: 0</p>
+                <p v-if="reviews">Numar de review-uri: {{ reviews.length }}</p>
+                <p v-else>Numar de review-uri: 0</p>
+                <p>Numar de produse adaugate: </p>
+                <p>Numar total de aprecieri la review-uri: 0</p>
               </v-col>
             </v-row>
           </v-container>
@@ -59,6 +62,12 @@
                   <v-card class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
                     <v-container>
                       <div>
+                        <v-row no-gutters>
+                          <v-spacer />
+                          <v-btn icon>
+                            <v-icon>mdi-arrow-right</v-icon>
+                          </v-btn>
+                        </v-row>
                         <v-row no-gutters>
                           <v-spacer></v-spacer>
                           <v-col cols="1">
@@ -169,6 +178,7 @@ export default {
   background-color: #ffffff;
   font-family: 'Lato', sans-serif;
   margin-top: 5rem;
+  min-height: 75vh;
 }
 .profileCard {
   top: 5px;
@@ -192,8 +202,8 @@ table{
   margin:auto;
 }
 .tableLine{
-  min-width:60%;
-  max-width:100%;
+  min-width:30rem;
+  max-width:50rem;
   width: available;
   margin:auto;
 }
