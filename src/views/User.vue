@@ -195,7 +195,7 @@ table{
   margin:auto;
 }
 .tableLine{
-  min-width:30rem;
+  min-width:20rem;
   max-width:50rem;
   width: available;
   margin:auto;
