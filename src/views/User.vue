@@ -68,12 +68,7 @@
                             <v-icon>mdi-arrow-right</v-icon>
                           </v-btn>
                         </v-row>
-                        <v-row no-gutters>
-                          <v-spacer></v-spacer>
-                          <v-col cols="1">
-                            <EditReviewPopup />
-                          </v-col>
-                        </v-row>
+
                         <v-row no-gutters style="max-height:10rem">
                           <v-col md="1" sm="1">
                             <v-avatar>
@@ -127,9 +122,7 @@
 
 
 <script>
-import EditReviewPopup from "@/components/EditReviewPopup";
 export default {
-  components: {EditReviewPopup},
   props: ['id'],
   data: () => ({
   }),
