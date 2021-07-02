@@ -2,118 +2,137 @@
   <div>
     <v-main class="main">
       <br><br>
-      <v-container class="profileCard" style="justify-content: center; display: flex;">
-        <div>
-          <v-divider vertical dark inset/>
-          <v-progress-circular
-              :size="50"
-              color="primary"
-              indeterminate
-              v-if="loading"
-          ></v-progress-circular>
-          <v-container fluid>
-            <v-row no-gutters justify="center" align="center">
-              <v-col>
-                <div class="wrapper">
-                  <img :src="user.profileImg" width="300" height="300" class="profilePic">
-                </div>
-              </v-col>
-            </v-row>
-          </v-container>
-          <v-container>
-            <v-row>
-              <v-col>
-                <p>Nume: {{ user.userName }}</p>
-                <p v-if="authUser">E-mail: {{ authUser.email }}</p>
-              </v-col>
-            </v-row>
-          </v-container>
-          <v-container>
-            <v-row>
-              <v-col>
-                <hr class="tableLine" />
-              </v-col>
-            </v-row>
-          </v-container>
-          <v-container>
-            <v-row>
-              <v-col>
-                <H4>Biografie:</H4><br>
-                <p v-if="user.biografie">{{ user.biografie }}</p>
-                <p v-else>(nu exista)</p>
-              </v-col>
-            </v-row>
-          </v-container>
-          <hr class="tableLine" />
-          <v-container>
-            <v-row >
-              <v-col>
-                <p v-if="reviews">Numar de review-uri: {{ reviews.length }}</p>
-                <p v-else>Numar de review-uri: 0</p>
-                <p>Numar de produse adaugate: </p>
-                <p>Numar total de aprecieri la review-uri: 0</p>
-              </v-col>
-            </v-row>
-          </v-container>
-          <div style="margin:auto;width:75%">
-            <v-container>
-              <v-row>
-                <v-col>
-                  <v-card class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
-                    <v-container>
-                      <div>
-                        <v-row no-gutters>
-                          <v-spacer />
-                          <v-btn icon>
-                            <v-icon>mdi-arrow-right</v-icon>
-                          </v-btn>
-                        </v-row>
+      <v-container>
+        <v-row justify="center">
+          <v-col cols="12" sm="11" md="10" lg="9" xl="8">
+            <v-card>
+              <v-tabs grow color="#000000" background-color="grey lighten-2" slider-color="hsl(47, 95%, 49%)">
+                <v-tab><v-icon>mdi-account-circle</v-icon></v-tab>
+                <v-tab><v-icon>mdi-card-bulleted</v-icon></v-tab>
+                <v-tab><v-icon>mdi-bell-ring</v-icon></v-tab>
+                <v-tab-item class="profileColor">
+                  <br>
+                  <v-container fluid>
+                    <v-row no-gutters justify="center" align="center">
+                      <v-col>
+                        <img :src="user.profileImg" class="profilePic">
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <v-container>
+                    <v-row>
+                      <v-col>
+                        <p>Nume: {{ user.userName }}</p>
+                        <p v-if="authUser">E-mail: {{ authUser.email }}</p>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <v-container>
+                    <v-row>
+                      <v-col>
+                        <hr class="tableLine" />
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <v-container>
+                    <v-row>
+                      <v-col>
+                        <H4>Biografie:</H4><br>
+                        <p v-if="user.biografie">{{ user.biografie }}</p>
+                        <p v-else>(nu exista)</p>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <hr class="tableLine" />
+                  <v-container>
+                    <v-row >
+                      <v-col>
+                        <p v-if="reviews">Numar de review-uri: {{ reviews.length }}</p>
+                        <p v-else>Numar de review-uri: 0</p>
+                        <p>Numar de produse adaugate: </p>
+                        <p>Numar total de aprecieri la review-uri: 0</p>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-tab-item>
+                <v-tab-item class="profileColor">
+                  <br>
+                  Acestea sunt recenziile tale!
+                  <br>
+                  <v-container>
+                    <v-row justify="center">
+                      <v-col sm="12" md="10" lg="9" xl="8">
+                        <v-card class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
+                          <v-container>
+                            <div>
+                              <v-row no-gutters>
+                                <v-col md="1" sm="2" class="hidden-sm-and-up">
+                                  <v-avatar size="42">
+                                    <img :src="review.userImg">
+                                  </v-avatar>
+                                </v-col>
+                                <v-spacer/>
+                                <v-btn icon>
+                                  <v-icon>mdi-arrow-right</v-icon>
+                                </v-btn>
+                              </v-row>
 
-                        <v-row no-gutters style="max-height:10rem">
-                          <v-col md="1" sm="1">
-                            <v-avatar>
-                              <img :src="review.userImg" class="avatar">
-                            </v-avatar>
-                          </v-col>
-                          <v-col md="6" class="hidden-sm-and-down">
-                            <v-card-title class="nume-review">{{review.name}}</v-card-title>
-                          </v-col>
-                          <v-col md="3" sm="9">
-                            <v-rating class="stele"
-                                      background-color="warning lighten-1"
-                                      color="warning"
-                                      half-increments
-                                      length="5"
-                                      readonly
-                                      size="1.5rem"
-                                      :value=review.rating
-                            ></v-rating>
-                          </v-col>
-                          <v-col cols="2" class="hidden-md-and-down">
-                            <div class="rating">
-                              ({{review.rating}})</div>
-                          </v-col>
-                          <v-col class="hidden-md-and-up" cols="12">
-                            <v-card-title class="nume-review">{{review.name}}</v-card-title>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col>
-                            <v-card-title class="titlu-review">{{review.title}}</v-card-title>
-                            <v-card-text class="text-review">{{review.text | quotes}}</v-card-text>
-                          </v-col>
-                          <v-col v-if="review.img">
-                            <div><v-img class="imag" :src="review.img" /></div>
-                          </v-col>
-                        </v-row>
-                      </div>
-                    </v-container>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-container>
-          </div>
-        </div>
+                              <v-row style="max-height:12rem; margin-top: 0.2rem;">
+                                <v-col md="1" sm="2" class="hidden-xs-only">
+                                  <v-avatar size="42">
+                                    <img :src="review.userImg">
+                                  </v-avatar>
+                                </v-col>
+                                <v-col md="6" class="hidden-sm-and-down">
+                                  <v-card-title style="cursor: pointer" class="titlu-review">
+                                    {{review.name}}
+                                  </v-card-title>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="5">
+                                  <v-row>
+                                    <v-spacer></v-spacer>
+                                    <v-col cols="8" align="right">
+                                      <v-rating class="ste"
+                                                background-color="warning lighten-1"
+                                                color="warning"
+                                                half-increments
+                                                length="5"
+                                                readonly
+                                                size="1.5rem"
+                                                :value=review.rating
+                                      ></v-rating>
+                                    </v-col>
+                                    <v-col cols="4" align="left">
+                                      <div class="rat">
+                                        ({{review.rating}})</div>
+                                    </v-col>
+                                    <v-spacer></v-spacer>
+                                  </v-row>
+                                </v-col>
+                                <v-col class="hidden-md-and-up" cols="12">
+                                  <v-card-title class="titlu-review">{{review.name}}</v-card-title>
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col>
+                                  <v-card-title class="titlu-review">{{review.title}}</v-card-title>
+                                  <v-card-text class="text-review">{{review.text | quotes}}</v-card-text>
+                                </v-col>
+                                <v-col v-if="review.img">
+                                  <div><v-img class="imag" :src="review.img" /></div>
+                                </v-col>
+                              </v-row>
+                            </div>
+                          </v-container>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-tab-item>
+              </v-tabs>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-container>
     </v-main>
     <br />
@@ -160,31 +179,28 @@ export default {
     height: 2.5rem !important;
     width: 2.5rem !important;
   }
-  .v-card__title{
-    word-break: break-word !important;
-  }
   .rat{
     font-size: 1rem !important;
   }
+}
+.v-card__title{
+  word-break: break-word;
 }
 .main {
   background-color: #ffffff;
   font-family: 'Lato', sans-serif;
   margin-top: 5rem;
-  min-height: 75vh;
+  min-height: 85vh;
 }
-.profileCard {
-  top: 5px;
-  left: 0;
-  max-width: 100%;
-  min-width:60%;
-  width: fit-content;
-  padding: 20px;
+.profileColor {
   background-color: #f5f5f5;
-  border-radius: 10px;
 }
 .profilePic{
   border-radius: 10px;
+  max-width:25vh;
+  min-width:15vh;
+  height:25vh;
+  width:auto;
 }
 th, td {
   padding-left: 150px;
@@ -195,8 +211,8 @@ table{
   margin:auto;
 }
 .tableLine{
-  min-width:20rem;
-  max-width:50rem;
+  min-width:10vh;
+  max-width:10vh;
   width: available;
   margin:auto;
 }
@@ -216,28 +232,28 @@ table{
   font-weight: bolder;
   text-align: left;
 }
-.nume-review {
-  font-family: 'Archivo Black', sans-serif;
-  font-weight: bolder;
-  font-size: 25px;
-  text-align: justify;
-  text-justify: inter-word;
-}
-.stele{
-  color: #ff9454;
-  float: right;
-  margin-top: 17px;
-}
-.rating{
-  font-size: 20px;
-  margin-top: 16px;
-  font-family: 'Lato', sans-serif;
-  font-weight: bold;
-}
-.avatar{
-  float:left;
-  font-size:32px;
-  height: 42px;
-  width: 42px;
-}
+/*.nume-review {*/
+/*  font-family: 'Archivo Black', sans-serif;*/
+/*  font-weight: bolder;*/
+/*  font-size: 25px;*/
+/*  text-align: justify;*/
+/*  text-justify: inter-word;*/
+/*}*/
+/*.stele{*/
+/*  color: #ff9454;*/
+/*  float: right;*/
+/*  margin-top: 17px;*/
+/*}*/
+/*.rating{*/
+/*  font-size: 20px;*/
+/*  margin-top: 16px;*/
+/*  font-family: 'Lato', sans-serif;*/
+/*  font-weight: bold;*/
+/*}*/
+/*.avatar{*/
+/*  float:left;*/
+/*  font-size:32px;*/
+/*  height: 42px;*/
+/*  width: 42px;*/
+/*}*/
 </style>
