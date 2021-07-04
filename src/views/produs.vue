@@ -75,7 +75,7 @@
                   <v-col cols="4" sm="2" md="2" align="right" align-self="center" v-if="review.edited === true">
                     (editat)
                   </v-col>
-                  <v-col class="centru" cols="2" sm="1">
+                  <v-col class="centru" cols="2" sm="1" v-if="userKey !== review.userKey">
                     <ReportReviewPopup />
                   </v-col>
                   <v-col cols="2" sm="1" v-if="userKey === review.userKey">

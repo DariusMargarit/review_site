@@ -49,7 +49,7 @@
                       <v-col>
                         <p v-if="reviews">Numar de review-uri: {{ reviews.length }}</p>
                         <p v-else>Numar de review-uri: 0</p>
-                        <p>Numar de produse adaugate: </p>
+                        <p>Numar de produse adaugate: 0</p>
                         <p>Numar total de aprecieri la review-uri: 0</p>
                       </v-col>
                     </v-row>
@@ -57,7 +57,8 @@
                 </v-tab-item>
                 <v-tab-item class="profileColor">
                   <br>
-                  Acestea sunt recenziile tale!
+                  <p v-if="reviews.length !== 0">Acestea sunt recenziile tale!</p>
+                  <p v-else>Momentan nu ai nicio recenzie!</p>
                   <br>
                   <v-container>
                     <v-row justify="center">
@@ -84,7 +85,7 @@
                                   </v-avatar>
                                 </v-col>
                                 <v-col md="6" class="hidden-sm-and-down">
-                                  <v-card-title style="cursor: pointer" class="titlu-review">
+                                  <v-card-title class="titlu-review">
                                     {{review.name}}
                                   </v-card-title>
                                 </v-col>

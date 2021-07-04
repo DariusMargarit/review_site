@@ -429,6 +429,7 @@ export default new Vuex.Store({
                       reviews[i].name = obj.userName
                       reviews[i].userImg = obj.profileImg
                     }).catch(err => {
+                  commit('setLoading', false)
                   console.log(err)
                 })
 
@@ -586,9 +587,12 @@ export default new Vuex.Store({
                       userImg: null
                     })
 
-                    firebase.database().ref('/users/' + payload).once('value').then((val) => {
-                      reviews[reviews.length - 1].name = val.val().userName
-                      reviews[reviews.length - 1].userImg = val.val().profileImg
+                    const i = reviews.length - 1
+
+                    firebase.database().ref('/users/' + payload).once('value')
+                        .then((val) => {
+                      reviews[i].name = val.val().userName
+                      reviews[i].userImg = val.val().profileImg
                     }).catch(err => {
                       console.log(err)
                       commit('setLoading', false)
