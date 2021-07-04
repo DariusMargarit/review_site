@@ -6,7 +6,7 @@
     <snackbar />
 
     <v-container style="justify-content: center; display: flex;" >
-      <section align="center" class="formdesign">
+      <v-container align="center" class="formdesign">
         <v-form align-self="center" class="form" @submit.prevent="submitLogIn">
 
           <v-container fluid>
@@ -98,7 +98,7 @@
           </v-container>
 
         </v-form>
-      </section>
+      </v-container>
     </v-container>
 
 

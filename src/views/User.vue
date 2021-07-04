@@ -13,6 +13,10 @@
                 <v-tab-item class="profileColor">
                   <br>
                   <v-container fluid>
+                    <v-row no gutters style="padding-right: 2rem; padding-bottom: 2rem;">
+                      <v-spacer />
+                        <EditAccPopup />
+                    </v-row>
                     <v-row no-gutters justify="center" align="center">
                       <v-col>
                         <img :src="user.profileImg" class="profilePic">
@@ -142,7 +146,12 @@
 
 
 <script>
+import EditAccPopup from "../components/EditAccPopup";
+
 export default {
+  components: {
+    'EditAccPopup' : EditAccPopup
+  },
   props: ['id'],
   data: () => ({
   }),
@@ -232,28 +241,5 @@ table{
   font-weight: bolder;
   text-align: left;
 }
-/*.nume-review {*/
-/*  font-family: 'Archivo Black', sans-serif;*/
-/*  font-weight: bolder;*/
-/*  font-size: 25px;*/
-/*  text-align: justify;*/
-/*  text-justify: inter-word;*/
-/*}*/
-/*.stele{*/
-/*  color: #ff9454;*/
-/*  float: right;*/
-/*  margin-top: 17px;*/
-/*}*/
-/*.rating{*/
-/*  font-size: 20px;*/
-/*  margin-top: 16px;*/
-/*  font-family: 'Lato', sans-serif;*/
-/*  font-weight: bold;*/
-/*}*/
-/*.avatar{*/
-/*  float:left;*/
-/*  font-size:32px;*/
-/*  height: 42px;*/
-/*  width: 42px;*/
-/*}*/
+
 </style>
