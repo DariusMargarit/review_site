@@ -176,6 +176,7 @@ export default {
       catId: this.catId,
       prodId: this.prodId
     })
+
   },
   data () {
     return {
@@ -211,7 +212,9 @@ export default {
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     },
     userKey () {
-      return this.$store.getters.user.key
+      if(this.$store.getters.user !== null && this.$store.getters.user !== undefined) {
+        return this.$store.getters.user.key
+      }
     }
   },
   methods: {

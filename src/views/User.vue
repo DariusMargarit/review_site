@@ -72,7 +72,7 @@
                                   </v-avatar>
                                 </v-col>
                                 <v-spacer/>
-                                <v-btn icon>
+                                <v-btn icon :href="review.link">
                                   <v-icon>mdi-arrow-right</v-icon>
                                 </v-btn>
                               </v-row>
@@ -146,7 +146,6 @@ export default {
   data: () => ({
   }),
   created() {
-    this.$store.dispatch('loadUsers')
     this.$store.dispatch('loadUserReviews', this.id)
   },
   computed: {

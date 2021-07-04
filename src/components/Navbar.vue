@@ -93,6 +93,7 @@
         <v-badge
             color="#ff665a"
             content="1"
+            overlap
         >
           <v-menu offset-y>
             <template v-slot:activator="{ on }">

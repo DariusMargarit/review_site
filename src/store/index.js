@@ -422,11 +422,12 @@ export default new Vuex.Store({
               userImg: null
             })
 
-                firebase.database().ref('/users/' + reviews[reviews.length - 1].userKey).once('value')
+              const i = reviews.length - 1
+                firebase.database().ref('/users/' + reviews[i].userKey).once('value')
                     .then((val) => {
                       const obj = val.val()
-                      reviews[reviews.length - 1].name = obj.userName
-                      reviews[reviews.length - 1].userImg = obj.profileImg
+                      reviews[i].name = obj.userName
+                      reviews[i].userImg = obj.profileImg
                     }).catch(err => {
                   console.log(err)
                 })
@@ -484,6 +485,8 @@ export default new Vuex.Store({
                   img: url,
                   userKey: payload.userKey,
                   date: payload.date,
+                  link: 'http://localhost:8080/categorii/' + payload.catId + '/produse/'
+                      + payload.prodId,
                   edited: false
                 }).then(data => {
                   firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
@@ -528,6 +531,8 @@ export default new Vuex.Store({
           img: '',
           userKey: payload.userKey,
           date: payload.date,
+          link: 'http://localhost:8080/categorii/' + payload.catId + '/produse/'
+               + payload.prodId,
           edited: false
         }).then(data => {
           firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
@@ -576,6 +581,7 @@ export default new Vuex.Store({
                       userKey: x.userKey,
                       date: x.date,
                       edited: x.edited,
+                      link: x.link,
                       name: '',
                       userImg: null
                     })
