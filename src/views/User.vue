@@ -2,6 +2,12 @@
   <div>
     <v-main class="main">
       <br><br>
+      <v-progress-circular
+              :size="50"
+              color="primary"
+              indeterminate
+              v-if="loading"
+      ></v-progress-circular>
       <v-container>
         <v-row justify="center">
           <v-col cols="12" sm="11" md="10" lg="9" xl="8">
@@ -13,7 +19,8 @@
                 <v-tab-item class="profileColor">
                   <br>
                   <v-container fluid>
-                    <v-row no gutters style="padding-right: 2rem; padding-bottom: 2rem;">
+                    <v-row no gutters style="padding-right: 2rem; padding-bottom: 2rem;"
+                    v-if="authUser">
                       <v-spacer />
                         <EditAccPopup />
                     </v-row>
@@ -61,9 +68,12 @@
                 </v-tab-item>
                 <v-tab-item class="profileColor">
                   <br>
-                  <p v-if="reviews.length !== 0">Acestea sunt recenziile tale!</p>
-                  <p v-else>Momentan nu ai nicio recenzie!</p>
-                  <br>
+                  <p v-if="reviews.length !== 0 && authUser">Acestea sunt recenziile tale!</p>
+                  <p v-else-if="reviews.length === 0 && authUser">Momentan nu ai nicio recenzie!</p>
+                  <p v-else-if="reviews.length !== 0 && !authUser">
+                    Acestea sunt recenziile lui {{ user.userName }}!</p>
+                  <p v-else>Momentan {{ user.userName }} nu are nicio recenzie!</p>
+                  <br v-if="reviews.length !== 0">
                   <v-container>
                     <v-row justify="center">
                       <v-col sm="12" md="10" lg="9" xl="8">
@@ -154,6 +164,9 @@ export default {
   },
   props: ['id'],
   data: () => ({
+    name: '',
+    bio: '',
+    profileImg: ''
   }),
   created() {
     this.$store.dispatch('loadUserReviews', this.id)
