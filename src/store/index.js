@@ -173,7 +173,8 @@ export default new Vuex.Store({
             email: payload.email,
             profileImg: doc.data().profileImg,
             key: doc.data().key,
-            biografie: doc.data().biografie
+            biografie: doc.data().biografie,
+            uid: payload.uid
           }
           commit('userInfo', userInfo)
         } else commit('setError', 'Acest user nu exista sau a fost sters!')
@@ -409,6 +410,7 @@ export default new Vuex.Store({
           firebase.database().ref('/reviews/' + obj[key].reviewKey).once('value')
               .then((val) => {
             const obj = val.val()
+
             reviews.push({
               id: key,
               title: obj.title,
@@ -418,6 +420,7 @@ export default new Vuex.Store({
               userKey: obj.userKey,
               date: obj.date,
               edited: obj.edited,
+              likes: obj.likes,
               name: '',
               userImg: null
             })
@@ -686,6 +689,58 @@ export default new Vuex.Store({
         commit('setLoading', false)
       })
       commit('setLoading', false)
+    },
+    updateUserInfo ({commit}, payload) {
+      commit('setLoading', true)
+      if(payload.picture != null && payload.picture != undefined) {
+        firebase.storage().ref('profile_img/' + payload.picture.lastModified).put(payload.picture)
+            .then((fileData) => {
+              fileData.ref.getDownloadURL().then((url) => {
+                firebase.database().ref('/users/' + payload.key).update({
+                  biografie: payload.bio,
+                  profileImg: url,
+                  userName: payload.name
+                }).catch(err => {
+                  console.log(err)
+                  commit('setLoading', false)
+                })
+
+                firebase.firestore().collection('users').doc(payload.uid).update({
+                  profileImg: url,
+                  userName: payload.name
+                }).catch(err => {
+                  console.log(err)
+                  commit('setLoading', false)
+                })
+
+                commit('setLoading', false)
+
+              }).catch(err => {
+                console.log(err)
+                commit('setLoading', false)
+              })
+            }).catch(err => {
+          console.log(err)
+          commit('setLoading', false)
+        })
+      }
+       else {
+        firebase.database().ref('/users/' + payload.key).update({
+          userName: payload.name
+        }).catch(err => {
+          console.log(err)
+          commit('setLoading', false)
+        })
+
+        firebase.firestore().collection('users').doc(payload.uid).update({
+          userName: payload.name
+        }).catch(err => {
+          console.log(err)
+          commit('setLoading', false)
+        })
+
+        commit('setLoading', false)
+      }
     }
   },
   getters: {

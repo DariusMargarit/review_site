@@ -22,7 +22,7 @@
                     <v-row no gutters style="padding-right: 2rem; padding-bottom: 2rem;"
                     v-if="authUser">
                       <v-spacer />
-                        <EditAccPopup />
+                        <EditAccPopup :userDet="user" />
                     </v-row>
                     <v-row no-gutters justify="center" align="center">
                       <v-col>
@@ -164,9 +164,6 @@ export default {
   },
   props: ['id'],
   data: () => ({
-    name: '',
-    bio: '',
-    profileImg: ''
   }),
   created() {
     this.$store.dispatch('loadUserReviews', this.id)

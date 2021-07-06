@@ -131,8 +131,8 @@
                 </v-row>
                 <v-row no-gutters class="font">
                   <v-col cols="2" sm="1">
-                    <v-btn class="heart-btn-click" icon>
-                      <v-icon>
+                    <v-btn class="heart-btn-click" icon @click="like()">
+                      <v-icon v-if="review">
                         mdi-heart-outline
                       </v-icon>
                     </v-btn>
@@ -195,7 +195,7 @@ export default {
         userKey: null,
         IdCat: this.catId,
         IdProd: this.prodId
-      },
+      }
     }
   },
   computed: {

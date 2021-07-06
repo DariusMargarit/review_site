@@ -21,6 +21,7 @@
                 prepend-inner-icon="mdi-lead-pencil"
                 label="Nume nou..."
                 auto-grow
+                rows="1"
                 v-model="newName"
                 no-resize
                 required
@@ -30,7 +31,6 @@
             <v-textarea
                 prepend-inner-icon="mdi-format-title"
                 label="Biografie noua..."
-                rows="1"
                 no-resize
                 required
                 v-model="newBio"
@@ -42,22 +42,27 @@
                   prepend-inner-icon="mdi-image"
                   dense
                   label="Alege o imagine..."
-                  v-model="newPic"
                   show-size
+                  @change="hideImg()"
+                  v-model="picture"
                   prepend-icon=""
               ></v-file-input>
-              <v-btn icon style="margin: 0; padding:0;">
+              <v-btn icon style="margin: 0; padding:0;" @click="hideImg" v-if="this.oldPic">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </v-row>
+
+            <img v-if="this.oldPic" :src="this.oldPic" class="imagePreview" id="firstImgPrev">
+            <img v-if="this.picture" :src="this.newImg" class="imagePreview">
+
           </div>
 
           <v-row style="justify-content: center; display: flex;margin-top: 4rem" no-gutters align="center">
             <v-col cols="6" md="3">
-              <v-btn depressed style="background-color:#f4c006; font-family: 'Lato', sans-serif; font-weight: bolder;" class="mr-4 buton-golit" @click="clear()">RENUNTA</v-btn>
+              <v-btn depressed style="background-color:#f4c006; font-family: 'Lato', sans-serif; font-weight: bolder;" class="mr-4 buton-golit" @click="closeCard()">RENUNTA</v-btn>
             </v-col>
             <v-col cols="6" md="3">
-              <v-btn depressed style="background-color:#ff665a; font-family: 'Lato', sans-serif; font-weight: bolder;" class="buton-send">TRIMITE</v-btn>
+              <v-btn depressed style="background-color:#ff665a; font-family: 'Lato', sans-serif; font-weight: bolder;" type="submit" :loading="loading" class="buton-send">SALVEAZA</v-btn>
             </v-col>
           </v-row>
 
@@ -79,28 +84,85 @@ export default {
     name: { required, minLength: minLength(3) },
     bio: {required, maxLength: maxLength(100)},
   },
+  props: ['userDet'],
+
+  beforeUpdate() {
+    if(!this.datamod) {
+      this.newName = this.userDet.userName
+      this.newBio = this.userDet.biografie
+      this.oldPic = this.userDet.profileImg
+    }
+  },
+
+  watch: {
+    newName(value) {
+      if(value !== this.userDet.userName) {
+        this.datamod = true
+      }
+    },
+    newBio(value) {
+      if(value !== this.userDet.biografie) {
+        this.datamod = true
+      }
+    },
+    oldPic(value) {
+      if(value !== this.userDet.profileImg) {
+        this.datamod = true
+      }
+    },
+    picture (value) {
+      if (value != null && value != undefined) {
+        const reader = new FileReader();
+        const vm = this
+        reader.addEventListener("load", function () {
+          vm.newImg = this.result
+          vm.oldPic = ''
+        })
+        reader.readAsDataURL(value)
+      }
+    }
+  },
 
   data: () => ({
     newName: '',
     newBio: '',
-    newPic: null,
+    oldPic: '',
     EditAcc: false,
+    datamod: false,
+    picture: null,
+    newImg: '',
+    loading: false
   }),
 
   methods: {
     submitForm () {
-      this.loading=true
-
-    },
-    clear () {
-      this.newBio = ''
-      this.newName = ''
-      this.newPic = null
+      this.loading = true
+      const det = {
+        name: this.newName,
+        bio: this.newBio,
+        picture: this.picture,
+        key: this.userDet.id,
+        uid: this.$store.getters.user.uid
+      }
+      this.$store.dispatch('updateUserInfo', det)
+      this.loading = false
       this.EditAcc = false
+
     },
     closeCard () {
       this.EditAcc = false
-    }
+      this.datamod = false
+      this.newImg = ''
+      this.picture = null
+      document.getElementById('firstImgPrev').style.display="block"
+    },
+    hideImg() {
+      document.getElementById('firstImgPrev').style.display="none"
+    },
+    clearImg () {
+      this.oldPic = ''
+      document.getElementById('firstImgPrev').style.display="none"
+    },
   },
 
   computed: {
@@ -114,7 +176,6 @@ export default {
     bioErrors () {
       const errors = []
       if(!this.$v.title) return errors
-      !this.$v.title.required && errors.push('Biografia este obligatorie')
       !this.$v.title.minLength && errors.push('Biografia trebuie sa contina cel putin 3 litere')
       !this.$v.title.maxlength && errors.push('Biografia poate contine cel mult 100 de caractere')
       return errors
