@@ -105,7 +105,7 @@
               <v-list-item-group>
                 <v-list-item @click="" class="item_list">
                   <v-list-item-icon>
-                    <v-icon class="avatar">
+                    <v-icon class="avatar" style="color:#1fc7ff">
                       {{ notificare.icon }}
                     </v-icon>
                   </v-list-item-icon>
@@ -129,7 +129,7 @@
             <v-list-item-group>
               <v-list-item @click="goToMyAcc" class="item_list">
                 <v-list-item-icon>
-                  <v-icon class="avatar">
+                  <v-icon class="avatar" style="color: #1fc7ff">
                     mdi-account-circle
                   </v-icon>
                 </v-list-item-icon>
@@ -140,7 +140,7 @@
               </v-list-item>
               <v-list-item style="font-family: 'Lato', sans-serif;font-weight: bold;" @click="logout" class="item_list">
                 <v-list-item-icon>
-                  <v-icon class="avatar">
+                  <v-icon class="avatar" style="color: #1fc7ff">
                     mdi-logout
                   </v-icon>
                 </v-list-item-icon>

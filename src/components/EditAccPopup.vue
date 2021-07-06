@@ -62,7 +62,7 @@
               <v-btn depressed style="background-color:#f4c006; font-family: 'Lato', sans-serif; font-weight: bolder;" class="mr-4 buton-golit" @click="closeCard()">RENUNTA</v-btn>
             </v-col>
             <v-col cols="6" md="3">
-              <v-btn depressed style="background-color:#ff665a; font-family: 'Lato', sans-serif; font-weight: bolder;" type="submit" :loading="loading" class="buton-send">SALVEAZA</v-btn>
+              <v-btn depressed style="background-color:#5acbff; font-family: 'Lato', sans-serif; font-weight: bolder;" type="submit" :loading="loading" class="buton-send">SALVEAZA</v-btn>
             </v-col>
           </v-row>
 
