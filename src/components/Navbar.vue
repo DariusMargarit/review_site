@@ -116,6 +116,9 @@
             </v-list>
           </v-menu>
         </v-badge>
+
+        <router-link to="/reports" style="text-decoration: none; margin-left: 1rem;"><v-btn icon dark><v-icon>mdi-alert-octagon</v-icon></v-btn></router-link>
+
       </div>
 
       <div v-if="userIsAuthenticated" style="margin-left: 1rem">
