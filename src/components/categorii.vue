@@ -11,7 +11,7 @@
         v-if="loading"
     ></v-progress-circular>
     <v-container v-if="!loading" >
-      <v-row style="">
+      <v-row>
         <v-col align="center" style="justify-content: center;display: flex;" v-for="categorie in categorii" :key="categorie.id">
           <v-card  class="cat"  @click="goToCat(categorie.id)">
             <img class="imagini" :src="categorie.img" alt="alt text" />

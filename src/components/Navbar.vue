@@ -72,6 +72,7 @@
         <router-link to="/" style="text-decoration: none; padding:15px" class="white--text font">ACASA</router-link>
         <router-link to="/categorii" style="text-decoration: none; padding:15px" class="white--text font">CATEGORII </router-link>
         <router-link to="/despreNoi" style="text-decoration: none; padding:15px" class="white--text font">DESPRE NOI</router-link>
+        <router-link to="/reports" style="text-decoration: none; padding: 15px;" class="white--text font">PANOU - ADMINI</router-link>
         <router-link to="/Login" v-if="!userIsAuthenticated" style="text-decoration: none; padding:15px" class="white--text font">AUTENTIFICA-TE</router-link>
         <router-link to="/Signup" v-if="!userIsAuthenticated" style="text-decoration: none; padding:15px" class="white--text font">INSCRIE-TE</router-link>
       </div>
@@ -116,8 +117,6 @@
             </v-list>
           </v-menu>
         </v-badge>
-
-        <router-link to="/reports" style="text-decoration: none; margin-left: 1rem;"><v-btn icon dark><v-icon>mdi-alert-octagon</v-icon></v-btn></router-link>
 
       </div>
 
