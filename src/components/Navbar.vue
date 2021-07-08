@@ -62,8 +62,8 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem;" class="bigdiv">
-      <v-app-bar-nav-icon dark @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
-      <v-app-bar-nav-icon dark @click.native.stop="sideSearch=!sideSearch" class="hidden-md-and-up"><v-icon>mdi-magnify</v-icon></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon dark @click.native.stop="sideNavBtn" class="hidden-lg-and-up"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon dark @click.native.stop="sideSearchBtn" class="hidden-md-and-up"><v-icon>mdi-magnify</v-icon></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-md-and-down">
         <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
       </v-app-bar-title>
@@ -102,6 +102,21 @@
                 mdi-bell-ring
               </v-icon>
             </template>
+            <v-list>
+              <v-list-item-group>
+                <v-list-item @click="goToMyAccNotif" class="item_list">
+                  <v-list-item-icon>
+                    <v-icon class="avatar" style="color: #1fc7ff">
+                      mdi-arrow-right
+                    </v-icon>
+                  </v-list-item-icon>
+
+                  <v-list-item-content>
+                    <v-list-item-title style="font-family: 'Lato', sans-serif;font-weight: bold;">Toate notificarile</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
             <v-list class="list" v-for="notificare in notificare" :key="notificare.mesaj">
               <v-list-item-group>
                 <v-list-item @click="" class="item_list">
@@ -190,6 +205,10 @@ export default {
       const id = this.$store.getters.user.key
       this.$router.push('/user/' + id)
     },
+    goToMyAccNotif () {
+      const id = this.$store.getters.user.key
+      this.$router.push('/user/' + id + '?tab=3')
+    },
     toSignUp () {
       this.$router.push('/Signup')
     },
@@ -198,6 +217,14 @@ export default {
     },
     goToHome () {
       this.$router.push('/')
+    },
+    sideNavBtn () {
+      window.scrollTo(0,0);
+      this.sideNav=true;
+    },
+    sideSearchBtn () {
+      window.scrollTo(0,0);
+      this.sideSearch=true;
     }
   }
 }

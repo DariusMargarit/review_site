@@ -3,26 +3,26 @@
     <v-main class="main">
       <br><br>
       <v-progress-circular
-              :size="50"
-              color="primary"
-              indeterminate
-              v-if="loading"
+          :size="50"
+          color="primary"
+          indeterminate
+          v-if="loading"
       ></v-progress-circular>
       <v-container>
         <v-row justify="center">
           <v-col cols="12" sm="11" md="10" lg="9" xl="8">
             <v-card>
-              <v-tabs grow color="#000000" background-color="grey lighten-2" slider-color="hsl(47, 95%, 49%)">
-                <v-tab><v-icon>mdi-account-circle</v-icon></v-tab>
-                <v-tab><v-icon>mdi-card-bulleted</v-icon></v-tab>
-                <v-tab><v-icon>mdi-bell-ring</v-icon></v-tab>
-                <v-tab-item class="profileColor">
+              <v-tabs v-model="tab" grow color="#000000" background-color="grey lighten-2" slider-color="hsl(47, 95%, 49%)">
+                <v-tab href="#1"><v-icon>mdi-account-circle</v-icon></v-tab>
+                <v-tab href="#2"><v-icon>mdi-card-bulleted</v-icon></v-tab>
+                <v-tab href="#3"><v-icon>mdi-bell-ring</v-icon></v-tab>
+                <v-tab-item class="profileColor" value="1">
                   <br>
                   <v-container fluid>
                     <v-row no gutters style="padding-right: 2rem; padding-bottom: 2rem;"
-                    v-if="authUser">
+                           v-if="authUser">
                       <v-spacer />
-                        <EditAccPopup :userDet="user" />
+                      <EditAccPopup :userDet="user" />
                     </v-row>
                     <v-row no-gutters justify="center" align="center">
                       <v-col>
@@ -66,7 +66,7 @@
                     </v-row>
                   </v-container>
                 </v-tab-item>
-                <v-tab-item class="profileColor">
+                <v-tab-item class="profileColor" value="2">
                   <br>
                   <p v-if="reviews.length !== 0 && authUser">Acestea sunt recenziile tale!</p>
                   <p v-else-if="reviews.length === 0 && authUser">Momentan nu ai nicio recenzie!</p>
@@ -144,6 +144,10 @@
                     </v-row>
                   </v-container>
                 </v-tab-item>
+                <v-tab-item class="profileColor" value="3">
+                  <br>
+                  <H3>Notificari</H3>
+                </v-tab-item>
               </v-tabs>
             </v-card>
           </v-col>
@@ -163,12 +167,25 @@ export default {
     'EditAccPopup' : EditAccPopup
   },
   props: ['id'],
-  data: () => ({
-  }),
+  data () {
+    return {
+    }
+  },
   created() {
     this.$store.dispatch('loadUserReviews', this.id)
+    const querystring = window.location.search;
+    const params = new URLSearchParams(querystring);
+    this.Tab=params.get('Tab');
   },
   computed: {
+    tab: {
+      set (tab) {
+        this.$router.replace({ query: { ...this.$route.query, tab } })
+      },
+      get () {
+        return this.$route.query.tab
+      }
+    },
     user () {
       return this.$store.getters.someUser(this.id)
     },
