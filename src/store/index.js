@@ -407,25 +407,42 @@ export default new Vuex.Store({
             const reviews = []
             const obj = data.val()
         for(let key in obj) {
-          firebase.database().ref('/reviews/' + obj[key].reviewKey).once('value')
+          const reviewKey = obj[key].reviewKey
+          firebase.database().ref('/reviews/' + reviewKey).once('value')
               .then((val) => {
             const obj = val.val()
 
-            reviews.push({
-              id: key,
-              title: obj.title,
-              rating: obj.rating,
-              text: obj.text,
-              img: obj.img,
-              userKey: obj.userKey,
-              date: obj.date,
-              edited: obj.edited,
-              likes: obj.likes,
-              name: '',
-              userImg: null
-            })
+                reviews.push({
+                  id: reviewKey,
+                  title: obj.title,
+                  rating: obj.rating,
+                  text: obj.text,
+                  img: obj.img,
+                  userKey: obj.userKey,
+                  date: obj.date,
+                  edited: obj.edited,
+                  likes: 0,
+                  likeKey: '',
+                  liked: false,
+                  name: '',
+                  userImg: null
+                })
 
-              const i = reviews.length - 1
+                const i = reviews.length - 1
+
+                if(obj.likes !== undefined && obj.likes !== null) {
+                  var x = 0
+                  for(let j in obj.likes) {
+                    x++;
+                    if(obj.likes[j].userKey === payload.authUserKey) {
+                      reviews[i].liked = true
+                      reviews[i].likeKey = j
+                    }
+                  }
+                  reviews[i].likes = x
+                }
+
+
                 firebase.database().ref('/users/' + reviews[i].userKey).once('value')
                     .then((val) => {
                       const obj = val.val()
@@ -741,6 +758,26 @@ export default new Vuex.Store({
 
         commit('setLoading', false)
       }
+    },
+    like ({commit}, payload) {
+      commit('setLoading', true)
+      firebase.database().ref('/reviews/' + payload.reviewKey + '/likes/').push({
+        userKey: payload.userKey
+      }).catch(err => {
+        commit('setLoading', false)
+        console.log(err)
+      })
+      commit('setLoading', false)
+    },
+    unlike ({commit}, payload) {
+      commit('setLoading', true)
+      firebase.database().ref('/reviews/' + payload.reviewKey + '/likes/' + payload.likeKey)
+          .remove()
+          .catch(err => {
+        commit('setLoading', false)
+        console.log(err)
+      })
+      commit('setLoading', false)
     }
   },
   getters: {

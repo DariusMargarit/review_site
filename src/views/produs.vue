@@ -131,14 +131,19 @@
                 </v-row>
                 <v-row no-gutters class="font">
                   <v-col cols="2" sm="1">
-                    <v-btn class="heart-btn-click" icon @click="like()">
-                      <v-icon v-if="review">
+                    <v-btn icon v-if="review.liked" @click="unlike(review)">
+                      <v-icon style="color: red">
+                        mdi-heart
+                      </v-icon>
+                    </v-btn>
+                    <v-btn class="heart-btn-click" icon v-else @click="like(review)">
+                      <v-icon>
                         mdi-heart-outline
                       </v-icon>
                     </v-btn>
                   </v-col>
                   <v-col cols="4" align-self="center" align="left">
-                    369
+                    {{ review.likes }}
                   </v-col>
                   <v-spacer></v-spacer>
                   <v-col cols="6" sm="2" align-self="center" align="right">
@@ -159,6 +164,7 @@
 import EditReviewPopup from "@/components/EditReviewPopup";
 import AddReviewPopup from "../components/AddReviewPopup";
 import ReportReviewPopup from "../components/ReportReviewPopup";
+import firebase from "firebase";
 export default {
   name: "categorie",
   props: ['catId','prodId'],
@@ -172,11 +178,27 @@ export default {
       catId: this.catId,
       prodId: this.prodId
     })
-    this.$store.dispatch('loadProductReviews', {
-      catId: this.catId,
-      prodId: this.prodId
-    })
 
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        firebase.firestore().collection('users').doc(user.uid).onSnapshot((doc) => {
+          if (doc.exists) {
+            this.$store.dispatch('loadProductReviews', {
+              catId: this.catId,
+              prodId: this.prodId,
+              authUserKey: doc.data().key
+            })
+          }
+        })
+      }
+       else {
+        this.$store.dispatch('loadProductReviews', {
+          catId: this.catId,
+          prodId: this.prodId,
+          authUserKey: ''
+        })
+      }
+    })
   },
   data () {
     return {
@@ -221,7 +243,7 @@ export default {
     goToUserProfile (id) {
       this.$router.push('/user/' + id)
     },
-    transfData(value) {
+    transfData (value) {
       this.reviewDet.id = value.id
       this.reviewDet.img = value.img
       this.reviewDet.name = value.name
@@ -230,6 +252,23 @@ export default {
       this.reviewDet.title = value.title
       this.reviewDet.userImg = value.userImg
       this.reviewDet.userKey = value.userKey
+    },
+    like (value) {
+      if(this.userIsAuthenticated) {
+        this.$store.dispatch('like', {
+          reviewKey: value.id,
+          userKey: this.userKey
+        })
+      }
+       else {
+         this.$router.push('/Login')
+      }
+    },
+    unlike (value) {
+      this.$store.dispatch('unlike', {
+        reviewKey: value.id,
+        likeKey: value.likeKey
+      })
     }
   }
 }
