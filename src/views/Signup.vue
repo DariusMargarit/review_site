@@ -7,7 +7,7 @@
 
     <v-container style="margin-top: 4%; justify-content: center; display: flex;" >
       <section class="formdesign">
-        <v-form class="form">
+        <v-form class="form" @submit.prevent="submitForm()">
           <v-container fluid>
             <h1 style="font-family: 'Lato', sans-serif">Inscrie-te!</h1>
           </v-container>
@@ -22,7 +22,7 @@
             <v-row no-gutters align-content="center">
               <v-col>
                 <div class="wrapper">
-                  <div class="button" @click="facebookSignUp">
+                  <div class="button" @click="facebookSignUp()">
                     <div class="icon-facebook">
                       <i><v-icon class="pb-1" size="40">mdi-facebook</v-icon></i>
                     </div>
@@ -31,7 +31,7 @@
               </v-col>
               <v-col>
                 <div class="wrapper">
-                  <div class="button" @click="googleSignUp">
+                  <div class="button" @click="googleSignUp()">
                     <div class="icon-google">
                       <i><v-icon class="pb-1" size="35">mdi-google</v-icon></i>
                     </div>
@@ -93,7 +93,7 @@
                 <v-btn style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
               </v-col>
               <v-col align-self="center">
-                <v-btn class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear">goleste</v-btn>
+                <v-btn class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear()">goleste</v-btn>
               </v-col>
             </v-row>
           </v-container>
@@ -131,11 +131,9 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import snackbar from "../components/snackbar";
-
 export default {
   name: "signup",
   components: {
-    // 'navbar': Navbar,
     'snackbar': snackbar
   },
   mixins: [validationMixin],
@@ -187,7 +185,6 @@ export default {
     user (value) {
       if(value !== null && value !== undefined) {
         this.$router.push('/')
-        this.loading = false
       }
     },
     error (value) {
@@ -202,8 +199,9 @@ export default {
   },
   methods: {
     submitForm () {
-      this.loading = true;
+      this.loading = true
       this.$store.dispatch('signUserUp', {email: this.email, password: this.password, username:this.name})
+      this.loading = false
     },
     googleSignUp () {
       var provider = new firebase.auth.GoogleAuthProvider();
@@ -229,20 +227,30 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
-
 @media screen and (max-width: 1264px) {
   .formdesign {
     background: rgba(0,204,255, 0) !important;
     height: 80% !important;
     width: 80% !important;
   }
-
   .form {
     min-height: 80% !important;
     width: 100% !important;
   }
+
 }
 
+@media screen and (min-width: 1904px) {
+  .formdesign {
+    max-height: 60vh !important;
+    max-width: 70vh !important;
+  }
+
+  .main {
+    min-height: 120vh !important;
+  }
+
+}
 .main {
   background: rgb(0,204,255);
   background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
@@ -252,14 +260,11 @@ export default {
   justify-content: center;
   align-content: center;
 }
-
 .formdesign {
   margin-top: 3rem;
   padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
-  height: 80vh;
-  width: 70vh;
   background: linear-gradient(
       to right bottom,
       rgba(255, 255, 255, 0.7),
@@ -269,24 +274,21 @@ export default {
   z-index: 2;
   backdrop-filter: blur(2rem);
   display: flex;
+  align-content: center;
 }
-
 .containers {
   display: flex;
   align-content: center;
   justify-content: center;
   text-align: center;
 }
-
 .form {
   min-height: 75vh;
   width: 60vh;
 }
-
 .bttn {
   margin-left: 6px;
 }
-
 .text {
   color: gray;
   font-family: 'Lato', sans-serif;
@@ -343,7 +345,6 @@ export default {
 .wrapper .button:hover .icon-google i {
   color: #fff;
 }
-
 .circle1,
 .circle2,
 .circle3,
@@ -357,7 +358,6 @@ export default {
   position: absolute;
   border-radius: 50%;
 }
-
 .circle1 {
   top: 7%;
   right: 20%;
@@ -370,19 +370,16 @@ export default {
   height: 20rem;
   width: 20rem;
 }
-
 .circle3 {
   top: 17%;
   right:12%;
   height: 10rem;
   width: 10rem;
 }
-
 .circle4{
   top: 35%;
   left: 8%;
   height:11rem;
   width:11rem;
 }
-
 </style>

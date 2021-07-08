@@ -1,66 +1,73 @@
 <template>
-
   <v-dialog v-model="EditAcc" width="600">
     <template v-slot:activator="{ on }">
-      <v-button class="buton-edit" v-on="on">
+      <v-btn icon v-on="on">
         <v-icon>
           mdi-lead-pencil
         </v-icon>
-      </v-button>
+      </v-btn>
     </template>
 
     <v-card class="main-content">
-      <div >
-        <v-form>
-          <div @click="EditAcc = !EditAcc"><v-icon class="closeIcon">mdi-close</v-icon></div>
+      <v-container class="form">
+        <div @click="closeCard()"><v-icon class="closeIcon">mdi-close</v-icon></div>
 
-          <h1>Editeaza contul</h1>
-          <br />
-          <br />
+        <h1>Modifica-ti contul!</h1>
 
+        <v-form @submit.prevent="submitForm">
           <div align="center">
 
             <v-textarea
                 prepend-inner-icon="mdi-lead-pencil"
-                v-model="user"
-                label="noul username"
+                label="Nume nou..."
                 auto-grow
+                rows="1"
+                v-model="newName"
                 no-resize
                 required
                 clearable
+                :error-messages="nameErrors"
             ></v-textarea>
-
             <v-textarea
-                prepend-inner-icon="mdi-lead-pencil"
-                v-model="biogr"
-                label="noua biografie"
-                auto-grow
+                prepend-inner-icon="mdi-format-title"
+                label="Biografie noua..."
                 no-resize
                 required
+                v-model="newBio"
                 clearable
+                :error-messages="bioErrors"
             ></v-textarea>
-
-            <div>
+            <v-row no-gutters>
               <v-file-input
                   prepend-inner-icon="mdi-image"
-                  label="Schimba imaginea"
                   dense
+                  label="Alege o imagine..."
                   show-size
-                  prepend-icon=""
+                  @change="hideImg()"
                   v-model="picture"
+                  prepend-icon=""
               ></v-file-input>
-              <img :src="this.imageUrl" class="imagePreview" v-if="this.picture">
-            </div>
+              <v-btn icon style="margin: 0; padding:0;" @click="hideImg" v-if="this.oldPic">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </v-row>
+
+            <img v-if="this.oldPic" :src="this.oldPic" class="imagePreview" id="firstImgPrev">
+            <img v-if="this.picture" :src="this.newImg" class="imagePreview">
+
           </div>
 
-          <div align="center">
-            <br />
-            <v-btn class="mr-4 " depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
-            <v-btn @click="clear" depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
-          </div>
+          <v-row style="justify-content: center; display: flex;margin-top: 4rem" no-gutters align="center">
+            <v-col cols="6" md="3">
+              <v-btn depressed style="background-color:#f4c006; font-family: 'Lato', sans-serif; font-weight: bolder;" class="mr-4 buton-golit" @click="closeCard()">RENUNTA</v-btn>
+            </v-col>
+            <v-col cols="6" md="3">
+              <v-btn depressed style="background-color:#5acbff; font-family: 'Lato', sans-serif; font-weight: bolder;" type="submit" :loading="loading" class="buton-send">SALVEAZA</v-btn>
+            </v-col>
+          </v-row>
 
         </v-form>
-      </div>
+      </v-container>
     </v-card>
 
   </v-dialog>
@@ -74,42 +81,115 @@ import { required, maxLength, minLength } from 'vuelidate/lib/validators'
 export default {
   mixins: [validationMixin],
   validations: {
-    name: { required, maxLength: maxLength(15), minLength: minLength(3) },
-    description: {required, maxLength: maxLength(100)},
+    name: { required, minLength: minLength(3) },
+    bio: {required, maxLength: maxLength(100)},
+  },
+  props: ['userDet'],
+
+  beforeUpdate() {
+    if(!this.datamod) {
+      this.newName = this.userDet.userName
+      this.newBio = this.userDet.biografie
+      this.oldPic = this.userDet.profileImg
+    }
+  },
+
+  watch: {
+    newName(value) {
+      if(value !== this.userDet.userName) {
+        this.datamod = true
+      }
+    },
+    newBio(value) {
+      if(value !== this.userDet.biografie) {
+        this.datamod = true
+      }
+    },
+    oldPic(value) {
+      if(value !== this.userDet.profileImg) {
+        this.datamod = true
+      }
+    },
+    picture (value) {
+      if (value != null && value != undefined) {
+        const reader = new FileReader();
+        const vm = this
+        reader.addEventListener("load", function () {
+          vm.newImg = this.result
+          vm.oldPic = ''
+        })
+        reader.readAsDataURL(value)
+      }
+    }
   },
 
   data: () => ({
-    user: '',
-    biogr: '',
-    picture: null,
-    loading: false,
+    newName: '',
+    newBio: '',
+    oldPic: '',
     EditAcc: false,
+    datamod: false,
+    picture: null,
+    newImg: '',
+    loading: false
   }),
 
   methods: {
     submitForm () {
-      this.loading=true
+      this.loading = true
       const det = {
-        user: this.titluReview,
-        biogr: this.biogr,
+        name: this.newName,
+        bio: this.newBio,
         picture: this.picture,
-        userName: this.user.userName,
-        userKey: this.user.key,
+        key: this.userDet.id,
+        uid: this.$store.getters.user.uid
       }
-    },
-    clear () {
-      this.$v.$reset()
-      this.user = ''
-      this.biogr = ''
+      this.$store.dispatch('updateUserInfo', det)
       this.loading = false
-      this.imageUrl = null
+      this.EditAcc = false
+
+    },
+    closeCard () {
+      this.EditAcc = false
+      this.datamod = false
+      this.newImg = ''
       this.picture = null
+      document.getElementById('firstImgPrev').style.display="block"
+    },
+    hideImg() {
+      document.getElementById('firstImgPrev').style.display="none"
+    },
+    clearImg () {
+      this.oldPic = ''
+      document.getElementById('firstImgPrev').style.display="none"
+    },
+  },
+
+  computed: {
+    nameErrors () {
+      const errors = []
+      if(!this.$v.title) return errors
+      !this.$v.title.required && errors.push('Numele este obligatoriu')
+      !this.$v.title.minLength && errors.push('Numele trebuie sa contina cel putin 3 litere')
+      return errors
+    },
+    bioErrors () {
+      const errors = []
+      if(!this.$v.title) return errors
+      !this.$v.title.minLength && errors.push('Biografia trebuie sa contina cel putin 3 litere')
+      !this.$v.title.maxlength && errors.push('Biografia poate contine cel mult 100 de caractere')
+      return errors
     }
   }
 }
 </script>
 
 <style>
+.form {
+  min-height: 55vh;
+  min-width: 35vh;
+}
+
 .main-content {
   background-color: white;
   min-height: 60vh;
@@ -118,7 +198,7 @@ export default {
   justify-content: center;
   align-content: center;
   display: flex;
-  padding: 60px;
+  padding: 2rem;
   font-family: 'Lato', sans-serif;
   font-weight: bold;
 }
@@ -149,5 +229,12 @@ export default {
   background-color: #e9e9e9;
   border-radius: 2rem;
 }
-
+.imagine {
+  float: right;
+  align-content: flex-end;
+  justify-content: center;
+  display: flex;
+  width:100%;
+  height: 100%;
+}
 </style>

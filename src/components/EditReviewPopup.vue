@@ -9,7 +9,7 @@
     </template>
 
     <v-card class="main-content">
-      <div>
+      <v-container class="form">
           <div @click="closeCard()"><v-icon class="closeIcon">mdi-close</v-icon></div>
 
           <h1>Editeaza review-ul pentru</h1>
@@ -51,6 +51,7 @@
                 no-resize
                 required
                 clearable
+                :error-messages="reviewErrors"
             ></v-textarea>
             <v-textarea
                 prepend-inner-icon="mdi-format-title"
@@ -60,6 +61,7 @@
                 required
                 v-model="title"
                 clearable
+                :error-messages="descrErrors"
             ></v-textarea>
             <v-row no-gutters>
               <v-file-input
@@ -88,7 +90,7 @@
           </div>
 
         </v-form>
-      </div>
+      </v-container>
     </v-card>
 
   </v-dialog>
@@ -96,13 +98,13 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, maxLength, minLength } from 'vuelidate/lib/validators'
+import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   mixins: [validationMixin],
   validations: {
-    name: { required, maxLength: maxLength(15), minLength: minLength(3) },
-    description: {required, maxLength: maxLength(100)},
+    text: { required, minLength: minLength(3) },
+    title: {required, minLength: minLength(3)},
   },
 
   props: ['reviewDet'],
@@ -179,7 +181,23 @@ export default {
   computed: {
     theProd () {
       return this.$store.getters.theProd
+    },
+    reviewErrors () {
+      const errors = []
+      if(!this.$v.text) return errors
+      !this.$v.text.required && errors.push('Va rugam adaugati un review')
+      !this.$v.text.minLength && errors.push('Textul trebuie sa contina cel putin 3 litere')
+      return errors
+    },
+
+    descrErrors () {
+      const errors = []
+      if(!this.$v.title) return errors
+      !this.$v.title.required && errors.push('Descrierea este obligatorie')
+      !this.$v.title.minLength && errors.push('Descrierea trebuie sa contina cel putin 3 litere')
+      return errors
     }
+
   },
 
   methods: {
@@ -230,6 +248,10 @@ export default {
 
 <style>
 
+.form {
+  min-height: 55vh;
+  min-width: 35vh;
+}
 
 .main-content {
   background-color: white;
@@ -278,5 +300,6 @@ export default {
   width:100%;
   height: 100%;
 }
+
 
 </style>

@@ -62,9 +62,11 @@ export default new Vuex.Store({
     signUserUp ({commit}, payload) {
       const newUser = {
         userName: payload.username,
+        biografie: "Salut! Folosesc HonestReviews!",
         profileImg: "https://firebasestorage.googleapis.com/v0/b/itec-8b9cf.appspot.com/o/FREE-PROFILE-AVATARS.png?alt=media&token=a6b17192-ac3a-44ca-928f-08856f438d15",
       }
-      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then((cred) => {
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+          .then((cred) => {
         const id = cred.user.uid
 
         firebase.database().ref('users').push(newUser).then((data) => {
@@ -113,13 +115,14 @@ export default new Vuex.Store({
 
         const newUser = {
           userName: cred.additionalUserInfo.profile.name,
-          profileImg: cred.additionalUserInfo.profile.picture
+          profileImg: cred.additionalUserInfo.profile.picture,
+          biografie: "Salut! Folosesc HonestReviews!"
         }
         firebase.database().ref('users').push(newUser).then((data) => {
           const newUserWithId = {
             userName: cred.additionalUserInfo.profile.name,
             profileImg: cred.additionalUserInfo.profile.picture,
-            key: data.key
+            key: data.key,
           }
           firebase.firestore().collection('users').doc(id).set(newUserWithId).then((data) => {
             commit('newUser', newUserWithId)
@@ -140,7 +143,8 @@ export default new Vuex.Store({
 
         const newUser = {
           userName: cred.additionalUserInfo.profile.name,
-          profileImg: cred.additionalUserInfo.profile.picture.data.url
+          profileImg: cred.additionalUserInfo.profile.picture.data.url,
+          biografie: "Salut! Folosesc HonestReviews!"
         }
         firebase.database().ref('users').push(newUser).then((data) => {
           const newUserWithId = {
@@ -157,7 +161,7 @@ export default new Vuex.Store({
           console.log(err)
         })
 
-      }).then(err => {
+      }).catch(err => {
         commit('setError', err)
       })
     },
@@ -168,7 +172,9 @@ export default new Vuex.Store({
             userName: doc.data().userName,
             email: payload.email,
             profileImg: doc.data().profileImg,
-            key: doc.data().key
+            key: doc.data().key,
+            biografie: doc.data().biografie,
+            uid: payload.uid
           }
           commit('userInfo', userInfo)
         } else commit('setError', 'Acest user nu exista sau a fost sters!')
@@ -188,7 +194,8 @@ export default new Vuex.Store({
           users.push({
             id: key,
             userName: obj[key].userName,
-            profileImg: obj[key].profileImg
+            profileImg: obj[key].profileImg,
+            biografie: obj[key].biografie
           })
         }
         commit('setAllUsers', users)
@@ -403,6 +410,7 @@ export default new Vuex.Store({
           firebase.database().ref('/reviews/' + obj[key].reviewKey).once('value')
               .then((val) => {
             const obj = val.val()
+
             reviews.push({
               id: key,
               title: obj.title,
@@ -410,16 +418,21 @@ export default new Vuex.Store({
               text: obj.text,
               img: obj.img,
               userKey: obj.userKey,
+              date: obj.date,
+              edited: obj.edited,
+              likes: obj.likes,
               name: '',
               userImg: null
             })
 
-                firebase.database().ref('/users/' + reviews[reviews.length - 1].userKey).once('value')
+              const i = reviews.length - 1
+                firebase.database().ref('/users/' + reviews[i].userKey).once('value')
                     .then((val) => {
                       const obj = val.val()
-                      reviews[reviews.length - 1].name = obj.userName
-                      reviews[reviews.length - 1].userImg = obj.profileImg
+                      reviews[i].name = obj.userName
+                      reviews[i].userImg = obj.profileImg
                     }).catch(err => {
+                  commit('setLoading', false)
                   console.log(err)
                 })
 
@@ -474,7 +487,11 @@ export default new Vuex.Store({
                   text: payload.review,
                   title: payload.titluReview,
                   img: url,
-                  userKey: payload.userKey
+                  userKey: payload.userKey,
+                  date: payload.date,
+                  link: 'http://localhost:8080/categorii/' + payload.catId + '/produse/'
+                      + payload.prodId,
+                  edited: false
                 }).then(data => {
                   firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
                       payload.prodId + '/pareri').push({
@@ -516,7 +533,11 @@ export default new Vuex.Store({
           text: payload.review,
           title: payload.titluReview,
           img: '',
-          userKey: payload.userKey
+          userKey: payload.userKey,
+          date: payload.date,
+          link: 'http://localhost:8080/categorii/' + payload.catId + '/produse/'
+               + payload.prodId,
+          edited: false
         }).then(data => {
           firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
               payload.prodId + '/pareri').push({
@@ -562,13 +583,19 @@ export default new Vuex.Store({
                       text: x.text,
                       img: x.img,
                       userKey: x.userKey,
+                      date: x.date,
+                      edited: x.edited,
+                      link: x.link,
                       name: '',
                       userImg: null
                     })
 
-                    firebase.database().ref('/users/' + payload).once('value').then((val) => {
-                      reviews[reviews.length - 1].name = val.val().userName
-                      reviews[reviews.length - 1].userImg = val.val().profileImg
+                    const i = reviews.length - 1
+
+                    firebase.database().ref('/users/' + payload).once('value')
+                        .then((val) => {
+                      reviews[i].name = val.val().userName
+                      reviews[i].userImg = val.val().profileImg
                     }).catch(err => {
                       console.log(err)
                       commit('setLoading', false)
@@ -629,7 +656,8 @@ export default new Vuex.Store({
                     img: url,
                     rating: payload.rating,
                     text: payload.text,
-                    title: payload.title
+                    title: payload.title,
+                    edited: true
                   }).catch(err => {
                     console.log(err)
                     commit('setLoading', false)
@@ -649,7 +677,8 @@ export default new Vuex.Store({
           firebase.database().ref('/reviews/' + vm.reviewKey).update({
             rating: payload.rating,
             text: payload.text,
-            title: payload.title
+            title: payload.title,
+            edited: true
           }).catch(err => {
             console.log(err)
             commit('setLoading', false)
@@ -660,6 +689,58 @@ export default new Vuex.Store({
         commit('setLoading', false)
       })
       commit('setLoading', false)
+    },
+    updateUserInfo ({commit}, payload) {
+      commit('setLoading', true)
+      if(payload.picture != null && payload.picture != undefined) {
+        firebase.storage().ref('profile_img/' + payload.picture.lastModified).put(payload.picture)
+            .then((fileData) => {
+              fileData.ref.getDownloadURL().then((url) => {
+                firebase.database().ref('/users/' + payload.key).update({
+                  biografie: payload.bio,
+                  profileImg: url,
+                  userName: payload.name
+                }).catch(err => {
+                  console.log(err)
+                  commit('setLoading', false)
+                })
+
+                firebase.firestore().collection('users').doc(payload.uid).update({
+                  profileImg: url,
+                  userName: payload.name
+                }).catch(err => {
+                  console.log(err)
+                  commit('setLoading', false)
+                })
+
+                commit('setLoading', false)
+
+              }).catch(err => {
+                console.log(err)
+                commit('setLoading', false)
+              })
+            }).catch(err => {
+          console.log(err)
+          commit('setLoading', false)
+        })
+      }
+       else {
+        firebase.database().ref('/users/' + payload.key).update({
+          userName: payload.name
+        }).catch(err => {
+          console.log(err)
+          commit('setLoading', false)
+        })
+
+        firebase.firestore().collection('users').doc(payload.uid).update({
+          userName: payload.name
+        }).catch(err => {
+          console.log(err)
+          commit('setLoading', false)
+        })
+
+        commit('setLoading', false)
+      }
     }
   },
   getters: {

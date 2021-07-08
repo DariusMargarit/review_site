@@ -9,6 +9,7 @@ import categorie from "../views/categorie";
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import produs from "../views/produs";
+import reports from "../views/reports"
 
 Vue.use(VueRouter)
 
@@ -76,6 +77,11 @@ const routes = [
     name: 'Produs',
     props: true,
     component: produs
+  },
+  {
+    path: '/reports',
+    name: 'reports',
+    component: reports
   }
 
 ]

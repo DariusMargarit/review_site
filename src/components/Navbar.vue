@@ -1,31 +1,69 @@
 <template>
   <div>
     <v-navigation-drawer v-model="sideNav" temporary absolute>
-      <v-list>
-        <v-list-item tabindex="1">
+      <v-list-item>
+        <v-list-item-action>
           <v-btn @click="sideNav=false" class="button" depressed><v-icon>mdi-arrow-left-bold</v-icon></v-btn>
+        </v-list-item-action>
+      </v-list-item>
+      <v-list dense nav>
+        <v-list-item link>
+          <v-list-item-content>
+            <router-link to="/" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">ACASA</router-link>
+          </v-list-item-content>
         </v-list-item>
-        <v-list-item tabindex="2">
-          <router-link to="/" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">ACASA</router-link>
+        <v-list-item link>
+          <v-list-item-content>
+            <router-link to="/categorii" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">CATEGORII</router-link>
+          </v-list-item-content>
         </v-list-item>
-        <v-list-item tabindex="3">
-          <router-link to="/categorii" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">CATEGORII </router-link>
+        <v-list-item link>
+          <v-list-item-content>
+            <router-link to="/despreNoi" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">DESPRE NOI</router-link>
+          </v-list-item-content>
         </v-list-item>
-        <v-list-item tabindex="4">
-          <router-link to="/despreNoi" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">DESPRE NOI</router-link>
+        <v-list-item link>
+          <v-list-item-content>
+            <router-link v-if="!userIsAuthenticated" to="/Login" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">AUTENTIFICA-TE</router-link>
+          </v-list-item-content>
         </v-list-item>
-        <v-list-item v-if="!userIsAuthenticated" tabindex="5">
-          <router-link to="/Login" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">AUTENTIFICA-TE</router-link>
-        </v-list-item>
-        <v-list-item v-if="!userIsAuthenticated" tabindex="6">
-          <router-link to="/Signup" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">INSCRIE-TE</router-link>
+        <v-list-item link>
+          <v-list-item-content>
+            <router-link v-if="!userIsAuthenticated" to="/Signup" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">INSCRIE-TE</router-link>
+          </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <v-navigation-drawer v-model="sideSearch" temporary absolute>
+      <v-list-item>
+        <v-list-item-action>
+          <v-btn @click="sideSearch=false" class="button" depressed><v-icon>mdi-arrow-left-bold</v-icon></v-btn>
+        </v-list-item-action>
+        <v-list-item-content style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">
+          Cautare
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider/>
+      <br>
+      <v-list dense nav>
+        <v-list-item>
+          <div>
+            <div class="search-input">
+              <a href="" target="_blank" hidden></a>
+              <input type="text" placeholder="Type to search..">
+              <div class="autocom-box">
+                <!-- here list are inserted from javascript -->
+              </div>
+              <div class="icon"><v-icon>mdi-magnify</v-icon></div>
+            </div>
+          </div>
 
-
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
     <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem;" class="bigdiv">
-      <v-app-bar-nav-icon @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon dark @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon dark @click.native.stop="sideSearch=!sideSearch" class="hidden-md-and-up"><v-icon>mdi-magnify</v-icon></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-md-and-down">
         <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
       </v-app-bar-title>
@@ -34,13 +72,14 @@
         <router-link to="/" style="text-decoration: none; padding:15px" class="white--text font">ACASA</router-link>
         <router-link to="/categorii" style="text-decoration: none; padding:15px" class="white--text font">CATEGORII </router-link>
         <router-link to="/despreNoi" style="text-decoration: none; padding:15px" class="white--text font">DESPRE NOI</router-link>
+        <router-link to="/reports" style="text-decoration: none; padding: 15px;" class="white--text font">PANOU - ADMINI</router-link>
         <router-link to="/Login" v-if="!userIsAuthenticated" style="text-decoration: none; padding:15px" class="white--text font">AUTENTIFICA-TE</router-link>
         <router-link to="/Signup" v-if="!userIsAuthenticated" style="text-decoration: none; padding:15px" class="white--text font">INSCRIE-TE</router-link>
       </div>
 
       <v-spacer />
 
-      <div class="wrapper">
+      <div class="wrapper hidden-sm-and-down">
         <div class="search-input">
           <a href="" target="_blank" hidden></a>
           <input type="text" placeholder="Type to search..">
@@ -51,10 +90,40 @@
         </div>
       </div>
 
+      <div v-if="userIsAuthenticated" style="margin-left: 1rem; margin-right: 0.4rem;">
+        <v-badge
+            color="#ff665a"
+            content="1"
+            overlap
+        >
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-icon v-on="on" class="imgProfil" style="color: white">
+                mdi-bell-ring
+              </v-icon>
+            </template>
+            <v-list class="list" v-for="notificare in notificare" :key="notificare.mesaj">
+              <v-list-item-group>
+                <v-list-item @click="" class="item_list">
+                  <v-list-item-icon>
+                    <v-icon class="avatar" style="color:#1fc7ff">
+                      {{ notificare.icon }}
+                    </v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content style="font-family: 'Lato', sans-serif;font-weight: bold; ">
+                    {{ notificare.mesaj}}</v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-menu>
+        </v-badge>
+
+      </div>
+
       <div v-if="userIsAuthenticated" style="margin-left: 1rem">
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
-            <v-avatar v-on="on" class="avatarr">
+            <v-avatar v-on="on" class="imgProfil">
               <img :src="user.profileImg">
             </v-avatar>
           </template>
@@ -62,7 +131,7 @@
             <v-list-item-group>
               <v-list-item @click="goToMyAcc" class="item_list">
                 <v-list-item-icon>
-                  <v-icon class="ava">
+                  <v-icon class="avatar" style="color: #1fc7ff">
                     mdi-account-circle
                   </v-icon>
                 </v-list-item-icon>
@@ -73,7 +142,7 @@
               </v-list-item>
               <v-list-item style="font-family: 'Lato', sans-serif;font-weight: bold;" @click="logout" class="item_list">
                 <v-list-item-icon>
-                  <v-icon class="ava">
+                  <v-icon class="avatar" style="color: #1fc7ff">
                     mdi-logout
                   </v-icon>
                 </v-list-item-icon>
@@ -96,8 +165,13 @@ export default {
   name: 'nav-bar',
   data () {
     return {
+      notificare: [
+        {mesaj:'xxx a adaugat un review la produsul tau, yyy', icon:'mdi-message-reply-text'},
+        {mesaj:'xxx ti-a apreciat review-ul la produsul yyy', icon:'mdi-heart'},
+      ],
       search: '',
-      sideNav:false
+      sideNav:false,
+      sideSearch:false
     }
   },
   computed: {
@@ -150,7 +224,7 @@ export default {
   width: 6.5rem;
   float: left;
 }
-.avatarr{
+.imgProfil{
   cursor: pointer;
   font-size: 1.5rem;
   width: 2rem;
@@ -159,14 +233,13 @@ export default {
 .list{
   width:15rem;
 }
-.ava{
+.avatar{
   font-size:5rem;
 }
 .item_list:hover{
   background-color: rgba(0,204,255,0.1);
 }
 .button {
-  margin-bottom: 30px;
   text-align: center;
   background-color: hsl(47, 95%, 49%);
 }
@@ -231,10 +304,5 @@ export default {
   font-size: 20px;
   color: #644bff;
   cursor: pointer;
-}
-.button {
-  margin-bottom: 30px;
-  text-align: center;
-  background-color: hsl(47, 95%, 49%);
 }
 </style>

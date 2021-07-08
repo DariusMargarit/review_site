@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialogadd" width="500">
         <template v-slot:activator="{ on }">
-            <v-btn class="homebutton text--black font-weight-bold" plain v-on="on">Adauga un review nou</v-btn>
+            <v-btn  class="homebutton text--black" plain v-on="on">Adauga un review nou</v-btn>
         </template>
         <v-card>
             <div class="main">
@@ -69,8 +69,8 @@
                     </div>
                     <div align="center">
                         <br />
-                        <v-btn class="mr-4 " depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
-                        <v-btn @click="clear" depressed style="background-color: hsl(47, 95%, 49%);font-family: 'Lato', sans-serif; font-weight: bold;">goleste</v-btn>
+                        <v-btn class="mr-4 butoane" depressed type="submit" :loading="loading">trimite</v-btn>
+                        <v-btn @click="clear" class="butoane" depressed>goleste</v-btn>
                     </div>
                 </form>
               </div>
@@ -82,6 +82,7 @@
 <script>
     import { validationMixin } from 'vuelidate'
     import { required, maxLength, minLength } from 'vuelidate/lib/validators'
+    let current = new Date()
     export default {
         mixins: [validationMixin],
         validations: {
@@ -93,6 +94,18 @@
                 type: Object
             }
         },
+
+        created() {
+            if((current.getMonth() + 1) < 10) {
+                this.date = current.getDate() + '/' + 0 + (current.getMonth() + 1) + '/'
+                    + current.getFullYear()
+            }
+             else {
+                this.date = current.getDate() + '/' + (current.getMonth() + 1) + '/'
+                    + current.getFullYear()
+            }
+        },
+
         data: () => ({
             review: '',
             titluReview:'',
@@ -100,7 +113,8 @@
             picture: null,
             loading: false,
             dialogadd: false,
-            rating: 0
+            rating: 0,
+            date: ''
         }),
         watch : {
             picture (value) {
@@ -135,10 +149,12 @@
                     catId: this.Ids.IdCat,
                     prodId: this.Ids.IdProd,
                     newRating: this.$store.getters.theProd.rating + this.rating,
-                    newReviews: this.$store.getters.theProd.reviews + 1
+                    newReviews: this.$store.getters.theProd.reviews + 1,
+                    date: this.date
                 }
                 this.$store.dispatch('uploadReview', det)
                 this.loading = false
+                this.dialogadd = false
             },
             clear () {
                 this.$v.$reset()
@@ -148,6 +164,7 @@
                 this.picture = null
                 this.rating = 0
                 this.titluReview = ''
+                console.log(this.date)
             },
         }
     }
@@ -201,4 +218,11 @@
       width:100%;
       height: 100%;
     }
+
+    .butoane {
+      background-color: hsl(47, 95%, 49%);
+      font-family: 'Lato', sans-serif;
+      font-weight: bold;
+    }
+
 </style>

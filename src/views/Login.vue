@@ -6,7 +6,7 @@
     <snackbar />
 
     <v-container style="justify-content: center; display: flex;" >
-      <section align="center" class="formdesign">
+      <v-container align="center" class="formdesign">
         <v-form align-self="center" class="form" @submit.prevent="submitLogIn">
 
           <v-container fluid>
@@ -98,7 +98,7 @@
           </v-container>
 
         </v-form>
-      </section>
+      </v-container>
     </v-container>
 
 
@@ -219,6 +219,18 @@ export default {
   }
 }
 
+@media screen and (min-width: 1904px) {
+  .formdesign {
+    max-height: 60vh !important;
+    max-width: 70vh !important;
+  }
+
+  .main {
+    min-height: 120vh !important;
+  }
+
+}
+
 .main {
   background: rgb(0,204,255);
   background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
@@ -234,7 +246,7 @@ export default {
   padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
-  height: 80vh;
+  height: 90vh;
   width: 70vh;
   background: linear-gradient(
       to right bottom,
