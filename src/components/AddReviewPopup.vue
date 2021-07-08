@@ -155,6 +155,7 @@
                 this.$store.dispatch('uploadReview', det)
                 this.loading = false
                 this.dialogadd = false
+                window.location.reload()
             },
             clear () {
                 this.$v.$reset()
@@ -164,7 +165,6 @@
                 this.picture = null
                 this.rating = 0
                 this.titluReview = ''
-                console.log(this.date)
             },
         }
     }

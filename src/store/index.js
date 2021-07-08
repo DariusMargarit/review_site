@@ -414,6 +414,7 @@ export default new Vuex.Store({
 
                 reviews.push({
                   id: reviewKey,
+                  idFromCat: key,
                   title: obj.title,
                   rating: obj.rating,
                   text: obj.text,
@@ -509,7 +510,7 @@ export default new Vuex.Store({
                   link: 'http://localhost:8080/categorii/' + payload.catId + '/produse/'
                       + payload.prodId,
                   edited: false
-                }).then(data => {
+                }).then((data) => {
                   firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
                       payload.prodId + '/pareri').push({
                     reviewKey: data.key
@@ -652,7 +653,6 @@ export default new Vuex.Store({
             rating: payload.bigRating - payload.oldRating + payload.rating
         })
       }
-
       firebase.database().ref('/categorii/' + payload.IdCat + '/produse/' + payload.IdProd +
       '/pareri/' + payload.id).once('value').then((data) => {
         const vm = data.val()
@@ -688,9 +688,9 @@ export default new Vuex.Store({
             commit('setLoading', false)
           })
 
-
         }
          else {
+
           firebase.database().ref('/reviews/' + vm.reviewKey).update({
             rating: payload.rating,
             text: payload.text,
