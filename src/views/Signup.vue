@@ -6,7 +6,7 @@
     <snackbar />
 
     <v-container style="margin-top: 4%; align-items: center; justify-content: center; display: flex;" >
-      <v-container align="center" class="formdesign" style="align-items:center; justify-content: center;">
+      <v-container align="center" class="formdesign" style="align-items:center; justify-content: center; display: flex;">
         <v-form class="form" @submit.prevent="submitForm()">
           <v-container style="margin-top: 1rem" fluid>
             <h1 class="text">Inscrie-te!</h1>
@@ -237,27 +237,25 @@ export default {
     min-height: 80% !important;
     width: 70vh !important;
   }
-
   .main {
     background-image: none !important;
     min-height: 95vh !important;
   }
-
 }
 
 @media screen and (min-width: 1904px) {
   .formdesign {
-    max-height: 65vh !important;
-    max-width: 80rem !important;
+    max-height: 70vh !important;
+    max-width: 120rem !important;
   }
 
   .form {
-    min-height: 60vh !important;
+    min-height: 45vh !important;
     width: 80rem !important;
   }
 
   .main {
-    min-height: 120vh !important;
+    min-height: 100vh !important;
   }
 
 }
