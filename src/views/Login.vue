@@ -2,10 +2,10 @@
 
   <v-main class="main">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--    <navbar />-->
+
     <snackbar />
 
-    <v-container style="justify-content: center; display: flex; " >
+    <v-container style="justify-content: center; display: flex; align-items: center;" >
       <v-container align="center" class="formdesign" style="align-items:center; justify-content: center;">
         <v-form align-self="center" class="form" @submit.prevent="submitLogIn">
 

@@ -5,14 +5,14 @@
 
     <snackbar />
 
-    <v-container style="margin-top: 4%; justify-content: center; display: flex;" >
-      <section class="formdesign">
+    <v-container style="margin-top: 4%; align-items: center; justify-content: center; display: flex;" >
+      <v-container align="center" class="formdesign" style="align-items:center; justify-content: center;">
         <v-form class="form" @submit.prevent="submitForm()">
-          <v-container fluid>
-            <h1 style="font-family: 'Lato', sans-serif">Inscrie-te!</h1>
+          <v-container style="margin-top: 1rem" fluid>
+            <h1 class="text">Inscrie-te!</h1>
           </v-container>
 
-          <hr />
+          <hr class="dividers" />
 
           <v-container fluid>
             <span class="text">Inscrie-te cu</span>
@@ -98,7 +98,7 @@
             </v-row>
           </v-container>
 
-          <hr />
+          <hr class=dividers />
 
           <v-container class="containers">
             <v-row style="flex-basis: 31%">
@@ -112,7 +112,7 @@
           </v-container>
 
         </v-form>
-      </section>
+      </v-container>
     </v-container>
 
     <div class="circle1 hidden-md-and-down"></div>
@@ -396,6 +396,15 @@ export default {
   left: 8%;
   height:11rem;
   width:11rem;
+}
+
+.text {
+  color: #031f35;
+  font-family: 'Lato', sans-serif;
+}
+
+.dividers {
+  border-bottom: 1px solid rgba(3, 31, 53, 0.5);
 }
 
 </style>
