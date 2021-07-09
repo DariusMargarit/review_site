@@ -779,7 +779,8 @@ export default new Vuex.Store({
       }
        else {
         firebase.database().ref('/users/' + payload.key).update({
-          userName: payload.name
+          userName: payload.name,
+          biografie: payload.bio
         }).catch(err => {
           console.log(err)
           commit('setLoading', false)
