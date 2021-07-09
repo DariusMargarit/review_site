@@ -155,7 +155,6 @@
                 this.$store.dispatch('uploadReview', det)
                 this.loading = false
                 this.dialogadd = false
-                window.location.reload()
             },
             clear () {
                 this.$v.$reset()

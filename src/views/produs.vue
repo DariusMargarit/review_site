@@ -259,7 +259,6 @@ export default {
           reviewKey: value.id,
           userKey: this.userKey
         })
-        window.location.reload()
       }
        else {
          this.$router.push('/Login')
@@ -270,7 +269,6 @@ export default {
         reviewKey: value.id,
         likeKey: value.likeKey
       })
-      setTimeout(window.location.reload(), 200)
     }
   }
 }

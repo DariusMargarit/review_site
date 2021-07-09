@@ -93,8 +93,10 @@
       <div v-if="userIsAuthenticated" style="margin-left: 1rem; margin-right: 0.4rem;">
         <v-badge
             color="#ff665a"
-            content="1"
+            :content="notificari.length"
+            :value="notificari.length"
             overlap
+            v-if="notificari !== null"
         >
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
@@ -102,6 +104,21 @@
                 mdi-bell-ring
               </v-icon>
             </template>
+
+            <v-list class="list" v-for="notificare in notificari" :key="notificare.id">
+              <v-list-item-group>
+                <v-list-item @click="" class="item_list">
+                  <v-list-item-icon>
+                    <v-icon class="avatar" :style="notificare.color">
+                      {{ notificare.icon }}
+                    </v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content style="font-family: 'Lato', sans-serif;font-weight: bold; ">
+                    {{ notificare.userName }} {{ notificare.text}}</v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+
             <v-list>
               <v-list-item-group>
                 <v-list-item @click="goToMyAccNotif" class="item_list">
@@ -114,19 +131,6 @@
                   <v-list-item-content>
                     <v-list-item-title style="font-family: 'Lato', sans-serif;font-weight: bold;">Toate notificarile</v-list-item-title>
                   </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-            <v-list class="list" v-for="notificare in notificare" :key="notificare.mesaj">
-              <v-list-item-group>
-                <v-list-item @click="" class="item_list">
-                  <v-list-item-icon>
-                    <v-icon class="avatar" style="color:#1fc7ff">
-                      {{ notificare.icon }}
-                    </v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content style="font-family: 'Lato', sans-serif;font-weight: bold; ">
-                    {{ notificare.mesaj}}</v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
@@ -180,10 +184,6 @@ export default {
   name: 'nav-bar',
   data () {
     return {
-      notificare: [
-        {mesaj:'xxx a adaugat un review la produsul tau, yyy', icon:'mdi-message-reply-text'},
-        {mesaj:'xxx ti-a apreciat review-ul la produsul yyy', icon:'mdi-heart'},
-      ],
       search: '',
       sideNav:false,
       sideSearch:false
@@ -195,6 +195,9 @@ export default {
     },
     user () {
       return this.$store.getters.user
+    },
+    notificari () {
+      return this.$store.getters.notificari
     }
   },
   methods: {
