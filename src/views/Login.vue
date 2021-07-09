@@ -13,10 +13,10 @@
             <h1 style="font-family: 'Lato', sans-serif">Autentifica-te!</h1>
           </v-container>
 
-          <hr />
+          <hr class="dividers" />
 
           <v-container fluid>
-            <span class="text">Autentifica-te cu</span>
+            <span class="tex">Autentifica-te cu</span>
           </v-container>
 
           <v-container >
@@ -84,7 +84,7 @@
             </v-row>
           </v-container>
 
-          <hr />
+          <hr class="dividers" />
 
           <v-container class="containers">
             <v-row style="flex-basis: 31%">
@@ -220,13 +220,15 @@ export default {
 
   .main {
     background-image: none !important;
-    min-height: 90vh !important;
+    min-height: 95vh !important;
+    background: rgb(0,204,255) !important;
+    background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.3) 100%) !important;
   }
 }
 
 @media screen and (min-width: 1904px) {
   .formdesign {
-    max-height: 60vh !important;
+    max-height: 65vh !important;
     max-width: 70vh !important;
   }
 
@@ -237,11 +239,9 @@ export default {
 }
 
 .main {
-  /*background: rgb(0,204,255);*/
-  /*background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);*/
   background-image: linear-gradient(180deg, rgba(0,204,255,0.05) 0%, rgba(0,204,255,0.1) 100%),
   url("../assets/munti3-bg.jpg");
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -254,7 +254,7 @@ export default {
   padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
-  height: 90vh;
+  height: 70vh;
   width: 40rem;
   background: linear-gradient(
       to right bottom,
@@ -286,7 +286,7 @@ export default {
 }
 
 .text {
-  color: gray;
+  color: #031f35;
   font-family: 'Lato', sans-serif;
 }
 .separator {
@@ -299,7 +299,7 @@ export default {
 .separator::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #031f35;
 }
 .separator:not(:empty)::before {
   margin-right: .25em;
@@ -377,6 +377,10 @@ export default {
   left: 8%;
   height:11rem;
   width:11rem;
+}
+
+.dividers {
+  border-bottom: 1px solid rgba(3, 31, 53, 0.5);
 }
 
 </style>

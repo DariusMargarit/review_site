@@ -235,15 +235,25 @@ export default {
   }
   .form {
     min-height: 80% !important;
-    width: 100% !important;
+    width: 70vh !important;
+  }
+
+  .main {
+    background-image: none !important;
+    min-height: 95vh !important;
   }
 
 }
 
 @media screen and (min-width: 1904px) {
   .formdesign {
-    max-height: 60vh !important;
-    max-width: 70vh !important;
+    max-height: 65vh !important;
+    max-width: 80rem !important;
+  }
+
+  .form {
+    min-height: 60vh !important;
+    width: 80rem !important;
   }
 
   .main {
@@ -252,29 +262,33 @@ export default {
 
 }
 .main {
-  background: rgb(0,204,255);
-  background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
+  background-image: linear-gradient(180deg, rgba(0,204,255,0.05) 0%, rgba(0,204,255,0.1) 100%),
+  url("../assets/munti3-bg.jpg");
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   align-content: center;
+  margin-top: 2rem;
 }
 .formdesign {
-  margin-top: 3rem;
+  margin-top: 4rem;
   padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
+  height: 75vh;
+  width: 40rem;
   background: linear-gradient(
       to right bottom,
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.3)
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.2)
   );
+  align-items: center;
+  justify-content: center;
   border-radius: 2rem;
   z-index: 2;
   backdrop-filter: blur(2rem);
   display: flex;
-  align-content: center;
 }
 .containers {
   display: flex;
@@ -283,8 +297,8 @@ export default {
   text-align: center;
 }
 .form {
-  min-height: 75vh;
-  width: 60vh;
+  min-height: 55vh;
+  width: 70rem;
 }
 .bttn {
   margin-left: 6px;
@@ -345,6 +359,7 @@ export default {
 .wrapper .button:hover .icon-google i {
   color: #fff;
 }
+
 .circle1,
 .circle2,
 .circle3,
@@ -352,8 +367,8 @@ export default {
   background: white;
   background: linear-gradient(
       to right bottom,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.3)
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.2)
   );
   position: absolute;
   border-radius: 50%;
@@ -382,4 +397,5 @@ export default {
   height:11rem;
   width:11rem;
 }
+
 </style>
