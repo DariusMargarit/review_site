@@ -80,14 +80,26 @@
       <v-spacer />
 
       <div class="wrapper hidden-sm-and-down">
-        <div class="search-input">
-          <a href="" target="_blank" hidden></a>
-          <input type="text" placeholder="Type to search..">
-          <div class="autocom-box">
-            <!-- here list are inserted from javascript -->
-          </div>
-          <div class="icon"><v-icon>mdi-magnify</v-icon></div>
-        </div>
+<!--        <div class="search-input">-->
+<!--          <a href="" target="_blank" hidden></a>-->
+<!--          <input type="text" placeholder="Type to search..">-->
+<!--          <div class="autocom-box">-->
+<!--             here list are inserted from javascript -->
+<!--          </div>-->
+<!--          <div class="icon"><v-icon>mdi-magnify</v-icon></div>-->
+<!--        </div>-->
+        <v-autocomplete
+            style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
+            filled
+            dark
+            outlined
+            clearable
+            label="Cautare..."
+            prepend-inner-icon="mdi-magnify"
+            append-icon=""
+        >
+
+        </v-autocomplete>
       </div>
 
       <div v-if="userIsAuthenticated" style="margin-left: 1rem; margin-right: 0.4rem;">
@@ -334,5 +346,10 @@ export default {
   font-size: 20px;
   color: #644bff;
   cursor: pointer;
+}
+.v-select.v-select--is-menu-active .v-input__icon--append .v-icon {
+  transform: rotate(
+      0deg
+  );
 }
 </style>
