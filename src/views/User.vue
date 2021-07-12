@@ -215,21 +215,17 @@ export default {
 
 <style scoped>
 @media screen and (max-width:1264px) {
-  .nume-review {
-    font-size: 1rem !important;
-  }
-  .avatar {
-    font-size: 1rem !important;
-    height: 2.5rem !important;
-    width: 2.5rem !important;
-  }
+
   .rat{
     font-size: 1rem !important;
   }
+
+  .main {
+    min-height: 50vh !important;
+  }
+
 }
-.v-card__title{
-  word-break: break-word;
-}
+
 .main {
   background-color: #ffffff;
   font-family: 'Lato', sans-serif;
@@ -238,6 +234,7 @@ export default {
 }
 .profileColor {
   background-color: #f5f5f5;
+  min-height: 75vh;
 }
 .profilePic{
   border-radius: 10px;

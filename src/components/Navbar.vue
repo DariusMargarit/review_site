@@ -24,6 +24,11 @@
         </v-list-item>
         <v-list-item link>
           <v-list-item-content>
+            <router-link to="/reports" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">PANOU - ADMINI</router-link>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-content>
             <router-link v-if="!userIsAuthenticated" to="/Login" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">AUTENTIFICA-TE</router-link>
           </v-list-item-content>
         </v-list-item>
