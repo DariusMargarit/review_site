@@ -515,7 +515,7 @@ export default new Vuex.Store({
                   img: url,
                   userKey: payload.userKey,
                   date: payload.date,
-                  link: 'http://localhost:8080/categorii/' + payload.catId + '/produs/'
+                  link: '/categorii/' + payload.catId + '/produs/'
                       + payload.prodId,
                   edited: false
                 }).then((data) => {
@@ -579,7 +579,7 @@ export default new Vuex.Store({
           img: '',
           userKey: payload.userKey,
           date: payload.date,
-          link: 'http://localhost:8080/categorii/' + payload.catId + '/produs/'
+          link: '/categorii/' + payload.catId + '/produs/'
                + payload.prodId,
           edited: false
         }).then(data => {

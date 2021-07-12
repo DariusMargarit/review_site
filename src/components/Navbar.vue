@@ -34,6 +34,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
     <v-navigation-drawer v-model="sideSearch" temporary absolute>
       <v-list-item>
         <v-list-item-action>
@@ -45,22 +46,31 @@
       </v-list-item>
       <v-divider/>
       <br>
-      <v-list dense nav>
-        <v-list-item>
-          <div>
-            <div class="search-input">
-              <a href="" target="_blank" hidden></a>
-              <input type="text" placeholder="Type to search..">
-              <div class="autocom-box">
-                <!-- here list are inserted from javascript -->
-              </div>
-              <div class="icon"><v-icon>mdi-magnify</v-icon></div>
-            </div>
-          </div>
+      <v-list>
+        <v-list-item-content>
 
-        </v-list-item>
+            <v-autocomplete
+                style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
+                filled
+                auto-select-first
+                dark
+                outlined
+                clearable
+                hide-no-data
+                v-model="select"
+                :loading="loading"
+                :search-input.sync="search"
+                :items="items"
+                label="Cautare..."
+                prepend-inner-icon="mdi-magnify"
+                append-icon=""
+            >
+            </v-autocomplete>
+
+        </v-list-item-content>
       </v-list>
     </v-navigation-drawer>
+
     <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem;" class="bigdiv">
       <v-app-bar-nav-icon dark @click.native.stop="sideNavBtn" class="hidden-lg-and-up"></v-app-bar-nav-icon>
       <v-app-bar-nav-icon dark @click.native.stop="sideSearchBtn" class="hidden-md-and-up"><v-icon>mdi-magnify</v-icon></v-app-bar-nav-icon>
@@ -91,9 +101,15 @@
         <v-autocomplete
             style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
             filled
+            auto-select-first
             dark
             outlined
             clearable
+            hide-no-data
+            v-model="select"
+            :loading="loading"
+            :search-input.sync="search"
+            :items="items"
             label="Cautare..."
             prepend-inner-icon="mdi-magnify"
             append-icon=""
@@ -196,9 +212,13 @@ export default {
   name: 'nav-bar',
   data () {
     return {
-      search: '',
       sideNav:false,
-      sideSearch:false
+      sideSearch:false,
+      loading: false,
+      items: [],
+      search: '',
+      select: null,
+      chestii: []
     }
   },
   computed: {
@@ -215,6 +235,20 @@ export default {
       return this.$store.getters.searchArray
     }
   },
+
+  watch: {
+    search (valoare) {
+      valoare && valoare !== this.select && this.selectari(valoare)
+    },
+    searchArray (value) {
+      if(value !== []) {
+        for(let i in value) {
+          this.chestii.push(value[i].searchObj)
+        }
+      }
+    }
+  },
+
   methods: {
     logout () {
       this.$store.dispatch('logout')
@@ -246,7 +280,17 @@ export default {
     },
     goToReview (value) {
       this.$router.push(value)
-    }
+    },
+
+    selectari (v) {
+      this.loading = true
+      setTimeout(() => {
+        this.items = this.chestii.filter(cautare => {
+          return cautare.toLowerCase().match(this.search.toLowerCase())
+        })
+        this.loading = false
+      }, 500)
+    },
   }
 }
 </script>
