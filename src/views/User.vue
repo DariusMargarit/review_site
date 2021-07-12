@@ -87,7 +87,7 @@
                                   </v-avatar>
                                 </v-col>
                                 <v-spacer/>
-                                <v-btn icon :href="review.link">
+                                <v-btn icon @click="goToReview(review.link)">
                                   <v-icon>mdi-arrow-right</v-icon>
                                 </v-btn>
                               </v-row>
@@ -200,6 +200,14 @@ export default {
     },
     reviews () {
       return this.$store.getters.userReviews
+    },
+    notificari () {
+      return this.$store.getters.notificari
+    }
+  },
+  methods: {
+    goToReview (value) {
+      this.$router.push(value)
     }
   }
 }

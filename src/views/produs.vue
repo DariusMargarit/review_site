@@ -257,7 +257,8 @@ export default {
       if(this.userIsAuthenticated) {
         this.$store.dispatch('like', {
           reviewKey: value.id,
-          userKey: this.userKey
+          userKey: this.userKey,
+          prodName: this.theProd.name
         })
       }
        else {

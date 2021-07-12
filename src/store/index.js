@@ -540,6 +540,7 @@ export default new Vuex.Store({
                           firebase.database().ref('/users/' + val.val().creatorKey +
                           '/notificari/').push({
                             userKey: payload.userKey,
+                            prodName: payload.prodName,
                             icon: 'mdi-message-reply-text',
                             color: 'color:#1fc7ff'
                           }).catch(err => {
@@ -814,6 +815,7 @@ export default new Vuex.Store({
             firebase.database().ref('/users/' + val.val().userKey + '/notificari/')
                 .push({
                   userKey: payload.userKey,
+                  prodName: payload.prodName,
                   icon: 'mdi-heart',
                   color: 'color:red'
                 }).catch(err => {
@@ -850,6 +852,7 @@ export default new Vuex.Store({
                 text: '',
                 color: obj[key].color,
                 icon: obj[key].icon,
+                prodName: obj[key].prodName,
                 userName: ''
               })
               const i = notificari.length
@@ -858,10 +861,10 @@ export default new Vuex.Store({
                 notificari[i - 1].userName = val.val().userName
               })
               if(notificari[i - 1].icon === "mdi-message-reply-text") {
-                notificari[i - 1].text = 'a adaugat un review la produsul tau: yyy.'
+                notificari[i - 1].text = 'a adaugat un review la produsul tau: '
               }
                 else if(notificari[i - 1].icon === "mdi-heart") {
-                notificari[i - 1].text = 'ti-a apreciat review-ul la produsul: yyy.'
+                notificari[i - 1].text = 'ti-a apreciat review-ul la produsul: '
               }
 
             }

@@ -150,7 +150,8 @@
                     prodId: this.Ids.IdProd,
                     newRating: this.$store.getters.theProd.rating + this.rating,
                     newReviews: this.$store.getters.theProd.reviews + 1,
-                    date: this.date
+                    date: this.date,
+                    prodName: this.theProd.name
                 }
                 this.$store.dispatch('uploadReview', det)
                 this.loading = false

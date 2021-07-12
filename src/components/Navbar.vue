@@ -126,7 +126,7 @@
                     </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content style="font-family: 'Lato', sans-serif;font-weight: bold; ">
-                    {{ notificare.userName }} {{ notificare.text}}</v-list-item-content>
+                    {{ notificare.userName }} {{ notificare.text}} {{ notificare.prodName }}.</v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
