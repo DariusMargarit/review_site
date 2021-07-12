@@ -117,9 +117,9 @@
               </v-icon>
             </template>
 
-            <v-list class="list" v-for="notificare in notificari" :key="notificare.id">
+            <v-list style="width: 23rem" v-for="notificare in notificari" :key="notificare.id">
               <v-list-item-group>
-                <v-list-item @click="" class="item_list">
+                <v-list-item @click="goToReview(notificare.link)" class="item_list">
                   <v-list-item-icon>
                     <v-icon class="avatar" :style="notificare.color">
                       {{ notificare.icon }}
@@ -131,7 +131,7 @@
               </v-list-item-group>
             </v-list>
 
-            <v-list>
+            <v-list style="width: 23rem">
               <v-list-item-group>
                 <v-list-item @click="goToMyAccNotif" class="item_list">
                   <v-list-item-icon>
@@ -212,7 +212,7 @@ export default {
       return this.$store.getters.notificari
     },
     searchArray () {
-      return this.$store.getters.seachArray
+      return this.$store.getters.searchArray
     }
   },
   methods: {
@@ -243,6 +243,9 @@ export default {
     sideSearchBtn () {
       window.scrollTo(0,0);
       this.sideSearch=true;
+    },
+    goToReview (value) {
+      this.$router.push(value)
     }
   }
 }

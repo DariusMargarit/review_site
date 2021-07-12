@@ -258,7 +258,8 @@ export default {
         this.$store.dispatch('like', {
           reviewKey: value.id,
           userKey: this.userKey,
-          prodName: this.theProd.name
+          prodName: this.theProd.name,
+          link: '/categorii/' + this.Ids.IdCat + '/produs/' + this.Ids.IdProd
         })
       }
        else {

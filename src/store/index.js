@@ -515,7 +515,7 @@ export default new Vuex.Store({
                   img: url,
                   userKey: payload.userKey,
                   date: payload.date,
-                  link: 'http://localhost:8080/categorii/' + payload.catId + '/produse/'
+                  link: 'http://localhost:8080/categorii/' + payload.catId + '/produs/'
                       + payload.prodId,
                   edited: false
                 }).then((data) => {
@@ -541,6 +541,7 @@ export default new Vuex.Store({
                           '/notificari/').push({
                             userKey: payload.userKey,
                             prodName: payload.prodName,
+                            link: payload.link,
                             icon: 'mdi-message-reply-text',
                             color: 'color:#1fc7ff'
                           }).catch(err => {
@@ -578,7 +579,7 @@ export default new Vuex.Store({
           img: '',
           userKey: payload.userKey,
           date: payload.date,
-          link: 'http://localhost:8080/categorii/' + payload.catId + '/produse/'
+          link: 'http://localhost:8080/categorii/' + payload.catId + '/produs/'
                + payload.prodId,
           edited: false
         }).then(data => {
@@ -816,6 +817,7 @@ export default new Vuex.Store({
                 .push({
                   userKey: payload.userKey,
                   prodName: payload.prodName,
+                  link: payload.link,
                   icon: 'mdi-heart',
                   color: 'color:red'
                 }).catch(err => {
@@ -853,6 +855,7 @@ export default new Vuex.Store({
                 color: obj[key].color,
                 icon: obj[key].icon,
                 prodName: obj[key].prodName,
+                link: obj[key].link,
                 userName: ''
               })
               const i = notificari.length
@@ -938,7 +941,7 @@ export default new Vuex.Store({
     notificari (state) {
       return state.notificari
     },
-    seachArray (state) {
+    searchArray (state) {
       return state.searchArray
     }
   },

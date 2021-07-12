@@ -151,7 +151,8 @@
                     newRating: this.$store.getters.theProd.rating + this.rating,
                     newReviews: this.$store.getters.theProd.reviews + 1,
                     date: this.date,
-                    prodName: this.theProd.name
+                    prodName: this.theProd.name,
+                    link: '/categorii/' + this.Ids.IdCat + '/produs/' + this.Ids.IdProd
                 }
                 this.$store.dispatch('uploadReview', det)
                 this.loading = false
