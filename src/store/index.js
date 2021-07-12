@@ -22,7 +22,8 @@ export default new Vuex.Store({
     prod: null,
     userReviews: null,
     numeCat: null,
-    notificari: null
+    notificari: null,
+    searchArray: []
   },
   mutations: {
     newUser (state, payload) {
@@ -60,6 +61,9 @@ export default new Vuex.Store({
     },
     setNotificari (state, payload) {
       state.notificari = payload
+    },
+    setSearchArray (state, payload) {
+      state.searchArray = payload
     }
   },
   actions: {
@@ -868,6 +872,29 @@ export default new Vuex.Store({
           commit('setNotificari', notificari)
         }
       })
+    },
+    loadSearchSuggestions ({commit}) {
+      const searchArray = []
+      firebase.database().ref('/categorii/').once('value').then((val) => {
+        const obj = val.val()
+        for(let key in obj) {
+          searchArray.push({
+            searchObj: obj[key].numeCategorie
+          })
+        }
+        for(let key in obj) {
+          firebase.database().ref('/categorii/' + key + '/produse/')
+              .once('value').then((val) => {
+                const obj = val.val()
+                for(let i in obj) {
+                  searchArray.push({
+                    searchObj: obj[i].name
+                  })
+                }
+          })
+        }
+      })
+      commit('setSearchArray', searchArray)
     }
   },
   getters: {
@@ -907,6 +934,9 @@ export default new Vuex.Store({
     },
     notificari (state) {
       return state.notificari
+    },
+    seachArray (state) {
+      return state.searchArray
     }
   },
   modules: {

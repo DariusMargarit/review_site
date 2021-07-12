@@ -38,6 +38,7 @@ new Vue({
         this.$store.dispatch('loadNotificari', user)
       }
     })
+    this.$store.dispatch('loadSearchSuggestions')
     this.$store.dispatch('loadUsers')
 
   }

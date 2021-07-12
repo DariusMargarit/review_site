@@ -210,6 +210,9 @@ export default {
     },
     notificari () {
       return this.$store.getters.notificari
+    },
+    searchArray () {
+      return this.$store.getters.seachArray
     }
   },
   methods: {
