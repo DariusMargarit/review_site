@@ -54,23 +54,24 @@
       <v-list>
         <v-list-item-content>
 
-            <v-autocomplete
-                style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
-                filled
-                auto-select-first
-                dark
-                outlined
-                clearable
-                hide-no-data
-                v-model="select"
-                :loading="loading"
-                :search-input.sync="search"
-                :items="items"
-                label="Cautare..."
-                prepend-inner-icon="mdi-magnify"
-                append-icon=""
-            >
-            </v-autocomplete>
+          <v-autocomplete
+              class="searchBar"
+              style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
+              filled
+              auto-select-first
+              dark
+              outlined
+              clearable
+              hide-no-data
+              v-model="select"
+              :loading="loading"
+              :search-input.sync="searchResponsive"
+              :items="items"
+              label="Cautare..."
+              prepend-inner-icon="mdi-magnify"
+              append-icon=""
+          >
+          </v-autocomplete>
 
         </v-list-item-content>
       </v-list>
@@ -95,15 +96,8 @@
       <v-spacer />
 
       <div class="wrapper hidden-sm-and-down">
-<!--        <div class="search-input">-->
-<!--          <a href="" target="_blank" hidden></a>-->
-<!--          <input type="text" placeholder="Type to search..">-->
-<!--          <div class="autocom-box">-->
-<!--             here list are inserted from javascript -->
-<!--          </div>-->
-<!--          <div class="icon"><v-icon>mdi-magnify</v-icon></div>-->
-<!--        </div>-->
         <v-autocomplete
+            class="searchBar"
             style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
             filled
             auto-select-first
@@ -222,6 +216,7 @@ export default {
       loading: false,
       items: [],
       search: '',
+      searchResponsive: '',
       select: null,
       chestii: []
     }
@@ -304,6 +299,12 @@ export default {
 </script>
 
 <style scoped>
+
+@media screen and (max-width: 1264px) {
+  .searchBar{
+    /*display: none;*/
+  }
+}
 
 .bigdiv {
   position: sticky;
@@ -410,4 +411,9 @@ export default {
       0deg
   );
 }
+
+.searchBar {
+  display: block;
+}
+
 </style>
