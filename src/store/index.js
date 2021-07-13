@@ -434,7 +434,7 @@ export default new Vuex.Store({
                   likeKey: '',
                   liked: false,
                   name: '',
-                  userImg: null
+                  userImg: ''
                 })
 
                 const i = reviews.length - 1
@@ -646,11 +646,26 @@ export default new Vuex.Store({
                       date: x.date,
                       edited: x.edited,
                       link: x.link,
+                      likes: 0,
+                      likeKey: '',
+                      liked: false,
                       name: '',
-                      userImg: null
+                      userImg: ''
                     })
 
                     const i = reviews.length - 1
+
+                    if(x.likes !== undefined && x.likes !== null) {
+                      var y = 0
+                      for(let j in x.likes) {
+                        y++;
+                        if(x.likes[j].userKey === payload) {
+                          reviews[i].liked = true
+                          reviews[i].likeKey = j
+                        }
+                      }
+                      reviews[i].likes = y
+                    }
 
                     firebase.database().ref('/users/' + payload).once('value')
                         .then((val) => {

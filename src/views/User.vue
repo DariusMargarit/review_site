@@ -137,6 +137,27 @@
                                   <div><v-img class="imag" :src="review.img" /></div>
                                 </v-col>
                               </v-row>
+                              <v-row no-gutters>
+                                <v-col cols="2" sm="1">
+                                  <v-btn icon v-if="review.liked" @click="goToReview(review.link)">
+                                    <v-icon style="color: red">
+                                      mdi-heart
+                                    </v-icon>
+                                  </v-btn>
+                                  <v-btn class="heart-btn-click" icon v-else @click="goToReview(review.link)">
+                                    <v-icon>
+                                      mdi-heart-outline
+                                    </v-icon>
+                                  </v-btn>
+                                </v-col>
+                                <v-col cols="4" align-self="center" align="left">
+                                  {{ review.likes }}
+                                </v-col>
+                                <v-spacer></v-spacer>
+                                <v-col cols="6" sm="2" align-self="center" align="right">
+                                  {{ review.date }}
+                                </v-col>
+                              </v-row>
                             </div>
                           </v-container>
                         </v-card>
@@ -272,6 +293,9 @@ table{
   font-family: 'Lato', sans-serif;
   font-weight: bolder;
   text-align: left;
+}
+.heart-btn-click :hover {
+  color: red;
 }
 
 </style>
