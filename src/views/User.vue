@@ -15,7 +15,7 @@
               <v-tabs v-model="tab" grow color="#000000" background-color="grey lighten-2" slider-color="hsl(47, 95%, 49%)">
                 <v-tab href="#1"><v-icon>mdi-account-circle</v-icon></v-tab>
                 <v-tab href="#2"><v-icon>mdi-card-bulleted</v-icon></v-tab>
-                <v-tab href="#3"><v-icon>mdi-bell-ring</v-icon></v-tab>
+                <v-tab href="#3" v-if="authUser"><v-icon>mdi-bell-ring</v-icon></v-tab>
                 <v-tab-item class="profileColor" value="1">
                   <br>
                   <v-container fluid>

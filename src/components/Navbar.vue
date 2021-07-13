@@ -296,6 +296,9 @@ export default {
         this.loading = false
       }, 500)
     },
+    notifSeen () {
+      console.log('da')
+    }
   }
 }
 </script>
