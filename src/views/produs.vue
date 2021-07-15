@@ -174,6 +174,8 @@ export default {
     'ReportReviewPopup' : ReportReviewPopup
   },
   created() {
+    window.scrollTo(0,0)
+
     this.$store.dispatch('loadProd', {
       catId: this.catId,
       prodId: this.prodId

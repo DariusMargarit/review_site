@@ -150,6 +150,9 @@ export default {
     'log-in': Login,
     // 'nav-bar': Navbar
   },
+  created() {
+    window.scrollTo(0,0)
+  },
   methods: {
     toSignUp () {
       this.$router.push('/Signup')

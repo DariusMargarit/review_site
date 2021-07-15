@@ -140,7 +140,9 @@
             'add-product': AddProdusPopup
         },
         created () {
-            this.$store.dispatch('loadProduse', {
+          window.scrollTo(0,0)
+          
+          this.$store.dispatch('loadProduse', {
                 id: this.id,
                 stele: [],
                 nrrev: []
