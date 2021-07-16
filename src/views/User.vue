@@ -167,7 +167,32 @@
                 </v-tab-item>
                 <v-tab-item class="profileColor" value="3">
                   <br>
-                  <H3>Notificari</H3>
+                  <H3 class="mb-4">Notificarile tale</H3>
+                  <v-card class="ml-2 mr-2 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
+
+                    <v-card-title>
+                      <v-avatar size="32">
+                        <img :src="review.userImg" class="avatarr">
+                      </v-avatar>
+                      <h4 style="padding-left: 1rem; word-break: break-word">{{review.name}}</h4>
+                      <v-card-title style="word-break: break-word">
+                        ti-a apreciat review-ul la produsul Audi A4
+                      </v-card-title>
+                    </v-card-title>
+
+                  </v-card>
+                  <v-card class="ml-2 mr-2 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
+                    <v-card-title>
+                      <v-avatar size="32">
+                        <img :src="review.userImg" class="avatarr">
+                      </v-avatar>
+                      <h4 style="padding-left: 1rem; word-break: break-word">{{review.name}}</h4>
+                      <v-card-title style="word-break: break-word">
+                        a adaugat un review la produsul Mercedes-Benz CLS
+                      </v-card-title>
+                    </v-card-title>
+
+                  </v-card>
                 </v-tab-item>
               </v-tabs>
             </v-card>

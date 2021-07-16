@@ -183,10 +183,18 @@
 
 <style>
 
-@media screen and (max-witdh: 1264px) {
+@media screen and (max-width: 1264px) {
   .container-main {
     margin-top: 10rem !important;
   }
+
+  .card {
+    margin: 5rem;
+    height: 75vh;
+    width: 20rem !important;
+    padding: 2rem;
+  }
+
 }
 
   .font {
@@ -196,6 +204,7 @@
   .grad {
     background: rgb(255,255,255);
     background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(0,204,255,0.05) 23%, rgba(0,204,255,0.1) 100%);
+    width: 100%;
   }
 
   .separator {
