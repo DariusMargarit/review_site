@@ -77,12 +77,20 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, minLength } from 'vuelidate/lib/validators'
-import alpha from "vuelidate/lib/validators/alpha";
+// import alpha from "vuelidate/lib/validators/alpha";
+
+const speciale = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')']
+
+// const caractere = (value) => value.indexOf(forEach(speciale)) <= 0
+
+const caractere = (value) => {
+  Array.from(speciale).forEach(element => value.indexOf(element) <= 0);
+}
 
 export default {
   mixins: [validationMixin],
   validations: {
-    newName: { required, minLength: minLength(3), alpha: alpha },
+    newName: { required, minLength: minLength(3), caractere},
     newBio: {required, maxLength: maxLength(100), minLength: minLength(3)},
   },
   props: ['userDet'],
@@ -125,6 +133,7 @@ export default {
   },
 
   data: () => ({
+
     newName: '',
     newBio: '',
     oldPic: '',
@@ -172,7 +181,7 @@ export default {
       if(!this.$v.newName) return errors
       !this.$v.newName.required && errors.push('Numele este obligatoriu')
       !this.$v.newName.minLength && errors.push('Numele trebuie sa contina cel putin 3 litere')
-      !this.$v.newName.alpha && errors.push('Numele trebuie sa contina doar litere')
+      !this.$v.newName.caractere && errors.push('Numele trebuie sa contina doar litere/cifre')
       return errors
     },
     bioErrors () {
