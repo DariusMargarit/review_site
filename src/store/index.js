@@ -900,16 +900,19 @@ export default new Vuex.Store({
         const obj = val.val()
         for(let key in obj) {
           searchArray.push({
-            searchObj: obj[key].numeCategorie
+            searchObj: obj[key].numeCategorie,
+            link: '/categorii/' + key
           })
         }
         for(let key in obj) {
-          firebase.database().ref('/categorii/' + key + '/produse/')
+          const catKey = key
+          firebase.database().ref('/categorii/' + catKey + '/produse/')
               .once('value').then((val) => {
                 const obj = val.val()
                 for(let i in obj) {
                   searchArray.push({
-                    searchObj: obj[i].name
+                    searchObj: obj[i].name,
+                    link: '/categorii/' + catKey + '/produs/' + i
                   })
                 }
           })

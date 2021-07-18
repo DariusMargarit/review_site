@@ -246,6 +246,15 @@ export default {
           this.chestii.push(value[i].searchObj)
         }
       }
+    },
+    select (value) {
+      if(value !== null && value !== undefined) {
+        for(let i in this.searchArray) {
+          if(this.searchArray[i].searchObj === value) {
+            this.$router.push(this.searchArray[i].link)
+          }
+        }
+      }
     }
   },
 
