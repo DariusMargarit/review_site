@@ -61,7 +61,7 @@
     <br><br>
 
     <div style="padding:20px" class="separator subtitlu">Review-ul tau</div>
-    <v-container  >
+    <v-container>
       <v-row justify="center">
         <v-col xl="5" lg="8" md="10" sm="11" justify="center">
           <v-card class="pa-7 mb-4" style="overflow:hidden;background-color: #f2f2f2" v-for="review in reviews" :key="review.id">
@@ -138,7 +138,7 @@
                         mdi-heart
                       </v-icon>
                     </v-btn>
-                    <v-btn class="heart-btn-click" icon v-else @click="like(review)">
+                    <v-btn class="heart-btn-click" icon v-if="!review.liked" @click="like(review)">
                       <v-icon>
                         mdi-heart-outline
                       </v-icon>
@@ -160,7 +160,8 @@
       </v-row>
     </v-container>
 
-    <div style="padding:20px;font-family: 'Lato', sans-serif;" class="separator subtitlu"><v-icon>mdi-chevron-triple-left</v-icon></div>
+    <div style="padding:20px;font-family: 'Lato', sans-serif;" class="separator subtitlu">
+      <v-icon>mdi-chevron-triple-left</v-icon></div>
 
 
     <v-container  style="min-height: 65vh">
@@ -333,6 +334,7 @@ export default {
       }
     }
   },
+
   computed: {
     reviews () {
       return this.$store.getters.reviews

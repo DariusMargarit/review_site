@@ -18,7 +18,7 @@ export default new Vuex.Store({
     categorii: null,
     produse: null,
     error: null,
-    reviews: null,
+    reviews: [],
     prod: null,
     userReviews: null,
     numeCat: null,
