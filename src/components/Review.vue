@@ -15,7 +15,7 @@
                     <ReportReviewPopup />
                 </v-col>
                 <v-col cols="2" sm="1" v-if="userKey === review.userKey">
-                    <div @mouseover="transfData(review)">
+                    <div style="margin-left: 1rem;" @mouseover="transfData(review)">
                         <EditReviewPopup :reviewDet="reviewDet" />
                     </div>
                 </v-col>
