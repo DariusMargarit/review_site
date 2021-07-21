@@ -60,105 +60,105 @@
     </v-container>
     <br><br>
 
-    <div style="padding:20px" class="separator subtitlu">Review-ul tau</div>
-    <v-container>
-      <v-row justify="center">
-        <v-col xl="5" lg="8" md="10" sm="11" justify="center">
-          <v-card class="pa-7 mb-4" style="overflow:hidden;background-color: #f2f2f2" v-for="review in reviews" :key="review.id">
-            <v-container>
-              <div>
-                <v-row no-gutters>
-                  <v-col md="1" sm="2" class="hidden-sm-and-up">
-                    <v-avatar @click="goToUserProfile(review.userKey)" size="42">
-                      <img :src="review.userImg" class="avatarr">
-                    </v-avatar>
-                  </v-col>
-                  <v-spacer></v-spacer>
-                  <v-col cols="4" sm="2" md="2" align="right" align-self="center" v-if="review.edited === true">
-                    (editat)
-                  </v-col>
-                  <v-col class="centru" cols="2" sm="1" v-if="userKey !== review.userKey">
-                    <ReportReviewPopup />
-                  </v-col>
-                  <v-col cols="2" sm="1" v-if="userKey === review.userKey">
-                    <div @mouseover="transfData(review)">
-                      <EditReviewPopup :reviewDet="reviewDet" />
-                    </div>
-                  </v-col>
-                </v-row>
-                <v-row style="max-height:12rem; margin-top: 0.2rem;">
-                  <v-col md="1" sm="2" class="hidden-xs-only">
-                    <v-avatar @click="goToUserProfile(review.userKey)" size="42">
-                      <img :src="review.userImg" class="avatarr">
-                    </v-avatar>
-                  </v-col>
-                  <v-col md="6" class="hidden-sm-and-down">
-                    <v-card-title @click="goToUserProfile(review.userKey)" style="cursor: pointer" class="titlu">
-                      {{review.name}}
-                    </v-card-title>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="5">
-                    <v-row>
-                      <v-spacer></v-spacer>
-                      <v-col cols="8" sm="7" align="right">
-                        <v-rating class="stele"
-                                  background-color="warning lighten-1"
-                                  color="warning"
-                                  half-increments
-                                  length="5"
-                                  readonly
-                                  size="1.5rem"
-                                  :value=review.rating
-                        ></v-rating>
-                      </v-col>
-                      <v-col cols="4" sm="5" align="left">
-                        <div class="rating">
-                          ({{review.rating}})</div>
-                      </v-col>
-                      <v-spacer></v-spacer>
-                    </v-row>
-                  </v-col>
-                  <v-col class="hidden-md-and-up" cols="12">
-                    <v-card-title class="titlu">{{review.name}}</v-card-title>
-                  </v-col>
-                </v-row>
-                <v-row style="margin-bottom: 0.5rem;">
-                  <v-col>
-                    <v-card-title class="text">{{review.title}}</v-card-title>
-                    <v-card-text class="subtitlu">{{review.text | quotes}}</v-card-text>
-                  </v-col>
-                  <v-col cols="12"sm="6" v-if="review.img" align="center">
-                    <div><v-img class="imagini" :src="review.img" /></div>
-                  </v-col>
-                </v-row>
-                <v-row no-gutters class="font">
-                  <v-col cols="2" sm="1">
-                    <v-btn icon v-if="review.liked" @click="unlike(review)">
-                      <v-icon style="color: red">
-                        mdi-heart
-                      </v-icon>
-                    </v-btn>
-                    <v-btn class="heart-btn-click" icon v-if="!review.liked" @click="like(review)">
-                      <v-icon>
-                        mdi-heart-outline
-                      </v-icon>
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="4" align-self="center" align="left">
-                    {{ review.likes }}
-                  </v-col>
-                  <v-spacer></v-spacer>
-                  <v-col cols="6" sm="2" align-self="center" align="right">
-                    {{ review.date }}
-                  </v-col>
-                </v-row>
-              </div>
-            </v-container>
-          </v-card>
+<!--    <div style="padding:20px" class="separator subtitlu">Review-ul tau</div>-->
+<!--    <v-container>-->
+<!--      <v-row justify="center">-->
+<!--        <v-col xl="5" lg="8" md="10" sm="11" justify="center">-->
+<!--          <v-card class="pa-7 mb-4" style="overflow:hidden;background-color: #f2f2f2" v-for="review in reviews" :key="review.id">-->
+<!--            <v-container>-->
+<!--              <div>-->
+<!--                <v-row no-gutters>-->
+<!--                  <v-col md="1" sm="2" class="hidden-sm-and-up">-->
+<!--                    <v-avatar @click="goToUserProfile(review.userKey)" size="42">-->
+<!--                      <img :src="review.userImg" class="avatarr">-->
+<!--                    </v-avatar>-->
+<!--                  </v-col>-->
+<!--                  <v-spacer></v-spacer>-->
+<!--                  <v-col cols="4" sm="2" md="2" align="right" align-self="center" v-if="review.edited === true">-->
+<!--                    (editat)-->
+<!--                  </v-col>-->
+<!--                  <v-col class="centru" cols="2" sm="1" v-if="userKey !== review.userKey">-->
+<!--                    <ReportReviewPopup />-->
+<!--                  </v-col>-->
+<!--                  <v-col cols="2" sm="1" v-if="userKey === review.userKey">-->
+<!--                    <div @mouseover="transfData(review)">-->
+<!--                      <EditReviewPopup :reviewDet="reviewDet" />-->
+<!--                    </div>-->
+<!--                  </v-col>-->
+<!--                </v-row>-->
+<!--                <v-row style="max-height:12rem; margin-top: 0.2rem;">-->
+<!--                  <v-col md="1" sm="2" class="hidden-xs-only">-->
+<!--                    <v-avatar @click="goToUserProfile(review.userKey)" size="42">-->
+<!--                      <img :src="review.userImg" class="avatarr">-->
+<!--                    </v-avatar>-->
+<!--                  </v-col>-->
+<!--                  <v-col md="6" class="hidden-sm-and-down">-->
+<!--                    <v-card-title @click="goToUserProfile(review.userKey)" style="cursor: pointer" class="titlu">-->
+<!--                      {{review.name}}-->
+<!--                    </v-card-title>-->
+<!--                  </v-col>-->
+<!--                  <v-col cols="12" sm="6" md="5">-->
+<!--                    <v-row>-->
+<!--                      <v-spacer></v-spacer>-->
+<!--                      <v-col cols="8" sm="7" align="right">-->
+<!--                        <v-rating class="stele"-->
+<!--                                  background-color="warning lighten-1"-->
+<!--                                  color="warning"-->
+<!--                                  half-increments-->
+<!--                                  length="5"-->
+<!--                                  readonly-->
+<!--                                  size="1.5rem"-->
+<!--                                  :value=review.rating-->
+<!--                        ></v-rating>-->
+<!--                      </v-col>-->
+<!--                      <v-col cols="4" sm="5" align="left">-->
+<!--                        <div class="rating">-->
+<!--                          ({{review.rating}})</div>-->
+<!--                      </v-col>-->
+<!--                      <v-spacer></v-spacer>-->
+<!--                    </v-row>-->
+<!--                  </v-col>-->
+<!--                  <v-col class="hidden-md-and-up" cols="12">-->
+<!--                    <v-card-title class="titlu">{{review.name}}</v-card-title>-->
+<!--                  </v-col>-->
+<!--                </v-row>-->
+<!--                <v-row style="margin-bottom: 0.5rem;">-->
+<!--                  <v-col>-->
+<!--                    <v-card-title class="text">{{review.title}}</v-card-title>-->
+<!--                    <v-card-text class="subtitlu">{{review.text | quotes}}</v-card-text>-->
+<!--                  </v-col>-->
+<!--                  <v-col cols="12"sm="6" v-if="review.img" align="center">-->
+<!--                    <div><v-img class="imagini" :src="review.img" /></div>-->
+<!--                  </v-col>-->
+<!--                </v-row>-->
+<!--                <v-row no-gutters class="font">-->
+<!--                  <v-col cols="2" sm="1">-->
+<!--                    <v-btn icon v-if="review.liked" @click="unlike(review)">-->
+<!--                      <v-icon style="color: red">-->
+<!--                        mdi-heart-->
+<!--                      </v-icon>-->
+<!--                    </v-btn>-->
+<!--                    <v-btn class="heart-btn-click" icon v-if="!review.liked" @click="like(review)">-->
+<!--                      <v-icon>-->
+<!--                        mdi-heart-outline-->
+<!--                      </v-icon>-->
+<!--                    </v-btn>-->
+<!--                  </v-col>-->
+<!--                  <v-col cols="4" align-self="center" align="left">-->
+<!--                    {{ review.likes }}-->
+<!--                  </v-col>-->
+<!--                  <v-spacer></v-spacer>-->
+<!--                  <v-col cols="6" sm="2" align-self="center" align="right">-->
+<!--                    {{ review.date }}-->
+<!--                  </v-col>-->
+<!--                </v-row>-->
+<!--              </div>-->
+<!--            </v-container>-->
+<!--          </v-card>-->
 
-        </v-col>
-      </v-row>
-    </v-container>
+<!--        </v-col>-->
+<!--      </v-row>-->
+<!--    </v-container>-->
 
     <div style="padding:20px;font-family: 'Lato', sans-serif;" class="separator subtitlu">
       <v-icon>mdi-chevron-triple-left</v-icon></div>
@@ -168,104 +168,16 @@
       <v-row justify="center">
         <v-col xl="5" lg="8" md="10" sm="11" justify="center">
           <v-card class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
-            <v-container>
-              <div>
-                <v-row no-gutters>
-                  <v-col md="1" sm="2" class="hidden-sm-and-up">
-                    <v-avatar @click="goToUserProfile(review.userKey)" size="42">
-                      <img :src="review.userImg" class="avatarr">
-                    </v-avatar>
-                  </v-col>
-                  <v-spacer></v-spacer>
-                  <v-col cols="4" sm="2" md="2" align="right" align-self="center" v-if="review.edited === true">
-                    (editat)
-                  </v-col>
-                  <v-col class="centru" cols="2" sm="1" v-if="userKey !== review.userKey">
-                    <ReportReviewPopup />
-                  </v-col>
-                  <v-col cols="2" sm="1" v-if="userKey === review.userKey">
-                    <div @mouseover="transfData(review)">
-                      <EditReviewPopup :reviewDet="reviewDet" />
-                    </div>
-                  </v-col>
-                </v-row>
-                <v-row style="max-height:12rem; margin-top: 0.2rem;">
-                  <v-col md="1" sm="2" class="hidden-xs-only">
-                    <v-avatar @click="goToUserProfile(review.userKey)" size="42">
-                      <img :src="review.userImg" class="avatarr">
-                    </v-avatar>
-                  </v-col>
-                  <v-col md="6" class="hidden-sm-and-down">
-                    <v-card-title @click="goToUserProfile(review.userKey)" style="cursor: pointer" class="titlu">
-                      {{review.name}}
-                    </v-card-title>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="5">
-                    <v-row>
-                      <v-spacer></v-spacer>
-                      <v-col cols="8" sm="7" align="right">
-                        <v-rating class="stele"
-                                  background-color="warning lighten-1"
-                                  color="warning"
-                                  half-increments
-                                  length="5"
-                                  readonly
-                                  size="1.5rem"
-                                  :value=review.rating
-                        ></v-rating>
-                      </v-col>
-                      <v-col cols="4" sm="5" align="left">
-                        <div class="rating">
-                          ({{review.rating}})</div>
-                      </v-col>
-                      <v-spacer></v-spacer>
-                    </v-row>
-                  </v-col>
-                  <v-col class="hidden-md-and-up" cols="12">
-                    <v-card-title class="titlu">{{review.name}}</v-card-title>
-                  </v-col>
-                </v-row>
-                <v-row style="margin-bottom: 0.5rem;">
-                  <v-col>
-                    <v-card-title class="text">{{review.title}}</v-card-title>
-                    <v-card-text class="subtitlu">{{review.text | quotes}}</v-card-text>
-                  </v-col>
-                  <v-col cols="12"sm="6" v-if="review.img" align="center">
-                    <div><v-img class="imagini" :src="review.img" /></div>
-                  </v-col>
-                </v-row>
-                <v-row no-gutters class="font">
-                  <v-col cols="2" sm="1">
-                    <v-btn icon v-if="review.liked" @click="unlike(review)">
-                      <v-icon style="color: red">
-                        mdi-heart
-                      </v-icon>
-                    </v-btn>
-                    <v-btn class="heart-btn-click" icon v-else @click="like(review)">
-                      <v-icon>
-                        mdi-heart-outline
-                      </v-icon>
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="4" align-self="center" align="left">
-                    {{ review.likes }}
-                  </v-col>
-                  <v-spacer></v-spacer>
-                  <v-col cols="6" sm="2" align-self="center" align="right">
-                    {{ review.date }}
-                  </v-col>
-                </v-row>
-              </div>
-            </v-container>
+            <Review :review="review" :Ids="Ids"/>
           </v-card>
 
         </v-col>
       </v-row>
-      <v-alert style="width: 23rem;display: flex;float: right"
-               color="green"
-               elevation="3"
-               type="success"
-      >VALELEU MAICA </v-alert>
+<!--      <v-alert style="width: 23rem;display: flex;float: right"-->
+<!--               color="green"-->
+<!--               elevation="3"-->
+<!--               type="success"-->
+<!--      >VALELEU MAICA </v-alert>-->
     </v-container>
 
 
@@ -273,17 +185,16 @@
 </template>
 
 <script>
-import EditReviewPopup from "@/components/EditReviewPopup";
 import AddReviewPopup from "../components/AddReviewPopup";
-import ReportReviewPopup from "../components/ReportReviewPopup";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import 'firebase/firestore'
+import Review from "../components/Review";
 export default {
   name: "categorie",
   props: ['catId','prodId'],
   components: {
-    'EditReviewPopup': EditReviewPopup,
     'add-review-popup': AddReviewPopup,
-    'ReportReviewPopup' : ReportReviewPopup
+    'Review': Review
   },
   created() {
     window.scrollTo(0,0)
@@ -319,18 +230,6 @@ export default {
       Ids: {
         IdCat: this.catId,
         IdProd: this.prodId
-      },
-      reviewDet: {
-        id: null,
-        img: null,
-        name: '',
-        rating: 0,
-        text: '',
-        title: '',
-        userImg: null,
-        userKey: null,
-        IdCat: this.catId,
-        IdProd: this.prodId
       }
     }
   },
@@ -353,40 +252,6 @@ export default {
         return this.$store.getters.user.key
       }
     }
-  },
-  methods: {
-    goToUserProfile (id) {
-      this.$router.push('/user/' + id)
-    },
-    transfData (value) {
-      this.reviewDet.id = value.idFromCat
-      this.reviewDet.img = value.img
-      this.reviewDet.name = value.name
-      this.reviewDet.rating = value.rating
-      this.reviewDet.text = value.text
-      this.reviewDet.title = value.title
-      this.reviewDet.userImg = value.userImg
-      this.reviewDet.userKey = value.userKey
-    },
-    like (value) {
-      if(this.userIsAuthenticated) {
-        this.$store.dispatch('like', {
-          reviewKey: value.id,
-          userKey: this.userKey,
-          prodName: this.theProd.name,
-          link: '/categorii/' + this.Ids.IdCat + '/produs/' + this.Ids.IdProd
-        })
-      }
-      else {
-        this.$router.push('/Login')
-      }
-    },
-    unlike (value) {
-      this.$store.dispatch('unlike', {
-        reviewKey: value.id,
-        likeKey: value.likeKey
-      })
-    }
   }
 }
 </script>
@@ -401,16 +266,6 @@ export default {
   width:300px;
   max-height: 220px;
   max-width: 300px;
-}
-.imagini{
-  max-width:220px;
-  max-height: 220px;
-  padding: 5px;
-}
-.text{
-  padding:10px;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 20px;
 }
 .subtitlu{
   font-size:18px;
@@ -440,22 +295,6 @@ export default {
   margin-bottom: 30px;
   text-align: center;
   background-color: hsl(47, 95%, 49%);
-}
-.avatarr{
-  font-size:32px;
-}
-.avatarr:hover {
-  cursor: pointer;
-}
-.centru {
-  align-content: center;
-  justify-content: center;
-  display: flex;
-}
-
-.font {
-  font-family: 'Lato', sans-serif;
-  font-weight: bold;
 }
 
 .heart-btn-click :hover {

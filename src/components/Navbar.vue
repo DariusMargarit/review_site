@@ -251,7 +251,6 @@ export default {
       if(value !== null && value !== undefined) {
         for(let i in this.searchArray) {
           if(this.searchArray[i].searchObj === value) {
-            console.log(this.searchArray[i].link)
             this.$router.push(this.searchArray[i].link)
             window.location.reload()
           }
