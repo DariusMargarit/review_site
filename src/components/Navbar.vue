@@ -141,7 +141,18 @@
                     </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content style="font-family: 'Lato', sans-serif;font-weight: bold; ">
-                    {{ notificare.userName }} {{ notificare.text}} {{ notificare.prodName }}.</v-list-item-content>
+                    {{ notificare.userName }} {{ notificare.text}} {{ notificare.prodName }}.
+<!--                    14:47 19/07/2021 -->
+                    <v-row style="margin-top: 1vh; color: grey; font-weight: lighter; overflow: hidden;">
+                      <v-col cols="2" sm="2" md="6" lg="6">
+                        14:47
+                      </v-col>
+                      <v-spacer />
+                      <v-col cols="2" sm="2" md="6" lg="6">
+                        19/07/2021
+                      </v-col>
+                    </v-row>
+                  </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
