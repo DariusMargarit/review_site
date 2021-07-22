@@ -117,7 +117,7 @@
                 },
                 likes: this.review.likes,
                 liked: this.review.liked,
-                likeDelay: 0
+                likeDelay: false
             }
         },
         watch: {
