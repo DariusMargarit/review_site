@@ -67,19 +67,20 @@
             </v-row>
             <v-row no-gutters class="font">
                 <v-col cols="2" sm="1">
-                    <v-btn icon v-if="review.liked" @click="unlike(review)">
+                    <v-btn icon v-if="this.liked" @click="unlike(review)">
                         <v-icon style="color: red">
                             mdi-heart
                         </v-icon>
                     </v-btn>
-                    <v-btn class="heart-btn-click" icon v-else @click="like(review)">
+                    <v-btn class="heart-btn-click" icon v-if="!this.liked"
+                           @click="like(review)">
                         <v-icon>
                             mdi-heart-outline
                         </v-icon>
                     </v-btn>
                 </v-col>
                 <v-col cols="4" align-self="center" align="left">
-                    {{ review.likes }}
+                    {{ this.likes }}
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col cols="6" sm="2" align-self="center" align="right">
@@ -113,8 +114,20 @@
                     userKey: null,
                     IdCat: this.Ids.IdCat,
                     IdProd: this.Ids.IdProd
-                }
+                },
+                likes: this.review.likes,
+                liked: this.review.liked,
+                likeDelay: 0
             }
+        },
+        watch: {
+          likeDelay (value) {
+              if(value) {
+                  setTimeout(function () {
+                      this.likeDelay = false
+                  },5000);
+              }
+          }
         },
         computed: {
             theProd () {
@@ -145,22 +158,32 @@
             },
             like (value) {
                 if(this.userIsAuthenticated) {
-                    this.$store.dispatch('like', {
-                        reviewKey: value.id,
-                        userKey: this.userKey,
-                        prodName: this.theProd.name,
-                        link: '/categorii/' + this.Ids.IdCat + '/produs/' + this.Ids.IdProd
-                    })
+                    if(!this.likeDelay) {
+                        this.$store.dispatch('like', {
+                            reviewKey: value.id,
+                            userKey: this.userKey,
+                            prodName: this.theProd.name,
+                            link: '/categorii/' + this.Ids.IdCat + '/produs/' + this.Ids.IdProd
+                        })
+                    }
+                    this.likeDelay = true
+                    this.likes++
+                    this.liked = true
                 }
                 else {
                     this.$router.push('/Login')
                 }
             },
             unlike (value) {
-                this.$store.dispatch('unlike', {
-                    reviewKey: value.id,
-                    likeKey: value.likeKey
-                })
+                if(!this.likeDelay) {
+                    this.$store.dispatch('unlike', {
+                        reviewKey: value.id,
+                        likeKey: value.likeKey
+                    })
+                }
+                this.likeDelay = true
+                this.likes--
+                this.liked = false
             }
         },
 
