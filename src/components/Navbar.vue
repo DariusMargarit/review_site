@@ -301,6 +301,7 @@ export default {
     },
     goToReview (value) {
       this.$router.push(value)
+      window.location.reload()
     },
 
     selectari (v) {

@@ -604,6 +604,8 @@ export default new Vuex.Store({
               firebase.database().ref('/users/' + val.val().creatorKey +
                   '/notificari/').push({
                 userKey: payload.userKey,
+                prodName: payload.prodName,
+                link: payload.link,
                 icon: 'mdi-message-reply-text',
                 color: 'color:#1fc7ff'
               }).catch(err => {
