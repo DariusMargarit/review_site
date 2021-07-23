@@ -132,6 +132,36 @@
               </v-icon>
             </template>
 
+<!--            v-if daca sunt notificari-->
+
+            <v-list style="width: 23rem">
+              <v-list-item-group style="justify-content: center; display: flex; align-items: center">
+
+                <v-list-item>
+                  <v-list-item-content style="font-weight: bold;">
+                    17 notificari
+                  </v-list-item-content>
+<!--                  <v-spacer />-->
+                  <v-list-item-content>
+                    <v-btn icon><v-icon>mdi-delete</v-icon></v-btn>
+                  </v-list-item-content>
+                  <v-spacer />
+                  <v-list-item-icon>
+                    <v-btn @click="goToMyAccNotif" icon>
+                      <v-icon class="avatar" style="color: #1fc7ff">
+                        mdi-arrow-right
+                      </v-icon>
+<!--                      toate-->
+                    </v-btn>
+                  </v-list-item-icon>
+<!--                  <v-list-item-content @click="goToMyAccNotif">-->
+<!--                    <v-list-item-title style="font-family: 'Lato', sans-serif;font-weight: bold;">Toate</v-list-item-title>-->
+<!--                  </v-list-item-content>-->
+                </v-list-item>
+
+              </v-list-item-group>
+            </v-list>
+
             <v-list style="width: 23rem" v-for="notificare in notificari" :key="notificare.id">
               <v-list-item-group>
                 <v-list-item @click="goToReview(notificare.link)" class="item_list">
@@ -142,7 +172,6 @@
                   </v-list-item-icon>
                   <v-list-item-content style="font-family: 'Lato', sans-serif;font-weight: bold; ">
                     {{ notificare.userName }} {{ notificare.text}} {{ notificare.prodName }}.
-<!--                    14:47 19/07/2021 -->
                     <v-row style="margin-top: 1vh; color: grey; font-weight: lighter; overflow: hidden;">
                       <v-col cols="2" sm="2" md="6" lg="6">
                         {{ notificare.time }}
@@ -157,21 +186,13 @@
               </v-list-item-group>
             </v-list>
 
-            <v-list style="width: 23rem">
-              <v-list-item-group>
-                <v-list-item @click="goToMyAccNotif" class="item_list">
-                  <v-list-item-icon>
-                    <v-icon class="avatar" style="color: #1fc7ff">
-                      mdi-arrow-right
-                    </v-icon>
-                  </v-list-item-icon>
+<!--            v-else (daca nu sunt notificari)-->
 
-                  <v-list-item-content>
-                    <v-list-item-title style="font-family: 'Lato', sans-serif;font-weight: bold;">Toate notificarile</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
+            <v-container style="min-height: 10vh; font-weight: bolder; margin: 1rem;">
+              <v-row><v-col style="align-items: center; justify-content: center; display: flex">nu ai nicio notificare</v-col></v-row>
+              <v-row><v-col style="align-items: center; justify-content: center; display: flex"><v-icon>mdi-bell</v-icon></v-col></v-row>
+            </v-container>
+
           </v-menu>
         </v-badge>
 
