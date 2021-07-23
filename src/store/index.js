@@ -543,7 +543,9 @@ export default new Vuex.Store({
                             prodName: payload.prodName,
                             link: payload.link,
                             icon: 'mdi-message-reply-text',
-                            color: 'color:#1fc7ff'
+                            color: 'color:#1fc7ff',
+                            date: payload.date,
+                            time: payload.time
                           }).catch(err => {
                             commit('setLoading', false)
                             console.log(err)
@@ -607,7 +609,9 @@ export default new Vuex.Store({
                 prodName: payload.prodName,
                 link: payload.link,
                 icon: 'mdi-message-reply-text',
-                color: 'color:#1fc7ff'
+                color: 'color:#1fc7ff',
+                date: payload.date,
+                time: payload.time
               }).catch(err => {
                 commit('setLoading', false)
                 console.log(err)
@@ -835,6 +839,8 @@ export default new Vuex.Store({
                   userKey: payload.userKey,
                   prodName: payload.prodName,
                   link: payload.link,
+                  date: payload.date,
+                  time: payload.time,
                   icon: 'mdi-heart',
                   color: 'color:red'
                 }).catch(err => {
@@ -873,6 +879,8 @@ export default new Vuex.Store({
                 icon: obj[key].icon,
                 prodName: obj[key].prodName,
                 link: obj[key].link,
+                date: obj[key].date,
+                time: obj[key].time,
                 userName: ''
               })
               const i = notificari.length

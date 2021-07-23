@@ -168,25 +168,22 @@
                 <v-tab-item class="profileColor" value="3">
                   <br>
                   <H3 class="mb-4">Notificarile tale</H3>
-                  <v-card class="ml-2 mr-2 mb-4 pa-7" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
+                  <v-card class="ml-2 mr-2 mb-4 pa-7" style="overflow:hidden;" v-for="notificare in notificari"
+                          :key="notificare.time">
                     <v-row style="word-break: break-word;">
-                      <v-col style="align-content: first;display: flex;"><v-icon color="red" size="2rem" style="margin-right: 1rem" >
-                        mdi-heart
+                      <v-col style="align-content: first;display: flex;">
+                        <v-icon size="2rem" :style="notificare.color" class="mr-2">
+                        {{ notificare.icon }}
                       </v-icon>
-                        <div style="margin-top: 0.5rem"> {{review.name}} ti-a apreciat review-ul la produsul Audi A4</div></v-col>
-                      <v-col style="display: flex"><v-spacer></v-spacer>12:01<br>
-                        17/07/2021 </v-col>
-                    </v-row>
-                  </v-card>
-
-                  <v-card class="ml-2 mr-2 mb-4 pa-7" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
-                    <v-row style="word-break: break-word;">
-                      <v-col style="align-content: first;display: flex;"><v-icon color="light-blue" size="2rem" style="margin-right: 1rem" >
-                        mdi-message-reply-text
-                      </v-icon>
-                        <div style="margin-top: 0.5rem">{{review.name}} a adaugat un review la produsul Mercedes-Benz CLS</div></v-col>
-                      <v-col style="display: flex "><v-spacer></v-spacer>12:01<br>
-                        17/07/2021 </v-col>
+                        <div style="margin-top: 0.5rem"> {{ notificare.userName }} {{ notificare.text}}
+                          {{ notificare.prodName }}.
+                        </div></v-col>
+                      <v-col style="display: flex">
+                        <v-spacer></v-spacer>
+                        {{ notificare.time }}
+                        <br>
+                        {{ notificare.date }}
+                      </v-col>
                     </v-row>
                   </v-card>
                 </v-tab-item>

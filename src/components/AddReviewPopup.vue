@@ -104,6 +104,12 @@
                 this.date = current.getDate() + '/' + (current.getMonth() + 1) + '/'
                     + current.getFullYear()
             }
+            if(current.getMinutes() < 10) {
+                this.time = current.getHours() + ':' + 0 + current.getMinutes()
+            }
+            else {
+                this.time = current.getHours() + ':' + current.getMinutes()
+            }
         },
 
         data: () => ({
@@ -114,7 +120,8 @@
             loading: false,
             dialogadd: false,
             rating: 0,
-            date: ''
+            date: '',
+            time: ''
         }),
         watch : {
             picture (value) {
@@ -151,6 +158,7 @@
                     newRating: this.$store.getters.theProd.rating + this.rating,
                     newReviews: this.$store.getters.theProd.reviews + 1,
                     date: this.date,
+                    time: this.time,
                     prodName: this.theProd.name,
                     link: '/categorii/' + this.Ids.IdCat + '/produs/' + this.Ids.IdProd
                 }

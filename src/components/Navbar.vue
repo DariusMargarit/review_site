@@ -145,11 +145,11 @@
 <!--                    14:47 19/07/2021 -->
                     <v-row style="margin-top: 1vh; color: grey; font-weight: lighter; overflow: hidden;">
                       <v-col cols="2" sm="2" md="6" lg="6">
-                        14:47
+                        {{ notificare.time }}
                       </v-col>
                       <v-spacer />
                       <v-col cols="2" sm="2" md="6" lg="6">
-                        19/07/2021
+                        {{ notificare.date }}
                       </v-col>
                     </v-row>
                   </v-list-item-content>

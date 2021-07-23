@@ -94,12 +94,29 @@
 <script>
     import EditReviewPopup from "./EditReviewPopup";
     import ReportReviewPopup from "./ReportReviewPopup";
+    let current = new Date()
     export default {
         name: "Review.vue",
         props: ['review', 'Ids'],
         components: {
             'EditReviewPopup': EditReviewPopup,
             'ReportReviewPopup' : ReportReviewPopup
+        },
+        created() {
+            if((current.getMonth() + 1) < 10) {
+                this.date = current.getDate() + '/' + 0 + (current.getMonth() + 1) + '/'
+                    + current.getFullYear()
+            }
+            else {
+                this.date = current.getDate() + '/' + (current.getMonth() + 1) + '/'
+                    + current.getFullYear()
+            }
+            if(current.getMinutes() < 10) {
+                this.time = current.getHours() + ':' + 0 + current.getMinutes()
+            }
+            else {
+                this.time = current.getHours() + ':' + current.getMinutes()
+            }
         },
         data () {
             return {
@@ -117,7 +134,9 @@
                 },
                 likes: this.review.likes,
                 liked: this.review.liked,
-                likeDelay: 0
+                likeDelay: false,
+                date: '',
+                time: ''
             }
         },
         watch: {
@@ -163,6 +182,8 @@
                             reviewKey: value.id,
                             userKey: this.userKey,
                             prodName: this.theProd.name,
+                            date: this.date,
+                            time: this.time,
                             link: '/categorii/' + this.Ids.IdCat + '/produs/' + this.Ids.IdProd
                         })
                     }
