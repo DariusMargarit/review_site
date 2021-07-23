@@ -183,7 +183,7 @@
                         {{ notificare.time }}
                         <br>
                         {{ notificare.date }}
-                        <v-btn class="ml-7" style="border: 2px solid" icon outlined color="green"><v-icon>mdi-check</v-icon></v-btn>
+                        <v-btn class="ml-7 read" style="border: 2px solid; color: hsl(47, 95%, 49%)" icon><v-icon>mdi-check</v-icon></v-btn>
                       </v-col>
                     </v-row>
                   </v-card>
@@ -315,6 +315,11 @@ table{
 }
 .heart-btn-click :hover {
   color: red;
+}
+
+.read :hover {
+  color: lawngreen;
+  border-color: lawngreen;
 }
 
 </style>
