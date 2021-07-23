@@ -178,7 +178,7 @@
                         <div style="margin-top: 0.5rem"> {{ notificare.userName }} {{ notificare.text}}
                           {{ notificare.prodName }}.
                         </div></v-col>
-                      <v-col style="display: flex">
+                      <v-col style="display: flex; align-items: center">
                         <v-spacer></v-spacer>
                         {{ notificare.time }}
                         <br>
