@@ -182,8 +182,8 @@
                   <H3 class="mb-10">Notificarile tale</H3>
                   <v-card class="ml-2 mr-2 mb-4 pa-7" style="overflow:hidden;" v-for="notificare in notificari"
                           :key="notificare.time">
-                    <v-row style="word-break: break-word;">
-                      <v-col style="align-content: first;display: flex;">
+                    <v-row style="word-break: break-word; align-items: center; display: flex;">
+                      <v-col style="display: flex; align-items: center;">
                         <v-icon size="2rem" :style="notificare.color" class="mr-2">
                         {{ notificare.icon }}
                       </v-icon>
