@@ -167,7 +167,19 @@
                 </v-tab-item>
                 <v-tab-item class="profileColor" value="3">
                   <br>
-                  <H3 class="mb-4">Notificarile tale</H3>
+
+                  <v-container>
+                    <v-spacer />
+                    <v-row style="justify-content: end; display: inline-flex; float: right;">
+                      <v-spacer />
+                      <v-col style="justify-content: end; display: inline-flex;"><v-btn icon><v-icon>mdi-playlist-check</v-icon></v-btn></v-col>
+                      <v-col style="justify-content: end; display: inline-flex;"><v-btn icon><v-icon>mdi-delete-sweep</v-icon></v-btn></v-col>
+                    </v-row>
+                  </v-container>
+
+                  <br />
+
+                  <H3 class="mb-10">Notificarile tale</H3>
                   <v-card class="ml-2 mr-2 mb-4 pa-7" style="overflow:hidden;" v-for="notificare in notificari"
                           :key="notificare.time">
                     <v-row style="word-break: break-word;">

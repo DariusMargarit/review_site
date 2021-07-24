@@ -125,7 +125,7 @@
             overlap
             v-if="notificari !== null"
         >
-          <v-menu offset-y>
+          <v-menu offset-y class="notif-menu">
             <template v-slot:activator="{ on }">
               <v-icon v-on="on" class="imgProfil" style="color: white">
                 mdi-bell-ring
@@ -134,22 +134,21 @@
 
 <!--            v-if daca sunt notificari-->
 
-            <v-list style="width: 23rem">
+            <v-list class="notif-menu">
               <v-list-item-group style="justify-content: center; display: flex; align-items: center">
                 <v-list-item>
-                  <v-list-item-content style="font-weight: bold;">
+                  <v-list-item-content class="nr_notif" style="font-weight: bold;">
                     17 notificari
                   </v-list-item-content>
-                  <v-spacer />
+                  <v-spacer></v-spacer>
                   <v-list-item-content style="margin-right: 0;">
-                    <v-btn style="margin-right: 0; float: right;" icon><v-icon>mdi-playlist-check</v-icon></v-btn>
+                    <v-btn style="margin-right: 0; float: right;" color="black" plain icon><v-icon>mdi-playlist-check</v-icon></v-btn>
                   </v-list-item-content>
                 </v-list-item>
-
               </v-list-item-group>
             </v-list>
 
-            <v-list style="width: 23rem" v-for="notificare in notificari" :key="notificare.id">
+            <v-list class="notif-menu" v-for="notificare in notificari" :key="notificare.id">
               <v-list-item-group>
                 <v-list-item @click="goToReview(notificare.link)" class="item_list">
                   <v-list-item-icon>
@@ -160,11 +159,11 @@
                   <v-list-item-content style="font-family: 'Lato', sans-serif;font-weight: bold; ">
                     {{ notificare.userName }} {{ notificare.text}} {{ notificare.prodName }}.
                     <v-row style="margin-top: 1vh; color: grey; font-weight: lighter; overflow: hidden;">
-                      <v-col cols="2" sm="2" md="6" lg="6">
+                      <v-col>
                         {{ notificare.time }}
                       </v-col>
                       <v-spacer />
-                      <v-col cols="2" sm="2" md="6" lg="6">
+                      <v-col>
                         {{ notificare.date }}
                       </v-col>
                     </v-row>
@@ -173,7 +172,7 @@
               </v-list-item-group>
             </v-list>
 
-            <v-list style="width: 23rem">
+            <v-list class="notif-menu">
               <v-list-item-group>
                 <v-list-item @click="goToMyAccNotif" class="item_list">
                   <v-list-item-icon>
@@ -191,7 +190,7 @@
 
 <!--            v-else (daca nu sunt notificari)-->
 
-            <v-list>
+            <v-list class="notif-menu">
               <v-list-item-content>
                 <v-container style="min-height: 10vh; font-weight: bolder; margin: 1rem;">
                   <v-row><v-col style="align-items: center; justify-content: center; display: flex">nu ai nicio notificare</v-col></v-row>
@@ -348,9 +347,9 @@ export default {
 
 <style scoped>
 
-@media screen and (max-width: 1264px) {
-  .searchBar{
-    /*display: none;*/
+@media screen and (min-width: 1264px) {
+  .notif-menu {
+    width: 23rem !important;
   }
 }
 
@@ -462,6 +461,10 @@ export default {
 
 .searchBar {
   display: block;
+}
+
+.nr_notif {
+  cursor: auto;
 }
 
 </style>
