@@ -166,22 +166,27 @@
                   </v-container>
                 </v-tab-item>
                 <v-tab-item class="profileColor" value="3">
-                  <br>
-
+                  <br />
+                  <H3 class="mb-10">Notificarile tale</H3>
                   <v-container>
                     <v-spacer />
                     <v-row style="justify-content: end; display: inline-flex; float: right;">
                       <v-spacer />
-                      <v-col style="justify-content: end; display: inline-flex;"><v-btn icon><v-icon>mdi-playlist-check</v-icon></v-btn></v-col>
-                      <v-col style="justify-content: end; display: inline-flex;"><v-btn icon><v-icon>mdi-delete-sweep</v-icon></v-btn></v-col>
+                      <v-col style="justify-content: end; display: inline-flex;">
+                        <v-btn icon @click="markAsRead">
+                        <v-icon>mdi-playlist-check</v-icon>
+                      </v-btn>
+                      </v-col>
+                      <v-col style="justify-content: end; display: inline-flex;">
+                        <v-btn icon @click="deleteNotificari">
+                        <v-icon>mdi-delete-sweep</v-icon>
+                      </v-btn>
+                      </v-col>
                     </v-row>
                   </v-container>
-
-                  <br />
-
-                  <H3 class="mb-10">Notificarile tale</H3>
-                  <v-card class="ml-2 mr-2 mb-4 pa-7" style="overflow:hidden;" v-for="notificare in notificari"
-                          :key="notificare.time">
+                  <br /> <br />
+                  <v-card class="ml-2 mr-2 mb-4 pa-7" style="overflow:hidden;"
+                          v-for="(notificare, index) in Notificari" :key="index">
                     <v-row style="word-break: break-word; align-items: center; display: flex;">
                       <v-col style="display: flex; align-items: center;">
                         <v-icon size="2rem" :style="notificare.color" class="mr-2">
@@ -195,7 +200,14 @@
                         {{ notificare.time }}
                         <br>
                         {{ notificare.date }}
-                        <v-btn class="ml-7 read" style="border: 2px solid; color: hsl(47, 95%, 49%)" icon><v-icon>mdi-check</v-icon></v-btn>
+                        <v-btn class="ml-7 read" style="border: 2px solid; color: hsl(47, 95%, 49%)" icon
+                        v-if="!notificare.seen" @click="markOneAsRead(index)">
+                          <v-icon>mdi-check</v-icon>
+                        </v-btn>
+                        <v-btn class="ml-7 read" style="border: 2px solid; color: lawngreen" icon
+                               v-if="notificare.seen">
+                          <v-icon>mdi-check</v-icon>
+                        </v-btn>
                       </v-col>
                     </v-row>
                   </v-card>
@@ -213,6 +225,7 @@
 
 <script>
 import EditAccPopup from "../components/EditAccPopup";
+import firebase from "firebase";
 
 export default {
   components: {
@@ -221,6 +234,7 @@ export default {
   props: ['id'],
   data () {
     return {
+      Notificari: []
     }
   },
   created() {
@@ -228,6 +242,20 @@ export default {
     const querystring = window.location.search;
     const params = new URLSearchParams(querystring);
     this.Tab=params.get('Tab');
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('loadNotificari', user)
+      }
+    })
+  },
+  watch: {
+    notificari (value) {
+      for(let i in value) {
+        if(i > this.Notificari.length - 1 || i === 0) {
+          this.Notificari.push(value[i])
+        }
+      }
+    }
   },
   computed: {
     tab: {
@@ -260,6 +288,23 @@ export default {
   methods: {
     goToReview (value) {
       this.$router.push(value)
+    },
+    markAsRead () {
+      for(let i in this.Notificari) {
+        this.Notificari[i].seen = true
+      }
+      this.$store.dispatch('markAsRead', this.id)
+    },
+    deleteNotificari () {
+      this.Notificari = []
+      this.$store.dispatch('deleteNotificari', this.id)
+    },
+    markOneAsRead (value) {
+      this.Notificari[value].seen = true
+      this.$store.dispatch('markOneNotfAsRead', {
+        notifId: this.notificari[value].key,
+        userId: this.id
+      })
     }
   }
 }
@@ -327,11 +372,6 @@ table{
 }
 .heart-btn-click :hover {
   color: red;
-}
-
-.read :hover {
-  color: lawngreen;
-  border-color: lawngreen;
 }
 
 </style>

@@ -120,10 +120,10 @@
       <div v-if="userIsAuthenticated" style="margin-left: 1rem; margin-right: 0.4rem;">
         <v-badge
             color="#ff665a"
-            :content="notificari.length"
-            :value="notificari.length"
+            :content="Notificari.length"
+            :value="Notificari.length"
             overlap
-            v-if="notificari !== null"
+            v-if="Notificari !== []"
         >
           <v-menu offset-y class="notif-menu">
             <template v-slot:activator="{ on }">
@@ -132,24 +132,24 @@
               </v-icon>
             </template>
 
-<!--            v-if daca sunt notificari-->
-
             <v-list class="notif-menu">
               <v-list-item-group style="justify-content: center; display: flex; align-items: center">
                 <v-list-item>
                   <v-list-item-content class="nr_notif" style="font-weight: bold;">
-                    17 notificari
+                    {{ Notificari.length }} notificari
                   </v-list-item-content>
                   <v-spacer></v-spacer>
                   <v-list-item-content style="margin-right: 0;">
-                    <v-btn style="margin-right: 0; float: right;" color="black" plain icon><v-icon>mdi-playlist-check</v-icon></v-btn>
+                    <v-btn style="margin-right: 0; float: right;" color="black" plain icon @click="markAsRead">
+                      <v-icon>mdi-playlist-check</v-icon>
+                    </v-btn>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
 
-            <v-list class="notif-menu" v-for="notificare in notificari" :key="notificare.id">
-              <v-list-item-group>
+            <v-list class="notif-menu" v-for="notificare in Notificari" :key="notificare.id">
+              <v-list-item-group  v-if="!notificare.seen">
                 <v-list-item @click="goToReview(notificare.link)" class="item_list">
                   <v-list-item-icon>
                     <v-icon class="avatar" :style="notificare.color">
@@ -172,11 +172,20 @@
               </v-list-item-group>
             </v-list>
 
+            <v-list class="notif-menu" v-if="Notificari.length === 0">
+              <v-list-item-content>
+                <v-container style="min-height: 10vh; font-weight: bolder; margin: 1rem;">
+                  <v-row><v-col style="align-items: center; justify-content: center; display: flex">nicio notificare</v-col></v-row>
+                  <v-row><v-col style="align-items: center; justify-content: center; display: flex"><v-icon>mdi-bell</v-icon></v-col></v-row>
+                </v-container>
+              </v-list-item-content>
+            </v-list>
+
             <v-list class="notif-menu">
               <v-list-item-group>
                 <v-list-item @click="goToMyAccNotif" class="item_list">
                   <v-list-item-icon>
-                    <v-icon class="avatar" style="color: #1fc7ff">
+                    <v-icon class="avatar" style="color: hsl(47, 95%, 49%)">
                       mdi-arrow-right
                     </v-icon>
                   </v-list-item-icon>
@@ -187,19 +196,6 @@
                 </v-list-item>
               </v-list-item-group>
             </v-list>
-
-<!--            v-else (daca nu sunt notificari)-->
-
-            <v-list class="notif-menu">
-              <v-list-item-content>
-                <v-container style="min-height: 10vh; font-weight: bolder; margin: 1rem;">
-                  <v-row><v-col style="align-items: center; justify-content: center; display: flex">nu ai nicio notificare</v-col></v-row>
-                  <v-row><v-col style="align-items: center; justify-content: center; display: flex"><v-icon>mdi-bell</v-icon></v-col></v-row>
-                </v-container>
-              </v-list-item-content>
-            </v-list>
-
-
           </v-menu>
         </v-badge>
 
@@ -246,6 +242,8 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: 'nav-bar',
   data () {
@@ -257,8 +255,16 @@ export default {
       search: '',
       searchResponsive: '',
       select: null,
-      chestii: []
+      chestii: [],
+      Notificari: []
     }
+  },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('loadNotificari', user)
+      }
+    })
   },
   computed: {
     userIsAuthenticated () {
@@ -293,6 +299,13 @@ export default {
             this.$router.push(this.searchArray[i].link)
             window.location.reload()
           }
+        }
+      }
+    },
+    notificari (value) {
+      for(let i in value) {
+        if(!value[i].seen && (i > this.Notificari.length - 1 || i === 0)) {
+          this.Notificari.push(value[i])
         }
       }
     }
@@ -340,6 +353,10 @@ export default {
         })
         this.loading = false
       }, 500)
+    },
+    markAsRead () {
+      this.Notificari = []
+      this.$store.dispatch('markAsRead', this.user.key)
     }
   }
 }

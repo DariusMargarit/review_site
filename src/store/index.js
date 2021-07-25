@@ -545,7 +545,8 @@ export default new Vuex.Store({
                             icon: 'mdi-message-reply-text',
                             color: 'color:#1fc7ff',
                             date: payload.date,
-                            time: payload.time
+                            time: payload.time,
+                            seen: false
                           }).catch(err => {
                             commit('setLoading', false)
                             console.log(err)
@@ -611,7 +612,8 @@ export default new Vuex.Store({
                 icon: 'mdi-message-reply-text',
                 color: 'color:#1fc7ff',
                 date: payload.date,
-                time: payload.time
+                time: payload.time,
+                seen: false
               }).catch(err => {
                 commit('setLoading', false)
                 console.log(err)
@@ -842,7 +844,8 @@ export default new Vuex.Store({
                   date: payload.date,
                   time: payload.time,
                   icon: 'mdi-heart',
-                  color: 'color:red'
+                  color: 'color:red',
+                  seen: false
                 }).catch(err => {
               commit('setLoading', false)
               console.log(err)
@@ -874,6 +877,7 @@ export default new Vuex.Store({
             const obj = data.val()
             for(let key in obj) {
               notificari.push({
+                key: key,
                 text: '',
                 color: obj[key].color,
                 icon: obj[key].icon,
@@ -881,6 +885,7 @@ export default new Vuex.Store({
                 link: obj[key].link,
                 date: obj[key].date,
                 time: obj[key].time,
+                seen: obj[key].seen,
                 userName: ''
               })
               const i = notificari.length
@@ -929,6 +934,36 @@ export default new Vuex.Store({
         }
       })
       commit('setSearchArray', searchArray)
+    },
+    markAsRead ({commit}, payload) {
+      firebase.database().ref('/users/' + payload + '/notificari/')
+          .once('value').then((val) => {
+            const obj = val.val()
+        for(let key in obj) {
+          firebase.database().ref('/users/' + payload + '/notificari/' + key)
+              .update({
+                seen: true
+              }).catch((err) => {
+                console.log(err)
+          })
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    deleteNotificari ({commit}, payload) {
+      firebase.database().ref('/users/' + payload + '/notificari/').remove()
+          .catch(err => {
+            console.log(err)
+          })
+    },
+    markOneNotfAsRead ({commit}, payload) {
+      firebase.database().ref('/users/' + payload.userId + '/notificari/' +
+      payload.notifId).update({
+        seen: true
+      }).catch(err => {
+        console.log(err)
+      })
     }
   },
   getters: {
