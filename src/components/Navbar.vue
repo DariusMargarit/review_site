@@ -134,13 +134,13 @@
 
             <v-list class="notif-menu">
               <v-list-item-group style="justify-content: center; display: flex; align-items: center">
-                <v-list-item>
+                <v-list-item class="cursor-list">
                   <v-list-item-content class="nr_notif" style="font-weight: bold;">
                     {{ Notificari.length }} notificari
                   </v-list-item-content>
-                  <v-spacer></v-spacer>
+                  <v-spacer ></v-spacer>
                   <v-list-item-content style="margin-right: 0;">
-                    <v-btn style="margin-right: 0; float: right;" color="black" plain icon @click="markAsRead">
+                    <v-btn style="margin-right: 0; float: right; cursor: pointer;" color="black" plain right icon @click="markAsRead">
                       <v-icon>mdi-playlist-check</v-icon>
                     </v-btn>
                   </v-list-item-content>
@@ -173,7 +173,7 @@
             </v-list>
 
             <v-list class="notif-menu" v-if="Notificari.length === 0">
-              <v-list-item-content>
+              <v-list-item-content style="justify-content: center; display: flex;">
                 <v-container style="min-height: 10vh; font-weight: bolder; margin: 1rem;">
                   <v-row><v-col style="align-items: center; justify-content: center; display: flex">nicio notificare</v-col></v-row>
                   <v-row><v-col style="align-items: center; justify-content: center; display: flex"><v-icon>mdi-bell</v-icon></v-col></v-row>
@@ -370,6 +370,10 @@ export default {
   }
 }
 
+.notif-menu {
+  min-width: 14rem;
+}
+
 .bigdiv {
   position: sticky;
   float: top;
@@ -482,6 +486,10 @@ export default {
 
 .nr_notif {
   cursor: auto;
+}
+
+.cursor-list {
+  cursor: default !important;
 }
 
 </style>
