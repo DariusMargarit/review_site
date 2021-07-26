@@ -773,7 +773,6 @@ export default new Vuex.Store({
       commit('setLoading', false)
     },
     updateUserInfo ({commit}, payload) {
-      commit('setLoading', true)
       if(payload.picture != null && payload.picture != undefined) {
         firebase.storage().ref('profile_img/' + payload.picture.lastModified).put(payload.picture)
             .then((fileData) => {
@@ -806,7 +805,7 @@ export default new Vuex.Store({
           commit('setLoading', false)
         })
       }
-       else {
+       else if(payload.bio !== undefined) {
         firebase.database().ref('/users/' + payload.key).update({
           userName: payload.name,
           biografie: payload.bio
@@ -821,8 +820,21 @@ export default new Vuex.Store({
           console.log(err)
           commit('setLoading', false)
         })
+      }
+       else {
+        firebase.database().ref('/users/' + payload.key).update({
+          userName: payload.name
+        }).catch(err => {
+          console.log(err)
+          commit('setLoading', false)
+        })
 
-        commit('setLoading', false)
+        firebase.firestore().collection('users').doc(payload.uid).update({
+          userName: payload.name
+        }).catch(err => {
+          console.log(err)
+          commit('setLoading', false)
+        })
       }
     },
     like ({commit}, payload) {

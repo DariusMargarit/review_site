@@ -159,7 +159,6 @@ export default {
       }
       this.$store.dispatch('updateUserInfo', det)
       this.loading = false
-      window.location.reload()
       this.EditAcc = false
     },
     closeCard () {
