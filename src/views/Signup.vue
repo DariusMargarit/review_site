@@ -5,14 +5,14 @@
 
     <snackbar />
 
-    <v-container style="margin-top: 4%; justify-content: center; display: flex;" >
-      <section class="formdesign">
+    <v-container style="margin-top: 4%; align-items: center; justify-content: center; display: flex;" >
+      <v-container align="center" class="formdesign" style="align-items:center; justify-content: center; display: flex;">
         <v-form class="form" @submit.prevent="submitForm()">
-          <v-container fluid>
-            <h1 style="font-family: 'Lato', sans-serif">Inscrie-te!</h1>
+          <v-container style="margin-top: 1rem" fluid>
+            <h1 class="text">Inscrie-te!</h1>
           </v-container>
 
-          <hr />
+          <hr class="dividers" />
 
           <v-container fluid>
             <span class="text">Inscrie-te cu</span>
@@ -98,7 +98,7 @@
             </v-row>
           </v-container>
 
-          <hr />
+          <hr class=dividers />
 
           <v-container class="containers">
             <v-row style="flex-basis: 31%">
@@ -112,7 +112,7 @@
           </v-container>
 
         </v-form>
-      </section>
+      </v-container>
     </v-container>
 
     <div class="circle1 hidden-md-and-down"></div>
@@ -235,46 +235,58 @@ export default {
   }
   .form {
     min-height: 80% !important;
-    width: 100% !important;
+    width: 70vh !important;
   }
-
+  .main {
+    background-image: none !important;
+    min-height: 95vh !important;
+  }
 }
 
 @media screen and (min-width: 1904px) {
   .formdesign {
-    max-height: 60vh !important;
-    max-width: 70vh !important;
+    max-height: 70vh !important;
+    max-width: 120rem !important;
+  }
+
+  .form {
+    min-height: 45vh !important;
+    width: 80rem !important;
   }
 
   .main {
-    min-height: 120vh !important;
+    min-height: 100vh !important;
   }
 
 }
 .main {
-  background: rgb(0,204,255);
-  background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
+  background-image: linear-gradient(180deg, rgba(0,204,255,0.05) 0%, rgba(0,204,255,0.1) 100%),
+  url("../assets/munti3-bg.jpg");
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   align-content: center;
+  margin-top: 2rem;
 }
 .formdesign {
-  margin-top: 3rem;
+  margin-top: 4rem;
   padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
+  height: 75vh;
+  width: 40rem;
   background: linear-gradient(
       to right bottom,
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.3)
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.2)
   );
+  align-items: center;
+  justify-content: center;
   border-radius: 2rem;
   z-index: 2;
   backdrop-filter: blur(2rem);
   display: flex;
-  align-content: center;
 }
 .containers {
   display: flex;
@@ -283,8 +295,8 @@ export default {
   text-align: center;
 }
 .form {
-  min-height: 75vh;
-  width: 60vh;
+  min-height: 55vh;
+  width: 70rem;
 }
 .bttn {
   margin-left: 6px;
@@ -345,6 +357,7 @@ export default {
 .wrapper .button:hover .icon-google i {
   color: #fff;
 }
+
 .circle1,
 .circle2,
 .circle3,
@@ -352,8 +365,8 @@ export default {
   background: white;
   background: linear-gradient(
       to right bottom,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.3)
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.2)
   );
   position: absolute;
   border-radius: 50%;
@@ -382,4 +395,14 @@ export default {
   height:11rem;
   width:11rem;
 }
+
+.text {
+  color: #031f35;
+  font-family: 'Lato', sans-serif;
+}
+
+.dividers {
+  border-bottom: 1px solid rgba(3, 31, 53, 0.5);
+}
+
 </style>

@@ -3,26 +3,26 @@
     <v-main class="main">
       <br><br>
       <v-progress-circular
-              :size="50"
-              color="primary"
-              indeterminate
-              v-if="loading"
+          :size="50"
+          color="primary"
+          indeterminate
+          v-if="loading"
       ></v-progress-circular>
       <v-container>
         <v-row justify="center">
           <v-col cols="12" sm="11" md="10" lg="9" xl="8">
             <v-card>
-              <v-tabs grow color="#000000" background-color="grey lighten-2" slider-color="hsl(47, 95%, 49%)">
-                <v-tab><v-icon>mdi-account-circle</v-icon></v-tab>
-                <v-tab><v-icon>mdi-card-bulleted</v-icon></v-tab>
-                <v-tab><v-icon>mdi-bell-ring</v-icon></v-tab>
-                <v-tab-item class="profileColor">
+              <v-tabs v-model="tab" grow color="#000000" background-color="grey lighten-2" slider-color="hsl(47, 95%, 49%)">
+                <v-tab href="#1"><v-icon>mdi-account-circle</v-icon></v-tab>
+                <v-tab href="#2"><v-icon>mdi-card-bulleted</v-icon></v-tab>
+                <v-tab href="#3" v-if="authUser"><v-icon>mdi-bell-ring</v-icon></v-tab>
+                <v-tab-item class="profileColor" value="1">
                   <br>
                   <v-container fluid>
                     <v-row no gutters style="padding-right: 2rem; padding-bottom: 2rem;"
-                    v-if="authUser">
+                           v-if="authUser">
                       <v-spacer />
-                        <EditAccPopup :userDet="user" />
+                      <EditAccPopup :userDet="user" />
                     </v-row>
                     <v-row no-gutters justify="center" align="center">
                       <v-col>
@@ -66,7 +66,7 @@
                     </v-row>
                   </v-container>
                 </v-tab-item>
-                <v-tab-item class="profileColor">
+                <v-tab-item class="profileColor" value="2">
                   <br>
                   <p v-if="reviews.length !== 0 && authUser">Acestea sunt recenziile tale!</p>
                   <p v-else-if="reviews.length === 0 && authUser">Momentan nu ai nicio recenzie!</p>
@@ -87,7 +87,7 @@
                                   </v-avatar>
                                 </v-col>
                                 <v-spacer/>
-                                <v-btn icon :href="review.link">
+                                <v-btn icon @click="goToReview(review.link)">
                                   <v-icon>mdi-arrow-right</v-icon>
                                 </v-btn>
                               </v-row>
@@ -137,12 +137,80 @@
                                   <div><v-img class="imag" :src="review.img" /></div>
                                 </v-col>
                               </v-row>
+                              <v-row no-gutters>
+                                <v-col cols="2" sm="1">
+                                  <v-btn icon v-if="review.liked" @click="goToReview(review.link)">
+                                    <v-icon style="color: red">
+                                      mdi-heart
+                                    </v-icon>
+                                  </v-btn>
+                                  <v-btn class="heart-btn-click" icon v-else @click="goToReview(review.link)">
+                                    <v-icon>
+                                      mdi-heart-outline
+                                    </v-icon>
+                                  </v-btn>
+                                </v-col>
+                                <v-col cols="4" align-self="center" align="left">
+                                  {{ review.likes }}
+                                </v-col>
+                                <v-spacer></v-spacer>
+                                <v-col cols="6" sm="2" align-self="center" align="right">
+                                  {{ review.date }}
+                                </v-col>
+                              </v-row>
                             </div>
                           </v-container>
                         </v-card>
                       </v-col>
                     </v-row>
                   </v-container>
+                </v-tab-item>
+                <v-tab-item class="profileColor" value="3">
+                  <br />
+                  <H3 class="mb-10">Notificarile tale</H3>
+                  <v-container>
+                    <v-spacer />
+                    <v-row style="justify-content: end; display: inline-flex; float: right;">
+                      <v-spacer />
+                      <v-col style="justify-content: end; display: inline-flex;">
+                        <v-btn icon @click="markAsRead">
+                        <v-icon>mdi-playlist-check</v-icon>
+                      </v-btn>
+                      </v-col>
+                      <v-col style="justify-content: end; display: inline-flex;">
+                        <v-btn icon @click="deleteNotificari">
+                        <v-icon>mdi-delete-sweep</v-icon>
+                      </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <br /> <br />
+                  <v-card class="ml-2 mr-2 mb-4 pa-7" style="overflow:hidden;"
+                          v-for="(notificare, index) in Notificari" :key="index">
+                    <v-row style="word-break: break-word; align-items: center; display: flex;">
+                      <v-col style="display: flex; align-items: center;">
+                        <v-icon size="2rem" :style="notificare.color" class="mr-2">
+                        {{ notificare.icon }}
+                      </v-icon>
+                        <div style="margin-top: 0.5rem"> {{ notificare.userName }} {{ notificare.text}}
+                          {{ notificare.prodName }}.
+                        </div></v-col>
+                      <v-col style="display: flex; align-items: center">
+                        <v-spacer></v-spacer>
+                        {{ notificare.time }}
+                        <br>
+                        {{ notificare.date }}
+                        <v-btn class="ml-7 read" style="border: 2px solid; color: hsl(47, 95%, 49%)" icon
+                        v-if="!notificare.seen" @click="markOneAsRead(index)">
+                          <v-icon>mdi-check</v-icon>
+                        </v-btn>
+                        <v-btn class="ml-7 read" style="border: 2px solid; color: lawngreen" icon
+                               v-if="notificare.seen">
+                          <v-icon>mdi-check</v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-card>
                 </v-tab-item>
               </v-tabs>
             </v-card>
@@ -157,18 +225,47 @@
 
 <script>
 import EditAccPopup from "../components/EditAccPopup";
+import firebase from "firebase";
 
 export default {
   components: {
     'EditAccPopup' : EditAccPopup
   },
   props: ['id'],
-  data: () => ({
-  }),
+  data () {
+    return {
+      Notificari: []
+    }
+  },
   created() {
     this.$store.dispatch('loadUserReviews', this.id)
+    const querystring = window.location.search;
+    const params = new URLSearchParams(querystring);
+    this.Tab=params.get('Tab');
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('loadNotificari', user)
+      }
+    })
+  },
+  watch: {
+    notificari (value) {
+      for(let i in value) {
+        if(i > this.Notificari.length - 1 || i === 0) {
+          this.Notificari.push(value[i])
+        }
+      }
+    }
   },
   computed: {
+    tab: {
+      set (tab) {
+        this.$router.replace({ query: { ...this.$route.query, tab } })
+      },
+      get () {
+        return this.$route.query.tab
+      }
+    },
     user () {
       return this.$store.getters.someUser(this.id)
     },
@@ -183,6 +280,31 @@ export default {
     },
     reviews () {
       return this.$store.getters.userReviews
+    },
+    notificari () {
+      return this.$store.getters.notificari
+    }
+  },
+  methods: {
+    goToReview (value) {
+      this.$router.push(value)
+    },
+    markAsRead () {
+      for(let i in this.Notificari) {
+        this.Notificari[i].seen = true
+      }
+      this.$store.dispatch('markAsRead', this.id)
+    },
+    deleteNotificari () {
+      this.Notificari = []
+      this.$store.dispatch('deleteNotificari', this.id)
+    },
+    markOneAsRead (value) {
+      this.Notificari[value].seen = true
+      this.$store.dispatch('markOneNotfAsRead', {
+        notifId: this.notificari[value].key,
+        userId: this.id
+      })
     }
   }
 }
@@ -190,21 +312,17 @@ export default {
 
 <style scoped>
 @media screen and (max-width:1264px) {
-  .nume-review {
-    font-size: 1rem !important;
-  }
-  .avatar {
-    font-size: 1rem !important;
-    height: 2.5rem !important;
-    width: 2.5rem !important;
-  }
+
   .rat{
     font-size: 1rem !important;
   }
+
+  .main {
+    min-height: 50vh !important;
+  }
+
 }
-.v-card__title{
-  word-break: break-word;
-}
+
 .main {
   background-color: #ffffff;
   font-family: 'Lato', sans-serif;
@@ -213,6 +331,7 @@ export default {
 }
 .profileColor {
   background-color: #f5f5f5;
+  min-height: 75vh;
 }
 .profilePic{
   border-radius: 10px;
@@ -250,6 +369,9 @@ table{
   font-family: 'Lato', sans-serif;
   font-weight: bolder;
   text-align: left;
+}
+.heart-btn-click :hover {
+  color: red;
 }
 
 </style>

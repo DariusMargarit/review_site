@@ -77,12 +77,24 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, minLength } from 'vuelidate/lib/validators'
+import alpha from "vuelidate/lib/validators/alpha";
+
+// const speciale = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '( ͡° ͜ʖ ͡°)']
+
+// const caractere = (value) => value.indexOf('!') <= 0
+
+
+
+// const caractere = (value) => {
+//   Array.from(speciale).forEach(element => value.indexOf(element) <= 0);
+//   return value
+// }
 
 export default {
   mixins: [validationMixin],
   validations: {
-    name: { required, minLength: minLength(3) },
-    bio: {required, maxLength: maxLength(100)},
+    newName: { required, minLength: minLength(3), alpha: alpha},
+    newBio: {required, maxLength: maxLength(100), minLength: minLength(3)},
   },
   props: ['userDet'],
 
@@ -124,6 +136,7 @@ export default {
   },
 
   data: () => ({
+
     newName: '',
     newBio: '',
     oldPic: '',
@@ -146,7 +159,6 @@ export default {
       }
       this.$store.dispatch('updateUserInfo', det)
       this.loading = false
-      window.location.reload()
       this.EditAcc = false
     },
     closeCard () {
@@ -168,16 +180,17 @@ export default {
   computed: {
     nameErrors () {
       const errors = []
-      if(!this.$v.title) return errors
-      !this.$v.title.required && errors.push('Numele este obligatoriu')
-      !this.$v.title.minLength && errors.push('Numele trebuie sa contina cel putin 3 litere')
+      if(!this.$v.newName) return errors
+      !this.$v.newName.required && errors.push('Numele este obligatoriu')
+      !this.$v.newName.minLength && errors.push('Numele trebuie sa contina cel putin 3 litere')
+      !this.$v.newName.alpha && errors.push('Numele trebuie sa contina doar litere/cifre')
       return errors
     },
     bioErrors () {
       const errors = []
-      if(!this.$v.title) return errors
-      !this.$v.title.minLength && errors.push('Biografia trebuie sa contina cel putin 3 litere')
-      !this.$v.title.maxlength && errors.push('Biografia poate contine cel mult 100 de caractere')
+      if(!this.$v.newBio) return errors
+      !this.$v.newBio.minLength && errors.push('Biografia trebuie sa contina cel putin 3 litere')
+      !this.$v.newBio.maxLength && errors.push('Biografia poate contine cel mult 100 de caractere')
       return errors
     }
   }

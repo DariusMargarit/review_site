@@ -24,6 +24,11 @@
         </v-list-item>
         <v-list-item link>
           <v-list-item-content>
+            <router-link to="/reports" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">PANOU - ADMINI</router-link>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-content>
             <router-link v-if="!userIsAuthenticated" to="/Login" style="text-decoration: none; padding:15px; margin-top:0;" class="black--text font">AUTENTIFICA-TE</router-link>
           </v-list-item-content>
         </v-list-item>
@@ -34,6 +39,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
     <v-navigation-drawer v-model="sideSearch" temporary absolute>
       <v-list-item>
         <v-list-item-action>
@@ -45,25 +51,35 @@
       </v-list-item>
       <v-divider/>
       <br>
-      <v-list dense nav>
-        <v-list-item>
-          <div>
-            <div class="search-input">
-              <a href="" target="_blank" hidden></a>
-              <input type="text" placeholder="Type to search..">
-              <div class="autocom-box">
-                <!-- here list are inserted from javascript -->
-              </div>
-              <div class="icon"><v-icon>mdi-magnify</v-icon></div>
-            </div>
-          </div>
+      <v-list>
+        <v-list-item-content>
 
-        </v-list-item>
+          <v-autocomplete
+              class="searchBar"
+              style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
+              filled
+              auto-select-first
+              dark
+              outlined
+              clearable
+              hide-no-data
+              v-model="select"
+              :loading="loading"
+              :search-input.sync="searchResponsive"
+              :items="items"
+              label="Cautare..."
+              prepend-inner-icon="mdi-magnify"
+              append-icon=""
+          >
+          </v-autocomplete>
+
+        </v-list-item-content>
       </v-list>
     </v-navigation-drawer>
+
     <v-app-bar flat align="center" fixed color=rgba(64,64,64,1) style="height: 4.75rem; padding: 0.5rem;" class="bigdiv">
-      <v-app-bar-nav-icon dark @click.native.stop="sideNav=!sideNav" class="hidden-lg-and-up"></v-app-bar-nav-icon>
-      <v-app-bar-nav-icon dark @click.native.stop="sideSearch=!sideSearch" class="hidden-md-and-up"><v-icon>mdi-magnify</v-icon></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon dark @click.native.stop="sideNavBtn" class="hidden-lg-and-up"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon dark @click.native.stop="sideSearchBtn" class="hidden-md-and-up"><v-icon>mdi-magnify</v-icon></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-md-and-down">
         <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
       </v-app-bar-title>
@@ -80,38 +96,103 @@
       <v-spacer />
 
       <div class="wrapper hidden-sm-and-down">
-        <div class="search-input">
-          <a href="" target="_blank" hidden></a>
-          <input type="text" placeholder="Type to search..">
-          <div class="autocom-box">
-            <!-- here list are inserted from javascript -->
-          </div>
-          <div class="icon"><v-icon>mdi-magnify</v-icon></div>
-        </div>
+        <v-autocomplete
+            class="searchBar"
+            style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
+            filled
+            auto-select-first
+            dark
+            outlined
+            clearable
+            hide-no-data
+            v-model="select"
+            :loading="loading"
+            :search-input.sync="search"
+            :items="items"
+            label="Cautare..."
+            prepend-inner-icon="mdi-magnify"
+            append-icon=""
+        >
+
+        </v-autocomplete>
       </div>
 
       <div v-if="userIsAuthenticated" style="margin-left: 1rem; margin-right: 0.4rem;">
         <v-badge
             color="#ff665a"
-            content="1"
+            :content="Notificari.length"
+            :value="Notificari.length"
             overlap
+            v-if="Notificari !== []"
         >
-          <v-menu offset-y>
+          <v-menu offset-y class="notif-menu">
             <template v-slot:activator="{ on }">
               <v-icon v-on="on" class="imgProfil" style="color: white">
                 mdi-bell-ring
               </v-icon>
             </template>
-            <v-list class="list" v-for="notificare in notificare" :key="notificare.mesaj">
-              <v-list-item-group>
-                <v-list-item @click="" class="item_list">
+
+            <v-list class="notif-menu">
+              <v-list-item-group style="justify-content: center; display: flex; align-items: center">
+                <v-list-item class="cursor-list">
+                  <v-list-item-content class="nr_notif" style="font-weight: bold;">
+                    {{ Notificari.length }} notificari
+                  </v-list-item-content>
+                  <v-spacer ></v-spacer>
+                  <v-list-item-content style="margin-right: 0;">
+                    <v-btn style="margin-right: 0; float: right; cursor: pointer;" color="black" plain right icon @click="markAsRead">
+                      <v-icon>mdi-playlist-check</v-icon>
+                    </v-btn>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+
+            <v-list class="notif-menu" v-for="notificare in Notificari" :key="notificare.id">
+              <v-list-item-group  v-if="!notificare.seen">
+                <v-list-item @click="goToReview(notificare.link)" class="item_list">
                   <v-list-item-icon>
-                    <v-icon class="avatar" style="color:#1fc7ff">
+                    <v-icon class="avatar" :style="notificare.color">
                       {{ notificare.icon }}
                     </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content style="font-family: 'Lato', sans-serif;font-weight: bold; ">
-                    {{ notificare.mesaj}}</v-list-item-content>
+                    {{ notificare.userName }} {{ notificare.text}} {{ notificare.prodName }}.
+                    <v-row style="margin-top: 1vh; color: grey; font-weight: lighter; overflow: hidden;">
+                      <v-col>
+                        {{ notificare.time }}
+                      </v-col>
+                      <v-spacer />
+                      <v-col>
+                        {{ notificare.date }}
+                      </v-col>
+                    </v-row>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+
+            <v-list class="notif-menu" v-if="Notificari.length === 0">
+              <v-list-item-content style="justify-content: center; display: flex;">
+                <v-container style="min-height: 10vh; font-weight: bolder; margin: 1rem;">
+                  <v-row><v-col style="align-items: center; justify-content: center; display: flex">nicio notificare</v-col></v-row>
+                  <v-row><v-col style="align-items: center; justify-content: center; display: flex"><v-icon>mdi-bell</v-icon></v-col></v-row>
+                </v-container>
+              </v-list-item-content>
+            </v-list>
+
+            <v-list class="notif-menu">
+              <v-list-item-group>
+                <v-list-item @click="goToMyAccNotif" class="item_list">
+                  <v-list-item-icon>
+                    <v-icon class="avatar" style="color: hsl(47, 95%, 49%)">
+                      mdi-arrow-right
+                    </v-icon>
+                  </v-list-item-icon>
+
+                  <v-list-item-content>
+                    <v-list-item-title style="font-family: 'Lato', sans-serif;font-weight: bold;">Toate notificarile</v-list-item-title>
+                  </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
@@ -161,18 +242,29 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: 'nav-bar',
   data () {
     return {
-      notificare: [
-        {mesaj:'xxx a adaugat un review la produsul tau, yyy', icon:'mdi-message-reply-text'},
-        {mesaj:'xxx ti-a apreciat review-ul la produsul yyy', icon:'mdi-heart'},
-      ],
-      search: '',
       sideNav:false,
-      sideSearch:false
+      sideSearch:false,
+      loading: false,
+      items: [],
+      search: '',
+      searchResponsive: '',
+      select: null,
+      chestii: [],
+      Notificari: []
     }
+  },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('loadNotificari', user)
+      }
+    })
   },
   computed: {
     userIsAuthenticated () {
@@ -180,8 +272,45 @@ export default {
     },
     user () {
       return this.$store.getters.user
+    },
+    notificari () {
+      return this.$store.getters.notificari
+    },
+    searchArray () {
+      return this.$store.getters.searchArray
     }
   },
+
+  watch: {
+    search (valoare) {
+      valoare && valoare !== this.select && this.selectari(valoare)
+    },
+    searchArray (value) {
+      if(value !== []) {
+        for(let i in value) {
+          this.chestii.push(value[i].searchObj)
+        }
+      }
+    },
+    select (value) {
+      if(value !== null && value !== undefined) {
+        for(let i in this.searchArray) {
+          if(this.searchArray[i].searchObj === value) {
+            this.$router.push(this.searchArray[i].link)
+            window.location.reload()
+          }
+        }
+      }
+    },
+    notificari (value) {
+      for(let i in value) {
+        if(!value[i].seen && (i > this.Notificari.length - 1 || i === 0)) {
+          this.Notificari.push(value[i])
+        }
+      }
+    }
+  },
+
   methods: {
     logout () {
       this.$store.dispatch('logout')
@@ -189,6 +318,10 @@ export default {
     goToMyAcc () {
       const id = this.$store.getters.user.key
       this.$router.push('/user/' + id)
+    },
+    goToMyAccNotif () {
+      const id = this.$store.getters.user.key
+      this.$router.push('/user/' + id + '?tab=3')
     },
     toSignUp () {
       this.$router.push('/Signup')
@@ -198,12 +331,48 @@ export default {
     },
     goToHome () {
       this.$router.push('/')
+    },
+    sideNavBtn () {
+      window.scrollTo(0,0);
+      this.sideNav=true;
+    },
+    sideSearchBtn () {
+      window.scrollTo(0,0);
+      this.sideSearch=true;
+    },
+    goToReview (value) {
+      this.$router.push(value)
+      window.location.reload()
+    },
+
+    selectari (v) {
+      this.loading = true
+      setTimeout(() => {
+        this.items = this.chestii.filter(cautare => {
+          return cautare.toLowerCase().match(this.search.toLowerCase())
+        })
+        this.loading = false
+      }, 500)
+    },
+    markAsRead () {
+      this.Notificari = []
+      this.$store.dispatch('markAsRead', this.user.key)
     }
   }
 }
 </script>
 
 <style scoped>
+
+@media screen and (min-width: 1264px) {
+  .notif-menu {
+    width: 23rem !important;
+  }
+}
+
+.notif-menu {
+  min-width: 14rem;
+}
 
 .bigdiv {
   position: sticky;
@@ -305,4 +474,22 @@ export default {
   color: #644bff;
   cursor: pointer;
 }
+.v-select.v-select--is-menu-active .v-input__icon--append .v-icon {
+  transform: rotate(
+      0deg
+  );
+}
+
+.searchBar {
+  display: block;
+}
+
+.nr_notif {
+  cursor: auto;
+}
+
+.cursor-list {
+  cursor: default !important;
+}
+
 </style>

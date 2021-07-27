@@ -2,21 +2,21 @@
 
   <v-main class="main">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!--    <navbar />-->
+
     <snackbar />
 
-    <v-container style="justify-content: center; display: flex;" >
-      <v-container align="center" class="formdesign">
+    <v-container style="justify-content: center; display: flex; align-items: center;" >
+      <v-container align="center" class="formdesign" style="align-items:center; justify-content: center;">
         <v-form align-self="center" class="form" @submit.prevent="submitLogIn">
 
           <v-container fluid>
             <h1 style="font-family: 'Lato', sans-serif">Autentifica-te!</h1>
           </v-container>
 
-          <hr />
+          <hr class="dividers" />
 
           <v-container fluid>
-            <span class="text">Autentifica-te cu</span>
+            <span class="tex">Autentifica-te cu</span>
           </v-container>
 
           <v-container >
@@ -84,7 +84,7 @@
             </v-row>
           </v-container>
 
-          <hr />
+          <hr class="dividers" />
 
           <v-container class="containers">
             <v-row style="flex-basis: 31%">
@@ -215,13 +215,20 @@ export default {
 
   .form {
     min-height: 80% !important;
-    width: 100% !important;
+    width: 70vh !important;
+  }
+
+  .main {
+    background-image: none !important;
+    min-height: 95vh !important;
+    background: rgb(0,204,255) !important;
+    background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.3) 100%) !important;
   }
 }
 
 @media screen and (min-width: 1904px) {
   .formdesign {
-    max-height: 60vh !important;
+    max-height: 65vh !important;
     max-width: 70vh !important;
   }
 
@@ -232,27 +239,30 @@ export default {
 }
 
 .main {
-  background: rgb(0,204,255);
-  background: linear-gradient(180deg, rgba(0,204,255,0.1) 0%, rgba(0,204,255,0.2) 100%);
+  background-image: linear-gradient(180deg, rgba(0,204,255,0.05) 0%, rgba(0,204,255,0.1) 100%),
+  url("../assets/munti3-bg.jpg");
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   align-content: center;
+  margin-top: 2rem;
 }
 
 .formdesign {
-  margin-top: 5rem;
+  margin-top: 4rem;
   padding: 8%;
   font-family: 'Lato', sans-serif;
   background: white;
-  height: 90vh;
-  width: 70vh;
+  height: 70vh;
+  width: 40rem;
   background: linear-gradient(
       to right bottom,
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.3)
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.2)
   );
+  align-items: center;
+  justify-content: center;
   border-radius: 2rem;
   z-index: 2;
   backdrop-filter: blur(2rem);
@@ -267,7 +277,7 @@ export default {
 }
 
 .form {
-  min-height: 75vh;
+  min-height: 55vh;
   width: 60vh;
 }
 
@@ -276,7 +286,7 @@ export default {
 }
 
 .text {
-  color: gray;
+  color: #031f35;
   font-family: 'Lato', sans-serif;
 }
 .separator {
@@ -289,7 +299,7 @@ export default {
 .separator::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #031f35;
 }
 .separator:not(:empty)::before {
   margin-right: .25em;
@@ -338,13 +348,12 @@ export default {
   background: white;
   background: linear-gradient(
       to right bottom,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.3)
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.2)
   );
   position: absolute;
   border-radius: 50%;
 }
-
 .circle1 {
   top: 7%;
   right: 20%;
@@ -357,19 +366,21 @@ export default {
   height: 20rem;
   width: 20rem;
 }
-
 .circle3 {
   top: 17%;
   right:12%;
   height: 10rem;
   width: 10rem;
 }
-
 .circle4{
   top: 35%;
   left: 8%;
   height:11rem;
   width:11rem;
+}
+
+.dividers {
+  border-bottom: 1px solid rgba(3, 31, 53, 0.5);
 }
 
 </style>

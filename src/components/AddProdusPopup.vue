@@ -133,7 +133,6 @@
                 }
                 this.$store.dispatch('uploadProdus', det)
                 this.loading = false
-                window.location.reload()
             },
             clear () {
                 this.$v.$reset()

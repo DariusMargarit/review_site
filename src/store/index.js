@@ -18,10 +18,12 @@ export default new Vuex.Store({
     categorii: null,
     produse: null,
     error: null,
-    reviews: null,
+    reviews: [],
     prod: null,
     userReviews: null,
-    numeCat: null
+    numeCat: null,
+    notificari: null,
+    searchArray: []
   },
   mutations: {
     newUser (state, payload) {
@@ -56,6 +58,12 @@ export default new Vuex.Store({
     },
     setNumeCat (state, payload) {
       state.numeCat = payload
+    },
+    setNotificari (state, payload) {
+      state.notificari = payload
+    },
+    setSearchArray (state, payload) {
+      state.searchArray = payload
     }
   },
   actions: {
@@ -426,7 +434,7 @@ export default new Vuex.Store({
                   likeKey: '',
                   liked: false,
                   name: '',
-                  userImg: null
+                  userImg: ''
                 })
 
                 const i = reviews.length - 1
@@ -507,7 +515,7 @@ export default new Vuex.Store({
                   img: url,
                   userKey: payload.userKey,
                   date: payload.date,
-                  link: 'http://localhost:8080/categorii/' + payload.catId + '/produse/'
+                  link: '/categorii/' + payload.catId + '/produs/'
                       + payload.prodId,
                   edited: false
                 }).then((data) => {
@@ -526,6 +534,27 @@ export default new Vuex.Store({
                         commit('setLoading', false)
                         console.log(err)
                       })
+
+                    firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
+                        payload.prodId).once('value').then((val) => {
+                          firebase.database().ref('/users/' + val.val().creatorKey +
+                          '/notificari/').push({
+                            userKey: payload.userKey,
+                            prodName: payload.prodName,
+                            link: payload.link,
+                            icon: 'mdi-message-reply-text',
+                            color: 'color:#1fc7ff',
+                            date: payload.date,
+                            time: payload.time,
+                            seen: false
+                          }).catch(err => {
+                            commit('setLoading', false)
+                            console.log(err)
+                          })
+                    }).catch(err => {
+                      commit('setLoading', false)
+                      console.log(err)
+                    })
                       commit('setLoading', false)
                     }).catch(err => {
                       commit('setLoading', false)
@@ -553,7 +582,7 @@ export default new Vuex.Store({
           img: '',
           userKey: payload.userKey,
           date: payload.date,
-          link: 'http://localhost:8080/categorii/' + payload.catId + '/produse/'
+          link: '/categorii/' + payload.catId + '/produs/'
                + payload.prodId,
           edited: false
         }).then(data => {
@@ -572,6 +601,27 @@ export default new Vuex.Store({
                 commit('setLoading', false)
                 console.log(err)
               })
+
+            firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
+                payload.prodId).once('value').then((val) => {
+              firebase.database().ref('/users/' + val.val().creatorKey +
+                  '/notificari/').push({
+                userKey: payload.userKey,
+                prodName: payload.prodName,
+                link: payload.link,
+                icon: 'mdi-message-reply-text',
+                color: 'color:#1fc7ff',
+                date: payload.date,
+                time: payload.time,
+                seen: false
+              }).catch(err => {
+                commit('setLoading', false)
+                console.log(err)
+              })
+            }).catch(err => {
+              commit('setLoading', false)
+              console.log(err)
+            })
             commit('setLoading', false)
             }).catch(err => {
               commit('setLoading', false)
@@ -604,11 +654,26 @@ export default new Vuex.Store({
                       date: x.date,
                       edited: x.edited,
                       link: x.link,
+                      likes: 0,
+                      likeKey: '',
+                      liked: false,
                       name: '',
-                      userImg: null
+                      userImg: ''
                     })
 
                     const i = reviews.length - 1
+
+                    if(x.likes !== undefined && x.likes !== null) {
+                      var y = 0
+                      for(let j in x.likes) {
+                        y++;
+                        if(x.likes[j].userKey === payload) {
+                          reviews[i].liked = true
+                          reviews[i].likeKey = j
+                        }
+                      }
+                      reviews[i].likes = y
+                    }
 
                     firebase.database().ref('/users/' + payload).once('value')
                         .then((val) => {
@@ -708,7 +773,6 @@ export default new Vuex.Store({
       commit('setLoading', false)
     },
     updateUserInfo ({commit}, payload) {
-      commit('setLoading', true)
       if(payload.picture != null && payload.picture != undefined) {
         firebase.storage().ref('profile_img/' + payload.picture.lastModified).put(payload.picture)
             .then((fileData) => {
@@ -741,6 +805,22 @@ export default new Vuex.Store({
           commit('setLoading', false)
         })
       }
+       else if(payload.bio !== undefined) {
+        firebase.database().ref('/users/' + payload.key).update({
+          userName: payload.name,
+          biografie: payload.bio
+        }).catch(err => {
+          console.log(err)
+          commit('setLoading', false)
+        })
+
+        firebase.firestore().collection('users').doc(payload.uid).update({
+          userName: payload.name
+        }).catch(err => {
+          console.log(err)
+          commit('setLoading', false)
+        })
+      }
        else {
         firebase.database().ref('/users/' + payload.key).update({
           userName: payload.name
@@ -755,8 +835,6 @@ export default new Vuex.Store({
           console.log(err)
           commit('setLoading', false)
         })
-
-        commit('setLoading', false)
       }
     },
     like ({commit}, payload) {
@@ -764,6 +842,27 @@ export default new Vuex.Store({
       firebase.database().ref('/reviews/' + payload.reviewKey + '/likes/').push({
         userKey: payload.userKey
       }).catch(err => {
+        commit('setLoading', false)
+        console.log(err)
+      })
+
+      firebase.database().ref('/reviews/' + payload.reviewKey).once('value')
+          .then((val) => {
+            firebase.database().ref('/users/' + val.val().userKey + '/notificari/')
+                .push({
+                  userKey: payload.userKey,
+                  prodName: payload.prodName,
+                  link: payload.link,
+                  date: payload.date,
+                  time: payload.time,
+                  icon: 'mdi-heart',
+                  color: 'color:red',
+                  seen: false
+                }).catch(err => {
+              commit('setLoading', false)
+              console.log(err)
+            })
+          }).catch(err => {
         commit('setLoading', false)
         console.log(err)
       })
@@ -778,6 +877,105 @@ export default new Vuex.Store({
         console.log(err)
       })
       commit('setLoading', false)
+    },
+    loadNotificari ({commit}, payload) {
+
+      firebase.firestore().collection('users').doc(payload.uid)
+          .onSnapshot((doc) => {
+        if (doc.exists) {
+          const notificari = []
+          firebase.database().ref('/users/' + doc.data().key + '/notificari/')
+              .once('value').then((data) => {
+            const obj = data.val()
+            for(let key in obj) {
+              notificari.push({
+                key: key,
+                text: '',
+                color: obj[key].color,
+                icon: obj[key].icon,
+                prodName: obj[key].prodName,
+                link: obj[key].link,
+                date: obj[key].date,
+                time: obj[key].time,
+                seen: obj[key].seen,
+                userName: ''
+              })
+              const i = notificari.length
+              firebase.database().ref('/users/' + obj[key].userKey)
+                  .once('value').then((val) => {
+                notificari[i - 1].userName = val.val().userName
+              })
+              if(notificari[i - 1].icon === "mdi-message-reply-text") {
+                notificari[i - 1].text = 'a adaugat un review la produsul tau: '
+              }
+                else if(notificari[i - 1].icon === "mdi-heart") {
+                notificari[i - 1].text = 'ti-a apreciat review-ul la produsul: '
+              }
+
+            }
+          }).catch(err => {
+            commit('setLoading', false)
+            console.log(err)
+          })
+          commit('setNotificari', notificari)
+        }
+      })
+    },
+    loadSearchSuggestions ({commit}) {
+      const searchArray = []
+      firebase.database().ref('/categorii/').once('value').then((val) => {
+        const obj = val.val()
+        for(let key in obj) {
+          searchArray.push({
+            searchObj: obj[key].numeCategorie,
+            link: '/categorii/' + key
+          })
+        }
+        for(let key in obj) {
+          const catKey = key
+          firebase.database().ref('/categorii/' + catKey + '/produse/')
+              .once('value').then((val) => {
+                const obj = val.val()
+                for(let i in obj) {
+                  searchArray.push({
+                    searchObj: obj[i].name,
+                    link: '/categorii/' + catKey + '/produs/' + i
+                  })
+                }
+          })
+        }
+      })
+      commit('setSearchArray', searchArray)
+    },
+    markAsRead ({commit}, payload) {
+      firebase.database().ref('/users/' + payload + '/notificari/')
+          .once('value').then((val) => {
+            const obj = val.val()
+        for(let key in obj) {
+          firebase.database().ref('/users/' + payload + '/notificari/' + key)
+              .update({
+                seen: true
+              }).catch((err) => {
+                console.log(err)
+          })
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    deleteNotificari ({commit}, payload) {
+      firebase.database().ref('/users/' + payload + '/notificari/').remove()
+          .catch(err => {
+            console.log(err)
+          })
+    },
+    markOneNotfAsRead ({commit}, payload) {
+      firebase.database().ref('/users/' + payload.userId + '/notificari/' +
+      payload.notifId).update({
+        seen: true
+      }).catch(err => {
+        console.log(err)
+      })
     }
   },
   getters: {
@@ -814,6 +1012,12 @@ export default new Vuex.Store({
     },
     numeCat (state) {
       return state.numeCat
+    },
+    notificari (state) {
+      return state.notificari
+    },
+    searchArray (state) {
+      return state.searchArray
     }
   },
   modules: {

@@ -63,6 +63,9 @@ export default {
         {text: 'Alte motive:'},
       ]
     }
+  },
+  created() {
+    window.scrollTo(0,0)
   }
 }
 

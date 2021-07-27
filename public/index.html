@@ -19,9 +19,32 @@
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <style>
+
+        .v-select.v-select--is-menu-active .v-input__icon--append .v-icon {
+            transform: rotate(
+                    0deg
+            );
+        }
+
+        .theme--light.v-list-item .v-list-item__mask {
+            color: #2490ec;
+            font-weight: bold;
+            background: #ddedfa;
+        }
+
       .v-rating .v-icon {
         padding: 0.1rem;
       }
+
+      .v-ripple__container{
+          opacity: 0 !important;
+      }
+
+        .v-list-item--link:before {
+            opacity: 0 !important;
+        }
+
+
 
       .v-application--is-ltr .v-toolbar__content >
       .v-btn.v-btn--icon:first-child + .v-toolbar__title,
