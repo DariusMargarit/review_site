@@ -139,7 +139,7 @@
                     {{ Notificari.length }} notificari
                   </v-list-item-content>
                   <v-spacer ></v-spacer>
-                  <v-list-item-content style="margin-right: 0;">
+                  <v-list-item-content style="margin-right: 0;" v-if="this.Notificari.length">
                     <v-btn style="margin-right: 0; float: right; cursor: pointer;" color="black" plain right icon @click="markAsRead">
                       <v-icon>mdi-playlist-check</v-icon>
                     </v-btn>

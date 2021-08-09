@@ -160,8 +160,8 @@
 <!--      </v-row>-->
 <!--    </v-container>-->
 
-    <div style="padding:20px;font-family: 'Lato', sans-serif;" class="separator subtitlu">
-      <v-icon>mdi-chevron-triple-left</v-icon></div>
+<!--    <div style="padding:20px;font-family: 'Lato', sans-serif;" class="separator subtitlu">-->
+<!--      <v-icon>mdi-chevron-triple-left</v-icon></div>-->
 
 
     <v-container  style="min-height: 65vh">
