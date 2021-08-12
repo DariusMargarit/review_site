@@ -171,7 +171,7 @@
 <!--                  daca ai notificari, afiseaza asta-->
                   
                   <H3 class="mb-10">Notificarile tale</H3>
-                  <v-container>
+                  <v-container v-if="this.Notificari.length > 0">
                     <v-spacer />
                     <v-row style="justify-content: end; display: inline-flex; float: right;">
                       <v-spacer />
@@ -193,7 +193,7 @@
 
 <!--                  daca nu sunt notificari, se afiseaza asta-->
 
-                  <v-container>
+                  <v-container v-if="this.Notificari.length === 0">
                     <v-row><v-col style="align-items: center; justify-content: center; display: flex; font-size: larger; font-weight: bolder;">nicio notificare</v-col></v-row>
                     <v-row><v-col style="align-items: center; justify-content: center; display: flex; font-size: larger; font-weight: bolder;"><v-icon>mdi-bell</v-icon></v-col></v-row>
                   </v-container>

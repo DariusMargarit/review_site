@@ -230,7 +230,8 @@ export default {
       Ids: {
         IdCat: this.catId,
         IdProd: this.prodId
-      }
+      },
+      Reviews: []
     }
   },
 
