@@ -167,6 +167,9 @@
                 </v-tab-item>
                 <v-tab-item class="profileColor" value="3">
                   <br />
+
+<!--                  daca ai notificari, afiseaza asta-->
+                  
                   <H3 class="mb-10">Notificarile tale</H3>
                   <v-container>
                     <v-spacer />
@@ -184,6 +187,19 @@
                       </v-col>
                     </v-row>
                   </v-container>
+                  <br />
+
+<!--                  sfarsit notificari-->
+
+<!--                  daca nu sunt notificari, se afiseaza asta-->
+
+                  <v-container>
+                    <v-row><v-col style="align-items: center; justify-content: center; display: flex; font-size: larger; font-weight: bolder;">nicio notificare</v-col></v-row>
+                    <v-row><v-col style="align-items: center; justify-content: center; display: flex; font-size: larger; font-weight: bolder;"><v-icon>mdi-bell</v-icon></v-col></v-row>
+                  </v-container>
+
+<!--                  sfarsit mesaj 'fara notificari'-->
+
                   <br /> <br />
                   <v-card class="ml-2 mr-2 mb-4 pa-7" style="overflow:hidden;"
                           v-for="(notificare, index) in Notificari" :key="index">
