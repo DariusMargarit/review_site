@@ -169,8 +169,8 @@
                   <br />
 
 <!--                  daca ai notificari, afiseaza asta-->
-                  
-                  <H3 class="mb-10">Notificarile tale</H3>
+
+                  <H3 v-if="this.Notificari.length > 0" class="mb-10">Notificarile tale</H3>
                   <v-container v-if="this.Notificari.length > 0">
                     <v-spacer />
                     <v-row style="justify-content: end; display: inline-flex; float: right;">
