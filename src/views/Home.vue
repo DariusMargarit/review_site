@@ -5,9 +5,9 @@
 
       <v-container justify="center" fluid>
         <v-row justify="center">
-          <a href="#ghid" class="ghidul">
+          <router-link class="ghidul" to="#ghid">
             <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
-          </a>
+          </router-link>
         </v-row>
       </v-container>
 
@@ -80,7 +80,7 @@
     <v-container class="containers">
       <v-row style="flex-basis: 31%;">
         <v-col align-self="center" cols="12" sm="6">
-          <h1 style="font-family: 'Archivo Black', sans-serif;">Ce este HonestReviews?</h1><br />
+          <h1 style="font-family: 'Archivo Black', sans-serif;" id="ce-e-hr">Ce este HonestReviews?</h1><br />
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             HonestReviews este un website prin intermediul caruia utilizatorii pot lasa review-uri, adica pareri, oricarui produs pe care l-au achizitionat.
             Un asa-zis "review" consta in exprimarea propriei opinii in legatura cu produsul ales.
@@ -101,7 +101,7 @@
           <img style="height: 100%; width: 100%;" src="../assets/bizbiz.png" />
         </v-col>
         <v-col align-self="center" cols="12" sm="6">
-          <h1 style="font-family: 'Archivo Black', sans-serif;">De ce HonestReviews?</h1><br />
+          <h1 style="font-family: 'Archivo Black', sans-serif;" id="de-ce-hr">De ce HonestReviews?</h1><br />
           <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
             Site-ul nostru va ofera o modalitate usoara de a scrie sau de a cauta impresii ale altor utilizatori despre orice fel ce produs.
             De la frigidere la computere, de la masini la biciclete, de la resorturi turistice la restaurante, aici puteti gasi un review pentru orice categorie imaginabila.

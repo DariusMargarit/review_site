@@ -286,6 +286,11 @@ export default {
   watch: {
     search (valoare) {
       valoare && valoare !== this.select && this.selectari(valoare)
+      if((valoare === null || valoare === '') && this.select === null) this.items = []
+    },
+    searchResponsive (valoare) {
+      valoare && valoare !== this.select && this.selectari(valoare)
+      if((valoare === null || valoare === '') && this.select === null) this.items = []
     },
     searchArray (value) {
       if(value !== []) {
@@ -351,7 +356,7 @@ export default {
       this.loading = true
       setTimeout(() => {
         this.items = this.chestii.filter(cautare => {
-          return cautare.toLowerCase().match(this.search.toLowerCase())
+          return cautare.toLowerCase().match(v.toLowerCase())
         })
         this.loading = false
       }, 500)
