@@ -59,10 +59,10 @@
               style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
               filled
               auto-select-first
-              dark
               outlined
               clearable
               hide-no-data
+              no-data-text="Nu sunt rezultate"
               v-model="select"
               :loading="loading"
               :search-input.sync="searchResponsive"
@@ -74,6 +74,7 @@
           </v-autocomplete>
 
         </v-list-item-content>
+
       </v-list>
     </v-navigation-drawer>
 
@@ -112,6 +113,7 @@
             label="Cautare..."
             prepend-inner-icon="mdi-magnify"
             append-icon=""
+            no-data-text="Nu sunt rezultate"
         >
 
         </v-autocomplete>
