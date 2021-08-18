@@ -56,7 +56,7 @@
 
           <v-autocomplete
               class="searchBar"
-              style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
+              style="margin-top: 1vh; font-family: 'Lato', sans-serif; margin-right: 0.5rem; margin-left: 0.5rem;"
               filled
               auto-select-first
               outlined
