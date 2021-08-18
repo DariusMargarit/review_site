@@ -177,7 +177,7 @@
             <v-list class="notif-menu" v-if="Notificari.length === 0">
               <v-list-item-content style="justify-content: center; display: flex;">
                 <v-container style="min-height: 10vh; font-weight: bolder; margin: 1rem;">
-                  <v-row><v-col style="align-items: center; justify-content: center; display: flex">nicio notificare</v-col></v-row>
+                  <v-row><v-col style="align-items: center; justify-content: center; display: flex">Nicio notificare</v-col></v-row>
                   <v-row><v-col style="align-items: center; justify-content: center; display: flex"><v-icon>mdi-bell</v-icon></v-col></v-row>
                 </v-container>
               </v-list-item-content>
