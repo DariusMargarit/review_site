@@ -77,65 +77,71 @@
 
     <div style="padding:20px" class="separator hidden-md-and-up"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
-    <v-container class="containers">
-      <v-row style="flex-basis: 31%;">
-        <v-col align-self="center" cols="12" sm="6">
-          <h1 style="font-family: 'Archivo Black', sans-serif;" id="ce-e-hr">Ce este HonestReviews?</h1><br />
-          <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
-            HonestReviews este un website prin intermediul caruia utilizatorii pot lasa review-uri, adica pareri, oricarui produs pe care l-au achizitionat.
-            Un asa-zis "review" consta in exprimarea propriei opinii in legatura cu produsul ales.
-            De asemenea, sunt mentionate sursa de unde a fost achizitionat produsul, numele intreg al acestuia, pretul si alte informatii utile.
-          </p>
-        </v-col>
-        <v-col align-self="center">
-          <img style="height: 100%; width: 100%;" src="../assets/social-media-3846597_640.png" />
-        </v-col>
-      </v-row>
-    </v-container>
+    <section class="sidebar-link header-anchor" id="ce-e-hr">
+      <v-container class="containers">
+        <v-row style="flex-basis: 31%;">
+          <v-col align-self="center" cols="12" sm="6">
+            <h1 style="font-family: 'Archivo Black', sans-serif;">Ce este HonestReviews?</h1><br />
+            <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
+              HonestReviews este un website prin intermediul caruia utilizatorii pot lasa review-uri, adica pareri, oricarui produs pe care l-au achizitionat.
+              Un asa-zis "review" consta in exprimarea propriei opinii in legatura cu produsul ales.
+              De asemenea, sunt mentionate sursa de unde a fost achizitionat produsul, numele intreg al acestuia, pretul si alte informatii utile.
+            </p>
+          </v-col>
+          <v-col align-self="center">
+            <img style="height: 100%; width: 100%;" src="../assets/social-media-3846597_640.png" />
+          </v-col>
+        </v-row>
+      </v-container>
+    </section>
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-right</v-icon></div>
 
-    <v-container class="containers">
-      <v-row style="flex-basis: 31%;">
-        <v-col align-self="center">
-          <img style="height: 100%; width: 100%;" src="../assets/bizbiz.png" />
-        </v-col>
-        <v-col align-self="center" cols="12" sm="6">
-          <h1 style="font-family: 'Archivo Black', sans-serif;" id="de-ce-hr">De ce HonestReviews?</h1><br />
-          <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
-            Site-ul nostru va ofera o modalitate usoara de a scrie sau de a cauta impresii ale altor utilizatori despre orice fel ce produs.
-            De la frigidere la computere, de la masini la biciclete, de la resorturi turistice la restaurante, aici puteti gasi un review pentru orice categorie imaginabila.
-            Datorita interfatei construita sa fie usor de folosit, oricine poate beneficia de acest site.
-            In plus, autentificarea se poate realiza prin intermediul E-Mailului, al contului de Google sau al contului de Facebook, asigurand, astfel, un proces rapid de logare.
-          </p>
-        </v-col>
-      </v-row>
-    </v-container>
+    <section class="sidebar-link header-anchor" id="de-ce-hr">
+      <v-container class="containers">
+        <v-row style="flex-basis: 31%;">
+          <v-col align-self="center">
+            <img style="height: 100%; width: 100%;" src="../assets/bizbiz.png" />
+          </v-col>
+          <v-col align-self="center" cols="12" sm="6">
+            <h1 style="font-family: 'Archivo Black', sans-serif;">De ce HonestReviews?</h1><br />
+            <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
+              Site-ul nostru va ofera o modalitate usoara de a scrie sau de a cauta impresii ale altor utilizatori despre orice fel ce produs.
+              De la frigidere la computere, de la masini la biciclete, de la resorturi turistice la restaurante, aici puteti gasi un review pentru orice categorie imaginabila.
+              Datorita interfatei construita sa fie usor de folosit, oricine poate beneficia de acest site.
+              In plus, autentificarea se poate realiza prin intermediul E-Mailului, al contului de Google sau al contului de Facebook, asigurand, astfel, un proces rapid de logare.
+            </p>
+          </v-col>
+        </v-row>
+      </v-container>
+    </section>
 
     <div style="padding:20px" class="separator"><v-icon>mdi-chevron-triple-left</v-icon></div>
 
-    <v-container class="containers">
-      <v-row style="flex-basis: 31%;">
-        <v-col align-self="center" cols="12" sm="6">
-          <h1 style="font-family: 'Archivo Black', sans-serif;" id="ghid">Ghidul utilizatorului</h1><br />
-          <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
-            Este usor sa folosesti HonestReviews. Daca nu ai un cont sau nu esti autentificat, vei putea doar sa vezi produsele si review-urile, nu si sa adaugi altele.
-            Altfel, daca nu ai un cont, il poti creea apasand butonul "Inscrie-te", pe pagina de acasa sau un partea de sus a ecranului.
-            Daca ai deja un cont, te poti autentifica, apasand butonul "Autentifica-te".
-            Mai departe, pentru a adauga un produs, trebuie sa apesi pe butonul "Categorii" si sa selectezi categoria in care se incadreaza acesta.
-            Pentru a-l adauga, trebuie doar sa completezi formularul ("Adauga un produs").
-            Dupa ce produsul a fost agaugat, in cazul in care nu exista deja, facand click pe el, ajungi la pagina unde vezi review-urile existente, si unde poti accesa formularul pentru review.
-          </p>
-          <br />
-          <v-btn @click="goToCat" large class="homebutton text--black font-weight-bold" plain>
-            Categorii
-          </v-btn>
-        </v-col>
-        <v-col align-self="center">
-          <img src="../assets/calculator.jpg" style="width: 110%; height: 110%;" />
-        </v-col>
-      </v-row>
-    </v-container>
+    <section class="sidebar-link header-anchor" id="ghid">
+      <v-container class="containers">
+        <v-row style="flex-basis: 31%;">
+          <v-col align-self="center" cols="12" sm="6">
+            <h1 style="font-family: 'Archivo Black', sans-serif;">Ghidul utilizatorului</h1><br />
+            <p style="font-family: 'Lato', sans-serif; font-weight: bold;">
+              Este usor sa folosesti HonestReviews. Daca nu ai un cont sau nu esti autentificat, vei putea doar sa vezi produsele si review-urile, nu si sa adaugi altele.
+              Altfel, daca nu ai un cont, il poti creea apasand butonul "Inscrie-te", pe pagina de acasa sau un partea de sus a ecranului.
+              Daca ai deja un cont, te poti autentifica, apasand butonul "Autentifica-te".
+              Mai departe, pentru a adauga un produs, trebuie sa apesi pe butonul "Categorii" si sa selectezi categoria in care se incadreaza acesta.
+              Pentru a-l adauga, trebuie doar sa completezi formularul ("Adauga un produs").
+              Dupa ce produsul a fost agaugat, in cazul in care nu exista deja, facand click pe el, ajungi la pagina unde vezi review-urile existente, si unde poti accesa formularul pentru review.
+            </p>
+            <br />
+            <v-btn @click="goToCat" large class="homebutton text--black font-weight-bold" plain>
+              Categorii
+            </v-btn>
+          </v-col>
+          <v-col align-self="center">
+            <img src="../assets/calculator.jpg" style="width: 110%; height: 110%;" />
+          </v-col>
+        </v-row>
+      </v-container>
+    </section>
 
   </v-main>
 </template>
@@ -171,9 +177,12 @@ export default {
     }, 300),
 
     setActiveHash () {
-      const sidebarLinks = [].slice.call(document.querySelectorAll(AHL_SIDEBAR_LINK_SELECTOR))
-      const anchors = [].slice.call(document.querySelectorAll(AHL_HEADER_ANCHOR_SELECTOR))
+      const sidebarLinks = [].slice.call(document.querySelectorAll('.sidebar-link'))
+      const anchors = [].slice.call(document.querySelectorAll('.header-anchor'))
               .filter(anchor => sidebarLinks.some(sidebarLink => sidebarLink.hash === anchor.hash))
+
+      console.log(sidebarLinks)
+      console.log(anchors)
 
       const scrollTop = Math.max(
               window.pageYOffset,
@@ -191,6 +200,7 @@ export default {
       for (let i = 0; i < anchors.length; i++) {
         const anchor = anchors[i]
         const nextAnchor = anchors[i + 1]
+
 
         const isActive = i === 0 && scrollTop === 0
                 || (scrollTop >= anchor.parentElement.offsetTop + 10
