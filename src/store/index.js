@@ -505,7 +505,7 @@ export default new Vuex.Store({
     uploadReview ({commit}, payload) {
       if(payload.picture != null && payload.picture != undefined) {
         commit('setLoading', true)
-        firebase.storage().ref('reviews_img/' + payload.picture.name).put(payload.picture)
+        firebase.storage().ref('reviews_img/' + payload.picture.lastModified).put(payload.picture)
             .then((fileData) => {
               fileData.ref.getDownloadURL().then((url) => {
                 firebase.database().ref('/reviews/').push({

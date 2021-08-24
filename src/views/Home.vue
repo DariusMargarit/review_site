@@ -207,6 +207,7 @@ export default {
                         && (!nextAnchor || scrollTop < nextAnchor.parentElement.offsetTop - 10))
 
         const routeHash = decodeURIComponent(this.$route.hash)
+        console.log(decodeURIComponent(anchor.hash))
         if (isActive && routeHash !== decodeURIComponent(anchor.hash)) {
           const activeAnchor = anchor
           // check if anchor is at the bottom of the page to keep $route.hash consistent
