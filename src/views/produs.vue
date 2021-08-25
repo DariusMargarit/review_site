@@ -72,11 +72,6 @@
 
         </v-col>
       </v-row>
-<!--      <v-alert style="width: 23rem;display: flex;float: right"-->
-<!--               color="green"-->
-<!--               elevation="3"-->
-<!--               type="success"-->
-<!--      >VALELEU MAICA </v-alert>-->
     </v-container>
 
 

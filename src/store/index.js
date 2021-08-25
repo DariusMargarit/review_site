@@ -85,6 +85,11 @@ export default new Vuex.Store({
           }
           firebase.firestore().collection('users').doc(id).set(newUserWithId).then((data) => {
             commit('newUser', newUserWithId)
+            commit('setError', {
+              text: 'Cont inregistrat cu succes!',
+              color: '#24ba22',
+              icon: 'mdi-check-circle'
+            })
           }).catch(err => {
             console.log(err)
           })
@@ -93,28 +98,58 @@ export default new Vuex.Store({
         })
 
       }).catch(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'A aparut o eroare. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
     },
     logUserIn ({commit}, payload) {
-      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(() => {
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then((data) => {
+        commit('setError', {
+          text: 'Te-ai conectat cu succes cu E-Mail-ul: ' + data.user.email,
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
+        })
 
       }).catch(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'E-Mail-ul sau parola sunt incorecte. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
     },
     logUserInWithGoogle ({commit}, payload) {
-      firebase.auth().signInWithPopup(payload).then(() => {
-
+      firebase.auth().signInWithPopup(payload).then((data) => {
+        commit('setError', {
+          text: 'Te-ai conectat cu succes la contul: ' + data.additionalUserInfo.profile.name,
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
+        })
       }).catch(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'A aparut o eroare. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
 
     },
     logUserInWithFacebook ({commit}, payload) {
-      firebase.auth().signInWithPopup(payload).then(() => {
+      firebase.auth().signInWithPopup(payload).then((data) => {
+        commit('setError', {
+          text: 'Te-ai conectat cu succes la contul: ' + data.additionalUserInfo.profile.name,
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
+        })
       }).catch(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'A aparut o eroare. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
     },
     signUserUpWithGoogle ({commit}, payload) {
@@ -134,6 +169,11 @@ export default new Vuex.Store({
           }
           firebase.firestore().collection('users').doc(id).set(newUserWithId).then((data) => {
             commit('newUser', newUserWithId)
+            commit('setError', {
+              text: 'Cont inregistrat cu succes!',
+              color: '#24ba22',
+              icon: 'mdi-check-circle'
+            })
           }).catch(err => {
             console.log(err)
           })
@@ -142,7 +182,11 @@ export default new Vuex.Store({
         })
 
       }).then(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'A aparut o eroare. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
     },
     signUserUpWithFacebook ({commit}, payload) {
@@ -162,6 +206,11 @@ export default new Vuex.Store({
           }
           firebase.firestore().collection('users').doc(id).set(newUserWithId).then((data) => {
             commit('newUser', newUserWithId)
+            commit('setError', {
+              text: 'Cont inregistrat cu succes!',
+              color: '#24ba22',
+              icon: 'mdi-check-circle'
+            })
           }).catch(err => {
             console.log(err)
           })
@@ -170,7 +219,11 @@ export default new Vuex.Store({
         })
 
       }).catch(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'A aparut o eroare. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
     },
     autoSignIn ({commit}, payload) {
@@ -185,13 +238,18 @@ export default new Vuex.Store({
             uid: payload.uid
           }
           commit('userInfo', userInfo)
-        } else commit('setError', 'Acest user nu exista sau a fost sters!')
+        }
       })
     },
     logout ({commit}) {
       firebase.auth().signOut()
       router.push('/')
       commit('userInfo', null)
+      commit('setError', {
+        text: 'Te-ai deconectat cu succes!',
+        color: '#387aff',
+        icon: 'mdi-information-outline'
+      })
     },
     loadUsers ({commit}) {
       commit('setLoading', true)
@@ -489,18 +547,26 @@ export default new Vuex.Store({
                 reviews: 0,
                 creatorKey: payload.userKey,
                 img: url
-              }).then((data) => {
+              }).then(() => {
                 commit('setLoading', false)
               }).catch(err => {
                 commit('setLoading', false)
                 console.log(err)
               })
             })
-
-            console.log("Upload complete")
+            commit('setError', {
+              text: 'Produsul:' + payload.nume + ' a fost adaugat cu succes!',
+              color: '#24ba22',
+              icon: 'mdi-check-circle'
+            })
           }).catch(err => {
-        console.log(err)
+            commit('setError', {
+              text: 'Incarcarea produsului nu a reusit. Va rugam sa reincercati!',
+              color: '#e32929',
+              icon: 'mdi-alert-circle'
+            })
       })
+      commit('setLoading', false)
     },
     uploadReview ({commit}, payload) {
       if(payload.picture != null && payload.picture != undefined) {
@@ -553,25 +619,50 @@ export default new Vuex.Store({
                           })
                     }).catch(err => {
                       commit('setLoading', false)
-                      console.log(err)
+                      commit('setError', {
+                        text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                        color: '#e32929',
+                        icon: 'mdi-alert-circle'
+                      })
                     })
                       commit('setLoading', false)
                     }).catch(err => {
                       commit('setLoading', false)
-                      console.log(err)
+                    commit('setError', {
+                      text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                      color: '#e32929',
+                      icon: 'mdi-alert-circle'
+                    })
                     })
                   }).catch(err => {
                     commit('setLoading', false)
-                    console.log(err)
+                  commit('setError', {
+                    text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                    color: '#e32929',
+                    icon: 'mdi-alert-circle'
+                  })
                   })
                 }).catch(err => {
                   commit('setLoading', false)
-                  console.log(err)
+                commit('setError', {
+                  text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                  color: '#e32929',
+                  icon: 'mdi-alert-circle'
+                })
                 })
               }).catch(err => {
                 commit('setLoading', false)
-                console.log(err)
+              commit('setError', {
+            text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
               })
+        commit('setError', {
+          text: 'Review-ul a fost adaugat cu succes!',
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
+        })
       }
        else {
         commit('setLoading', true)
@@ -599,7 +690,11 @@ export default new Vuex.Store({
                 reviews: payload.newReviews
               }).catch(err => {
                 commit('setLoading', false)
-                console.log(err)
+                commit('setError', {
+                  text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                  color: '#e32929',
+                  icon: 'mdi-alert-circle'
+                })
               })
 
             firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
@@ -620,17 +715,34 @@ export default new Vuex.Store({
               })
             }).catch(err => {
               commit('setLoading', false)
-              console.log(err)
+              commit('setError', {
+                text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                color: '#e32929',
+                icon: 'mdi-alert-circle'
+              })
             })
             commit('setLoading', false)
             }).catch(err => {
               commit('setLoading', false)
-              console.log(err)
+            commit('setError', {
+              text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+              color: '#e32929',
+              icon: 'mdi-alert-circle'
+            })
             })
           }).catch(err => {
             commit('setLoading', false)
-            console.log(err)
+           commit('setError', {
+             text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+             color: '#e32929',
+             icon: 'mdi-alert-circle'
+           })
           })
+        commit('setError', {
+          text: 'Review-ul a fost adaugat cu succes!',
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
+        })
       }
     },
     loadUserReviews ({commit}, payload) {
@@ -727,7 +839,11 @@ export default new Vuex.Store({
 
             }).catch(err => {
               commit('setLoading', false)
-              console.log(err)
+              commit('setError', {
+                text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+                color: '#e32929',
+                icon: 'mdi-alert-circle'
+              })
             })
           }
 
@@ -742,17 +858,33 @@ export default new Vuex.Store({
                     edited: true
                   }).catch(err => {
                     console.log(err)
-                    commit('setLoading', false)
+                    commit('setError', {
+                      text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+                      color: '#e32929',
+                      icon: 'mdi-alert-circle'
+                    })
                   })
                 }).catch(err => {
                   console.log(err)
-                  commit('setLoading', false)
+                  commit('setError', {
+                    text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+                    color: '#e32929',
+                    icon: 'mdi-alert-circle'
+                  })
                 })
               }).catch(err => {
             console.log(err)
-            commit('setLoading', false)
+            commit('setError', {
+              text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+              color: '#e32929',
+              icon: 'mdi-alert-circle'
+            })
           })
-
+          commit('setError', {
+            text: 'Review-ul a fost modificat cu succes!',
+            color: '#24ba22',
+            icon: 'mdi-check-circle'
+          })
         }
          else {
 
@@ -764,13 +896,28 @@ export default new Vuex.Store({
           }).catch(err => {
             console.log(err)
             commit('setLoading', false)
+            commit('setError', {
+              text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+              color: '#e32929',
+              icon: 'mdi-alert-circle'
+            })
           })
         }
       }).catch(err => {
         console.log(err)
         commit('setLoading', false)
+        commit('setError', {
+          text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
       commit('setLoading', false)
+      commit('setError', {
+        text: 'Review-ul a fost modificat cu succes!',
+        color: '#24ba22',
+        icon: 'mdi-check-circle'
+      })
     },
     updateUserInfo ({commit}, payload) {
       if(payload.picture != null && payload.picture != undefined) {
@@ -784,6 +931,11 @@ export default new Vuex.Store({
                 }).catch(err => {
                   console.log(err)
                   commit('setLoading', false)
+                  commit('setError', {
+                    text: 'A aparut o eroare. Va rugam sa reincercati!',
+                    color: '#e32929',
+                    icon: 'mdi-alert-circle'
+                  })
                 })
 
                 firebase.firestore().collection('users').doc(payload.uid).update({
@@ -792,6 +944,11 @@ export default new Vuex.Store({
                 }).catch(err => {
                   console.log(err)
                   commit('setLoading', false)
+                  commit('setError', {
+                    text: 'A aparut o eroare. Va rugam sa reincercati!',
+                    color: '#e32929',
+                    icon: 'mdi-alert-circle'
+                  })
                 })
 
                 commit('setLoading', false)
@@ -799,10 +956,25 @@ export default new Vuex.Store({
               }).catch(err => {
                 console.log(err)
                 commit('setLoading', false)
+                commit('setError', {
+                  text: 'A aparut o eroare. Va rugam sa reincercati!',
+                  color: '#e32929',
+                  icon: 'mdi-alert-circle'
+                })
               })
             }).catch(err => {
           console.log(err)
+          commit('setError', {
+            text: 'A aparut o eroare. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
           commit('setLoading', false)
+        })
+        commit('setError', {
+          text: 'Datele dvs. au fost modificate cu succes!',
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
         })
       }
        else if(payload.bio !== undefined) {
@@ -812,6 +984,11 @@ export default new Vuex.Store({
         }).catch(err => {
           console.log(err)
           commit('setLoading', false)
+          commit('setError', {
+            text: 'A aparut o eroare. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
         })
 
         firebase.firestore().collection('users').doc(payload.uid).update({
@@ -819,6 +996,16 @@ export default new Vuex.Store({
         }).catch(err => {
           console.log(err)
           commit('setLoading', false)
+          commit('setError', {
+            text: 'A aparut o eroare. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
+        })
+        commit('setError', {
+          text: 'Datele dvs. au fost modificate cu succes!',
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
         })
       }
        else {
@@ -827,6 +1014,11 @@ export default new Vuex.Store({
         }).catch(err => {
           console.log(err)
           commit('setLoading', false)
+          commit('setError', {
+            text: 'A aparut o eroare. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
         })
 
         firebase.firestore().collection('users').doc(payload.uid).update({
@@ -834,6 +1026,16 @@ export default new Vuex.Store({
         }).catch(err => {
           console.log(err)
           commit('setLoading', false)
+          commit('setError', {
+            text: 'A aparut o eroare. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
+        })
+        commit('setError', {
+          text: 'Datele dvs. au fost modificate cu succes!',
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
         })
       }
     },
