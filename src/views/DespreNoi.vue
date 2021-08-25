@@ -31,15 +31,15 @@
     </v-container>
 
     <v-container fluid class="grad containers">
-      <v-row style="flex-basis: 31%;">
-        <v-col style="align-items: center; justify-content: center; display: flex;" >
-          <v-card class="card">
+      <v-row>
+        <v-col style="align-items: center; justify-content: center; display: flex;" cols="12" md="6" lg="3" class="cardCol">
+          <v-card class="card" hover id="zoom-out">
             <v-card-text class="card_text">
-              <div align="center" style="padding:15px;font-weight:800; font-size: 34px;" class="font">
-                <span class="font" style="padding:15px; font-weight:800; font-size: 34px;">- Darius -</span>
+              <div style="padding:15px;font-weight:800; font-size: 34px;" class="font">
+                <span class="font" style="padding:15px; font-weight:800; font-size: 34px;">-Darius-</span>
               </div>
               <br />
-              <div align="center">
+              <div>
                 <v-avatar size="130" style="">
                   <img src="../assets/darius.jpg" />
                 </v-avatar>
@@ -61,14 +61,14 @@
           </v-card>
         </v-col>
 
-        <v-col style="align-items: center; justify-content: center; display: flex;" >
-          <v-card class="card">
+        <v-col style="align-items: center; justify-content: center; display: flex;" cols="12" md="6" lg="3" class="cardCol">
+          <v-card class="card" hover id="zoom-out">
             <v-card-text class="card_text">
-              <div align="center" style="padding:15px;font-weight:800; font-size: 34px;" class="font">
-                <span class="font" style="padding:15px;font-weight:800; font-size: 34px;">- Iulian -</span>
+              <div style="padding:15px;font-weight:800; font-size: 34px;" class="font">
+                <span class="font" style="padding:15px;font-weight:800; font-size: 34px;">-Iulian-</span>
               </div>
               <br />
-              <div align="center">
+              <div>
                 <v-avatar size="130" style="">
                   <img src="../assets/iulian.jpeg" class />
                 </v-avatar>
@@ -90,14 +90,14 @@
           </v-card>
         </v-col>
 
-        <v-col style="align-items: center; justify-content: center; display: flex;" >
-          <v-card class="card">
+        <v-col style="align-items: center; justify-content: center; display: flex;" cols="12" md="6" lg="3" class="cardCol">
+          <v-card class="card" hover id="zoom-out">
             <v-card-text class="card_text">
-              <div align="center" style="padding:15px;font-weight:800; font-size: 34px;" class="font">
-                <span class="font" style=" padding:15px;font-weight:800; font-size: 34px;">- Robert -</span>
+              <div style="padding:15px;font-weight:800; font-size: 34px;" class="font">
+                <span class="font" style=" padding:15px;font-weight:800; font-size: 34px;">-Robert-</span>
               </div>
               <br />
-              <div align="center">
+              <div >
                 <v-avatar size="130" style="">
                   <img src="../assets/robert.jpg" />
                 </v-avatar>
@@ -120,14 +120,14 @@
           </v-card>
         </v-col>
 
-        <v-col style="align-items: center; justify-content: center; display: flex;" >
-          <v-card class="card">
+        <v-col style="align-items: center; justify-content: center; display: flex;" cols="12" md="6" lg="3" class="cardCol">
+          <v-card class="card" hover id="zoom-out">
             <v-card-text class="card_text">
-              <div align="center" style="padding:15px;font-weight:800; font-size: 34px;" class="font">
-                <span class="font" style="padding:15px;font-weight:800; font-size: 34px;">- Patri -</span>
+              <div style="padding:15px;font-weight:800; font-size: 34px;" class="font">
+                <span class="font" style="padding:15px;font-weight:800; font-size: 34px;">-Patri-</span>
               </div>
               <br />
-              <div align="center">
+              <div>
                 <v-avatar size="130" style="">
                   <img src="../assets/patri.jpg" />
                 </v-avatar>
@@ -167,13 +167,10 @@
           {  nume: 'Iulian', poza: 'iulian.jpeg', atr1: 'harnic', atr2: 'respectuos', atr3: 'inteligent', fact: 'știe să facă scheme cu bicicleta' },
           {  nume: 'Robert', poza: 'robert.jpg', atr1: 'destept', atr2: 'atent', atr3: 'meticulos', fact: 'îi place să schieze' },
           { nume: 'Patri', poza: 'patri.jpg', atr1: 'perfectionista', atr2: 'motivata', atr3: 'creativa', fact: 'știe să cânte la ukulele' }
-        ]
+        ],
       }
   },
 
-    components: {
-
-    },
     created() {
       window.scrollTo(0,0)
     },
@@ -189,12 +186,17 @@
   }
 
   .card {
-    margin: 5rem;
-    height: 75vh;
     width: 20rem !important;
     padding: 2rem;
   }
+}
 
+@media screen and (max-width: 425px) {
+  .card {
+    margin: 0px !important;
+    width: 95% !important;
+    padding: 2rem;
+  }
 }
 
   .font {
@@ -235,14 +237,18 @@
 
   .card_text{
     text-align: center;
-    margin-top: 0;
+    margin-bottom:20px;
   }
 
   .card {
-    margin: 5rem;
-    height: 75vh;
-    width: 30rem;
-    padding: 2rem;
+    margin:2rem;
+    /*min-height: 65vh;*/
   }
-
+  .cardCol #zoom-out {
+    transform:scale(1);
+    transition: 0.6s ease-in-out;
+  }
+  .cardCol #zoom-out:hover {
+    transform:scale(1.05);
+  }
 </style>
