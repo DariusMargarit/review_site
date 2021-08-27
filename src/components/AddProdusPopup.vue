@@ -5,7 +5,7 @@
         </template>
 
         <v-card>
-            <div class="main-form">
+            <div class="main">
                 <form @submit.prevent="submitForm">
                     <div @click="dialogadd = !dialogadd"><v-icon class="closeIcon">mdi-close</v-icon></div>
                     <h1>Adauga un produs!</h1>
@@ -152,7 +152,7 @@
 
 <style>
 
-    .main-form {
+    .main {
         background-color: white;
         min-height: 50vh;
         min-width: 30rem;
