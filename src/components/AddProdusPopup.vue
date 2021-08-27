@@ -7,7 +7,12 @@
         <v-card>
             <div class="main-form">
                 <form @submit.prevent="submitForm">
-                    <div @click="dialogadd = !dialogadd"><v-icon class="closeIcon">mdi-close</v-icon></div>
+                  <v-tooltip open-delay="500" open-on-focus right>
+                    <template v-slot:activator="{ on, attrs }">
+                      <div v-bind="attrs" v-on="on" @click="dialogadd = !dialogadd"><v-icon class="closeIcon">mdi-close</v-icon></div>
+                    </template>
+                    <span>Inchide</span>
+                  </v-tooltip>
                     <h1>Adauga un produs!</h1>
                     <br />
                     <div align="center">
