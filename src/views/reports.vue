@@ -1,5 +1,5 @@
 <template>
-  <v-main class="main">
+  <v-main class="reporturi">
 
     <v-container>
       <v-row>
@@ -71,10 +71,10 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 @media screen and (max-width: 1264px) {
-  .main {
+  .reporturi {
     min-height: 90rem !important;
     max-width: 100% !important;
   }
@@ -83,7 +83,7 @@ export default {
   }
 }
 
-.main {
+.reporturi {
   min-height: 100%;
   margin-top: 6rem;
   align-items: center;

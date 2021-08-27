@@ -5,7 +5,7 @@
         </template>
 
         <v-card>
-            <div class="main-form">
+            <div class="main">
                 <form @submit.prevent="submitForm">
                   <v-tooltip open-delay="500" open-on-focus right>
                     <template v-slot:activator="{ on, attrs }">
@@ -157,7 +157,7 @@
 
 <style>
 
-    .main-form {
+    .main {
         background-color: white;
         min-height: 50vh;
         min-width: 30rem;
