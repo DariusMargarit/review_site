@@ -13,9 +13,31 @@
           <v-col cols="12" sm="11" md="10" lg="9" xl="8">
             <v-card>
               <v-tabs v-model="tab" grow color="#000000" background-color="grey lighten-2" slider-color="hsl(47, 95%, 49%)">
-                <v-tab href="#1"><v-icon>mdi-account-circle</v-icon></v-tab>
-                <v-tab href="#2"><v-icon>mdi-card-bulleted</v-icon></v-tab>
-                <v-tab href="#3" v-if="authUser"><v-icon>mdi-bell-ring</v-icon></v-tab>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+
+                  <v-tab v-bind="attrs" v-on="on" href="#1"><v-icon>mdi-account-circle</v-icon></v-tab>
+
+                  </template>
+                  <span>Profilul meu</span>
+                </v-tooltip>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+
+                  <v-tab v-bind="attrs" v-on="on" href="#2"><v-icon>mdi-card-bulleted</v-icon></v-tab>
+
+                  </template>
+                  <span>Review-urile mele</span>
+                </v-tooltip>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+
+                  <v-tab v-bind="attrs" v-on="on" href="#3" v-if="authUser"><v-icon>mdi-bell-ring</v-icon></v-tab>
+
+                  </template>
+                  <span>Notificarile mele</span>
+                </v-tooltip>
+
                 <v-tab-item class="profileColor" value="1">
                   <br>
                   <v-container fluid>

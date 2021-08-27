@@ -5,9 +5,17 @@
 
       <v-container justify="center" fluid>
         <v-row justify="center">
-          <router-link class="ghidul" to="#ghid">
-            <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
-          </router-link>
+          <v-tooltip open-delay="500" open-on-focus bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn class="text--black font-weight-bold" style="border-width: thin; border-color: black" outlined text v-bind="attrs" v-on="on">
+                <router-link class="ghidul" to="#ghid">
+                  <span class="ma-4 font-weight-bold" style="color: black;">Ghidul utilizatorului</span>
+                </router-link>
+              </v-btn>
+
+            </template>
+            <span>catre ghidul utilizatorului</span>
+          </v-tooltip>
         </v-row>
       </v-container>
 
@@ -16,8 +24,13 @@
           <v-col>
             <p class="content-text">Doresti si tu sa lasi un review unui produs? Creeaza-ti un cont chiar acum</p>
             <br />
+            <v-tooltip open-delay="500" open-on-focus bottom>
+              <template v-slot:activator="{ on, attrs }">
             <v-btn v-if="userIsAuthenticated" disabled large class="homebutton text--black font-weight-bold" plain >Înscrie-te</v-btn>
-            <v-btn v-else large class="homebutton text--black font-weight-bold" plain @click="toSignUp" >Înscrie-te</v-btn>
+            <v-btn v-bind="attrs" v-on="on" v-else large class="homebutton text--black font-weight-bold" plain @click="toSignUp" >Înscrie-te</v-btn>
+              </template>
+              <span>Înscrie-te</span>
+            </v-tooltip>
           </v-col>
         </v-row>
         <v-row>
@@ -32,8 +45,13 @@
           <v-col>
             <p class="content-text">Ai deja un cont? Conecteaza-te la el aici</p>
             <br />
+            <v-tooltip open-delay="500" open-on-focus bottom>
+              <template v-slot:activator="{ on, attrs }">
             <v-btn v-if="userIsAuthenticated" disabled large class="homebutton text--black font-weight-bold" plain >Autentifică-te</v-btn>
-            <v-btn v-else large class="homebutton text--black font-weight-bold" plain @click="toLogIn" >Autentifică-te</v-btn>
+            <v-btn v-bind="attrs" v-on="on" v-else large class="homebutton text--black font-weight-bold" plain @click="toLogIn" >Autentifică-te</v-btn>
+              </template>
+              <span>Autentifică-te</span>
+            </v-tooltip>
           </v-col>
         </v-row>
       </v-container>
@@ -127,9 +145,14 @@
             Dupa ce produsul a fost agaugat, in cazul in care nu exista deja, facand click pe el, ajungi la pagina unde vezi review-urile existente, si unde poti accesa formularul pentru review.
           </p>
           <br />
-          <v-btn @click="goToCat" large class="homebutton text--black font-weight-bold" plain>
+          <v-tooltip open-delay="500" open-on-focus bottom>
+            <template v-slot:activator="{ on, attrs }">
+          <v-btn v-bind="attrs" v-on="on" @click="goToCat" large class="homebutton text--black font-weight-bold" plain>
             Categorii
           </v-btn>
+            </template>
+            <span>catre categorii</span>
+          </v-tooltip>
         </v-col>
         <v-col align-self="center">
           <img src="../assets/calculator.jpg" style="width: 110%; height: 110%;" />
@@ -225,15 +248,15 @@ export default {
 }
 .ghidul {
   text-align: center;
-  padding: 10px;
-  border: 1px solid black;
-  width: 300px;
-  border-radius: 10px;
+  /*padding: 10px;*/
+  /*border: 1px solid black;*/
+  /*width: 300px;*/
+  /*border-radius: 10px;*/
   transition-duration: 1s;
   transition: all;
   text-decoration: none;
-  margin-top: 10px;
-  color: black;
+  /*margin-top: 10px;*/
+  /*color: black;*/
   font-family: 'Lato', sans-serif;
 }
 .containers {
