@@ -52,7 +52,9 @@
               <v-btn :href="theProd.link" class="button text--black font-weight-bold" plain>
                 Link
               </v-btn>
-              <add-review-popup :Ids="Ids" v-if="userIsAuthenticated" />
+              <add-review-popup :Ids="Ids" v-if="userIsAuthenticated && !this.newReviewTest" />
+              <v-btn  class="homebutton text--black" disabled plain v-if="this.newReviewTest">
+                Adauga un review nou</v-btn>
             </v-col>
           </v-row>
         </div>
@@ -60,124 +62,16 @@
     </v-container>
     <br><br>
 
-<!--    <div style="padding:20px" class="separator subtitlu">Review-ul tau</div>-->
-<!--    <v-container>-->
-<!--      <v-row justify="center">-->
-<!--        <v-col xl="5" lg="8" md="10" sm="11" justify="center">-->
-<!--          <v-card class="pa-7 mb-4" style="overflow:hidden;background-color: #f2f2f2" v-for="review in reviews" :key="review.id">-->
-<!--            <v-container>-->
-<!--              <div>-->
-<!--                <v-row no-gutters>-->
-<!--                  <v-col md="1" sm="2" class="hidden-sm-and-up">-->
-<!--                    <v-avatar @click="goToUserProfile(review.userKey)" size="42">-->
-<!--                      <img :src="review.userImg" class="avatarr">-->
-<!--                    </v-avatar>-->
-<!--                  </v-col>-->
-<!--                  <v-spacer></v-spacer>-->
-<!--                  <v-col cols="4" sm="2" md="2" align="right" align-self="center" v-if="review.edited === true">-->
-<!--                    (editat)-->
-<!--                  </v-col>-->
-<!--                  <v-col class="centru" cols="2" sm="1" v-if="userKey !== review.userKey">-->
-<!--                    <ReportReviewPopup />-->
-<!--                  </v-col>-->
-<!--                  <v-col cols="2" sm="1" v-if="userKey === review.userKey">-->
-<!--                    <div @mouseover="transfData(review)">-->
-<!--                      <EditReviewPopup :reviewDet="reviewDet" />-->
-<!--                    </div>-->
-<!--                  </v-col>-->
-<!--                </v-row>-->
-<!--                <v-row style="max-height:12rem; margin-top: 0.2rem;">-->
-<!--                  <v-col md="1" sm="2" class="hidden-xs-only">-->
-<!--                    <v-avatar @click="goToUserProfile(review.userKey)" size="42">-->
-<!--                      <img :src="review.userImg" class="avatarr">-->
-<!--                    </v-avatar>-->
-<!--                  </v-col>-->
-<!--                  <v-col md="6" class="hidden-sm-and-down">-->
-<!--                    <v-card-title @click="goToUserProfile(review.userKey)" style="cursor: pointer" class="titlu">-->
-<!--                      {{review.name}}-->
-<!--                    </v-card-title>-->
-<!--                  </v-col>-->
-<!--                  <v-col cols="12" sm="6" md="5">-->
-<!--                    <v-row>-->
-<!--                      <v-spacer></v-spacer>-->
-<!--                      <v-col cols="8" sm="7" align="right">-->
-<!--                        <v-rating class="stele"-->
-<!--                                  background-color="warning lighten-1"-->
-<!--                                  color="warning"-->
-<!--                                  half-increments-->
-<!--                                  length="5"-->
-<!--                                  readonly-->
-<!--                                  size="1.5rem"-->
-<!--                                  :value=review.rating-->
-<!--                        ></v-rating>-->
-<!--                      </v-col>-->
-<!--                      <v-col cols="4" sm="5" align="left">-->
-<!--                        <div class="rating">-->
-<!--                          ({{review.rating}})</div>-->
-<!--                      </v-col>-->
-<!--                      <v-spacer></v-spacer>-->
-<!--                    </v-row>-->
-<!--                  </v-col>-->
-<!--                  <v-col class="hidden-md-and-up" cols="12">-->
-<!--                    <v-card-title class="titlu">{{review.name}}</v-card-title>-->
-<!--                  </v-col>-->
-<!--                </v-row>-->
-<!--                <v-row style="margin-bottom: 0.5rem;">-->
-<!--                  <v-col>-->
-<!--                    <v-card-title class="text">{{review.title}}</v-card-title>-->
-<!--                    <v-card-text class="subtitlu">{{review.text | quotes}}</v-card-text>-->
-<!--                  </v-col>-->
-<!--                  <v-col cols="12"sm="6" v-if="review.img" align="center">-->
-<!--                    <div><v-img class="imagini" :src="review.img" /></div>-->
-<!--                  </v-col>-->
-<!--                </v-row>-->
-<!--                <v-row no-gutters class="font">-->
-<!--                  <v-col cols="2" sm="1">-->
-<!--                    <v-btn icon v-if="review.liked" @click="unlike(review)">-->
-<!--                      <v-icon style="color: red">-->
-<!--                        mdi-heart-->
-<!--                      </v-icon>-->
-<!--                    </v-btn>-->
-<!--                    <v-btn class="heart-btn-click" icon v-if="!review.liked" @click="like(review)">-->
-<!--                      <v-icon>-->
-<!--                        mdi-heart-outline-->
-<!--                      </v-icon>-->
-<!--                    </v-btn>-->
-<!--                  </v-col>-->
-<!--                  <v-col cols="4" align-self="center" align="left">-->
-<!--                    {{ review.likes }}-->
-<!--                  </v-col>-->
-<!--                  <v-spacer></v-spacer>-->
-<!--                  <v-col cols="6" sm="2" align-self="center" align="right">-->
-<!--                    {{ review.date }}-->
-<!--                  </v-col>-->
-<!--                </v-row>-->
-<!--              </div>-->
-<!--            </v-container>-->
-<!--          </v-card>-->
-
-<!--        </v-col>-->
-<!--      </v-row>-->
-<!--    </v-container>-->
-
-<!--    <div style="padding:20px;font-family: 'Lato', sans-serif;" class="separator subtitlu">-->
-<!--      <v-icon>mdi-chevron-triple-left</v-icon></div>-->
-
-
     <v-container  style="min-height: 65vh">
       <v-row justify="center">
         <v-col xl="5" lg="8" md="10" sm="11" justify="center">
-          <v-card class="pa-7 mb-4" style="overflow:hidden;" v-for="review in reviews" :key="review.id">
+          <v-card :class="review.userKey === userKey ? 'pa-7 mb-4 my-review' : 'pa-7 mb-4'"
+                  style="overflow:hidden;" v-for="review in reviews" :key="review.id">
             <Review :review="review" :Ids="Ids"/>
           </v-card>
 
         </v-col>
       </v-row>
-<!--      <v-alert style="width: 23rem;display: flex;float: right"-->
-<!--               color="green"-->
-<!--               elevation="3"-->
-<!--               type="success"-->
-<!--      >VALELEU MAICA </v-alert>-->
     </v-container>
 
 
@@ -208,6 +102,11 @@ export default {
       if (user) {
         firebase.firestore().collection('users').doc(user.uid).onSnapshot((doc) => {
           if (doc.exists) {
+            this.$store.dispatch('loadProductYourReview', {
+              catId: this.catId,
+              prodId: this.prodId,
+              authUserKey: doc.data().key
+            })
             this.$store.dispatch('loadProductReviews', {
               catId: this.catId,
               prodId: this.prodId,
@@ -230,7 +129,20 @@ export default {
       Ids: {
         IdCat: this.catId,
         IdProd: this.prodId
+      },
+      newReviewTest: false
+    }
+  },
+
+  watch: {
+    reviews (value) {
+      for(let i in value) {
+        if(value[i].userKey === this.userKey) {
+          this.newReviewTest = true
+          break;
+        }
       }
+      console.log(value)
     }
   },
 
@@ -317,6 +229,15 @@ export default {
 }
 .separator:not(:empty)::after {
   margin-left: .25em;
+}
+
+.my-review {
+  background-color: #f2f2f2;
+}
+.homebutton{
+  background-color: hsl(47, 95%, 49%);
+  margin-bottom: 30px;
+  margin-left:15px;
 }
 
 

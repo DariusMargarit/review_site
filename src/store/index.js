@@ -18,6 +18,7 @@ export default new Vuex.Store({
     categorii: null,
     produse: null,
     error: null,
+    yourReview: [],
     reviews: [],
     prod: null,
     userReviews: null,
@@ -46,6 +47,9 @@ export default new Vuex.Store({
     },
     setError (state, payload) {
       state.error = payload
+    },
+    setYourReview (state, payload) {
+      state.yourReview = payload
     },
     setReviews (state, payload) {
       state.reviews = payload
@@ -85,6 +89,11 @@ export default new Vuex.Store({
           }
           firebase.firestore().collection('users').doc(id).set(newUserWithId).then((data) => {
             commit('newUser', newUserWithId)
+            commit('setError', {
+              text: 'Cont inregistrat cu succes!',
+              color: '#24ba22',
+              icon: 'mdi-check-circle'
+            })
           }).catch(err => {
             console.log(err)
           })
@@ -93,28 +102,58 @@ export default new Vuex.Store({
         })
 
       }).catch(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'A aparut o eroare. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
     },
     logUserIn ({commit}, payload) {
-      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(() => {
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then((data) => {
+        commit('setError', {
+          text: 'Te-ai conectat cu succes cu E-Mail-ul: ' + data.user.email,
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
+        })
 
       }).catch(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'E-Mail-ul sau parola sunt incorecte. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
     },
     logUserInWithGoogle ({commit}, payload) {
-      firebase.auth().signInWithPopup(payload).then(() => {
-
+      firebase.auth().signInWithPopup(payload).then((data) => {
+        commit('setError', {
+          text: 'Te-ai conectat cu succes la contul: ' + data.additionalUserInfo.profile.name,
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
+        })
       }).catch(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'A aparut o eroare. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
 
     },
     logUserInWithFacebook ({commit}, payload) {
-      firebase.auth().signInWithPopup(payload).then(() => {
+      firebase.auth().signInWithPopup(payload).then((data) => {
+        commit('setError', {
+          text: 'Te-ai conectat cu succes la contul: ' + data.additionalUserInfo.profile.name,
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
+        })
       }).catch(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'A aparut o eroare. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
     },
     signUserUpWithGoogle ({commit}, payload) {
@@ -134,6 +173,11 @@ export default new Vuex.Store({
           }
           firebase.firestore().collection('users').doc(id).set(newUserWithId).then((data) => {
             commit('newUser', newUserWithId)
+            commit('setError', {
+              text: 'Cont inregistrat cu succes!',
+              color: '#24ba22',
+              icon: 'mdi-check-circle'
+            })
           }).catch(err => {
             console.log(err)
           })
@@ -142,7 +186,11 @@ export default new Vuex.Store({
         })
 
       }).then(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'A aparut o eroare. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
     },
     signUserUpWithFacebook ({commit}, payload) {
@@ -162,6 +210,11 @@ export default new Vuex.Store({
           }
           firebase.firestore().collection('users').doc(id).set(newUserWithId).then((data) => {
             commit('newUser', newUserWithId)
+            commit('setError', {
+              text: 'Cont inregistrat cu succes!',
+              color: '#24ba22',
+              icon: 'mdi-check-circle'
+            })
           }).catch(err => {
             console.log(err)
           })
@@ -170,7 +223,11 @@ export default new Vuex.Store({
         })
 
       }).catch(err => {
-        commit('setError', err)
+        commit('setError', {
+          text: 'A aparut o eroare. Va rugam incercati din nou!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
     },
     autoSignIn ({commit}, payload) {
@@ -185,13 +242,18 @@ export default new Vuex.Store({
             uid: payload.uid
           }
           commit('userInfo', userInfo)
-        } else commit('setError', 'Acest user nu exista sau a fost sters!')
+        }
       })
     },
     logout ({commit}) {
       firebase.auth().signOut()
       router.push('/')
       commit('userInfo', null)
+      commit('setError', {
+        text: 'Te-ai deconectat cu succes!',
+        color: '#387aff',
+        icon: 'mdi-information-outline'
+      })
     },
     loadUsers ({commit}) {
       commit('setLoading', true)
@@ -408,73 +470,157 @@ export default new Vuex.Store({
         console.log(err)
       })
     },
-    loadProductReviews ({commit}, payload) {
-      commit('setLoading', true)
+    loadProductYourReview ({commit}, payload) {
+      const reviews = []
       firebase.database().ref('/categorii/' + payload.catId + '/produse/' + payload.prodId + '/pareri')
           .once('value').then((data) => {
-            const reviews = []
-            const obj = data.val()
+        const obj = data.val()
+
         for(let key in obj) {
           const reviewKey = obj[key].reviewKey
           firebase.database().ref('/reviews/' + reviewKey).once('value')
               .then((val) => {
-            const obj = val.val()
+                const obj = val.val()
 
-                reviews.push({
-                  id: reviewKey,
-                  idFromCat: key,
-                  title: obj.title,
-                  rating: obj.rating,
-                  text: obj.text,
-                  img: obj.img,
-                  userKey: obj.userKey,
-                  date: obj.date,
-                  edited: obj.edited,
-                  likes: 0,
-                  likeKey: '',
-                  liked: false,
-                  name: '',
-                  userImg: ''
-                })
+                if(obj.userKey === payload.authUserKey){
 
-                const i = reviews.length - 1
+                  reviews.push({
+                    id: reviewKey,
+                    idFromCat: key,
+                    title: obj.title,
+                    rating: obj.rating,
+                    text: obj.text,
+                    img: obj.img,
+                    userKey: obj.userKey,
+                    date: obj.date,
+                    edited: obj.edited,
+                    likes: 0,
+                    likeKey: '',
+                    liked: false,
+                    name: '',
+                    userImg: ''
+                  })
 
-                if(obj.likes !== undefined && obj.likes !== null) {
-                  var x = 0
-                  for(let j in obj.likes) {
-                    x++;
-                    if(obj.likes[j].userKey === payload.authUserKey) {
-                      reviews[i].liked = true
-                      reviews[i].likeKey = j
+                  const i = reviews.length - 1
+
+                  if(obj.likes !== undefined && obj.likes !== null) {
+                    var x = 0
+                    for(let j in obj.likes) {
+                      x++;
+                      if(obj.likes[j].userKey === payload.authUserKey) {
+                        reviews[i].liked = true
+                        reviews[i].likeKey = j
+                      }
                     }
+                    reviews[i].likes = x
                   }
-                  reviews[i].likes = x
+
+
+                  firebase.database().ref('/users/' + reviews[i].userKey).once('value')
+                      .then((val) => {
+                        const obj = val.val()
+                        reviews[i].name = obj.userName
+                        reviews[i].userImg = obj.profileImg
+                      }).catch(err => {
+                    commit('setLoading', false)
+                    console.log(err)
+                  })
+
                 }
 
-
-                firebase.database().ref('/users/' + reviews[i].userKey).once('value')
-                    .then((val) => {
-                      const obj = val.val()
-                      reviews[i].name = obj.userName
-                      reviews[i].userImg = obj.profileImg
-                    }).catch(err => {
-                  commit('setLoading', false)
-                  console.log(err)
-                })
-
-          }).catch(err => {
+              }).catch(err => {
             commit('setLoading', false)
             console.log(err)
           })
 
         }
-          commit('setReviews', reviews)
-          commit('setLoading', false)
+
+        console.log(reviews)
+        commit('setLoading', false)
 
       }).catch(err => {
         commit('setLoading', false)
         console.log(err)
       })
+      commit('setYourReview', reviews)
+    },
+
+
+    loadProductReviews ({commit}, payload) {
+      commit('setLoading', true)
+      const reviews = []
+      firebase.database().ref('/categorii/' + payload.catId + '/produse/' + payload.prodId + '/pareri')
+          .once('value').then((data) => {
+        const obj = data.val()
+
+        for(let key in obj) {
+          const reviewKey = obj[key].reviewKey
+          firebase.database().ref('/reviews/' + reviewKey).once('value')
+              .then((val) => {
+                const obj = val.val()
+
+                if(obj.userKey !== payload.authUserKey){
+
+                  reviews.push({
+                    id: reviewKey,
+                    idFromCat: key,
+                    title: obj.title,
+                    rating: obj.rating,
+                    text: obj.text,
+                    img: obj.img,
+                    userKey: obj.userKey,
+                    date: obj.date,
+                    edited: obj.edited,
+                    likes: 0,
+                    likeKey: '',
+                    liked: false,
+                    name: '',
+                    userImg: ''
+                  })
+
+                  const i = reviews.length - 1
+
+                  if(obj.likes !== undefined && obj.likes !== null) {
+                    var x = 0
+                    for(let j in obj.likes) {
+                      x++;
+                      if(obj.likes[j].userKey === payload.authUserKey) {
+                        reviews[i].liked = true
+                        reviews[i].likeKey = j
+                      }
+                    }
+                    reviews[i].likes = x
+                  }
+
+
+                  firebase.database().ref('/users/' + reviews[i].userKey).once('value')
+                      .then((val) => {
+                        const obj = val.val()
+                        reviews[i].name = obj.userName
+                        reviews[i].userImg = obj.profileImg
+                      }).catch(err => {
+                    commit('setLoading', false)
+                    console.log(err)
+                  })
+
+                }
+
+              }).catch(err => {
+            commit('setLoading', false)
+            console.log(err)
+          })
+
+        }
+
+        console.log(reviews)
+        commit('setLoading', false)
+
+      }).catch(err => {
+        commit('setLoading', false)
+        console.log(err)
+      })
+
+      commit('setReviews', reviews)
     },
     uploadProdus ({commit}, payload) {
       commit('setLoading', true)
@@ -489,23 +635,31 @@ export default new Vuex.Store({
                 reviews: 0,
                 creatorKey: payload.userKey,
                 img: url
-              }).then((data) => {
+              }).then(() => {
                 commit('setLoading', false)
               }).catch(err => {
                 commit('setLoading', false)
                 console.log(err)
               })
             })
-
-            console.log("Upload complete")
+            commit('setError', {
+              text: 'Produsul:' + payload.nume + ' a fost adaugat cu succes!',
+              color: '#24ba22',
+              icon: 'mdi-check-circle'
+            })
           }).catch(err => {
-        console.log(err)
+            commit('setError', {
+              text: 'Incarcarea produsului nu a reusit. Va rugam sa reincercati!',
+              color: '#e32929',
+              icon: 'mdi-alert-circle'
+            })
       })
+      commit('setLoading', false)
     },
     uploadReview ({commit}, payload) {
       if(payload.picture != null && payload.picture != undefined) {
         commit('setLoading', true)
-        firebase.storage().ref('reviews_img/' + payload.picture.name).put(payload.picture)
+        firebase.storage().ref('reviews_img/' + payload.picture.lastModified).put(payload.picture)
             .then((fileData) => {
               fileData.ref.getDownloadURL().then((url) => {
                 firebase.database().ref('/reviews/').push({
@@ -553,25 +707,50 @@ export default new Vuex.Store({
                           })
                     }).catch(err => {
                       commit('setLoading', false)
-                      console.log(err)
+                      commit('setError', {
+                        text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                        color: '#e32929',
+                        icon: 'mdi-alert-circle'
+                      })
                     })
                       commit('setLoading', false)
                     }).catch(err => {
                       commit('setLoading', false)
-                      console.log(err)
+                    commit('setError', {
+                      text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                      color: '#e32929',
+                      icon: 'mdi-alert-circle'
+                    })
                     })
                   }).catch(err => {
                     commit('setLoading', false)
-                    console.log(err)
+                  commit('setError', {
+                    text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                    color: '#e32929',
+                    icon: 'mdi-alert-circle'
+                  })
                   })
                 }).catch(err => {
                   commit('setLoading', false)
-                  console.log(err)
+                commit('setError', {
+                  text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                  color: '#e32929',
+                  icon: 'mdi-alert-circle'
+                })
                 })
               }).catch(err => {
                 commit('setLoading', false)
-                console.log(err)
+              commit('setError', {
+            text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
               })
+        commit('setError', {
+          text: 'Review-ul a fost adaugat cu succes!',
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
+        })
       }
        else {
         commit('setLoading', true)
@@ -599,7 +778,11 @@ export default new Vuex.Store({
                 reviews: payload.newReviews
               }).catch(err => {
                 commit('setLoading', false)
-                console.log(err)
+                commit('setError', {
+                  text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                  color: '#e32929',
+                  icon: 'mdi-alert-circle'
+                })
               })
 
             firebase.database().ref('/categorii/' + payload.catId + '/produse/' +
@@ -620,17 +803,34 @@ export default new Vuex.Store({
               })
             }).catch(err => {
               commit('setLoading', false)
-              console.log(err)
+              commit('setError', {
+                text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+                color: '#e32929',
+                icon: 'mdi-alert-circle'
+              })
             })
             commit('setLoading', false)
             }).catch(err => {
               commit('setLoading', false)
-              console.log(err)
+            commit('setError', {
+              text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+              color: '#e32929',
+              icon: 'mdi-alert-circle'
+            })
             })
           }).catch(err => {
             commit('setLoading', false)
-            console.log(err)
+           commit('setError', {
+             text: 'Incarcarea review-ului nu a reusit. Va rugam sa reincercati!',
+             color: '#e32929',
+             icon: 'mdi-alert-circle'
+           })
           })
+        commit('setError', {
+          text: 'Review-ul a fost adaugat cu succes!',
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
+        })
       }
     },
     loadUserReviews ({commit}, payload) {
@@ -727,7 +927,11 @@ export default new Vuex.Store({
 
             }).catch(err => {
               commit('setLoading', false)
-              console.log(err)
+              commit('setError', {
+                text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+                color: '#e32929',
+                icon: 'mdi-alert-circle'
+              })
             })
           }
 
@@ -742,17 +946,33 @@ export default new Vuex.Store({
                     edited: true
                   }).catch(err => {
                     console.log(err)
-                    commit('setLoading', false)
+                    commit('setError', {
+                      text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+                      color: '#e32929',
+                      icon: 'mdi-alert-circle'
+                    })
                   })
                 }).catch(err => {
                   console.log(err)
-                  commit('setLoading', false)
+                  commit('setError', {
+                    text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+                    color: '#e32929',
+                    icon: 'mdi-alert-circle'
+                  })
                 })
               }).catch(err => {
             console.log(err)
-            commit('setLoading', false)
+            commit('setError', {
+              text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+              color: '#e32929',
+              icon: 'mdi-alert-circle'
+            })
           })
-
+          commit('setError', {
+            text: 'Review-ul a fost modificat cu succes!',
+            color: '#24ba22',
+            icon: 'mdi-check-circle'
+          })
         }
          else {
 
@@ -764,13 +984,28 @@ export default new Vuex.Store({
           }).catch(err => {
             console.log(err)
             commit('setLoading', false)
+            commit('setError', {
+              text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+              color: '#e32929',
+              icon: 'mdi-alert-circle'
+            })
           })
         }
       }).catch(err => {
         console.log(err)
         commit('setLoading', false)
+        commit('setError', {
+          text: 'Modificarea review-ului nu a reusit. Va rugam sa reincercati!',
+          color: '#e32929',
+          icon: 'mdi-alert-circle'
+        })
       })
       commit('setLoading', false)
+      commit('setError', {
+        text: 'Review-ul a fost modificat cu succes!',
+        color: '#24ba22',
+        icon: 'mdi-check-circle'
+      })
     },
     updateUserInfo ({commit}, payload) {
       if(payload.picture != null && payload.picture != undefined) {
@@ -784,6 +1019,11 @@ export default new Vuex.Store({
                 }).catch(err => {
                   console.log(err)
                   commit('setLoading', false)
+                  commit('setError', {
+                    text: 'A aparut o eroare. Va rugam sa reincercati!',
+                    color: '#e32929',
+                    icon: 'mdi-alert-circle'
+                  })
                 })
 
                 firebase.firestore().collection('users').doc(payload.uid).update({
@@ -792,6 +1032,11 @@ export default new Vuex.Store({
                 }).catch(err => {
                   console.log(err)
                   commit('setLoading', false)
+                  commit('setError', {
+                    text: 'A aparut o eroare. Va rugam sa reincercati!',
+                    color: '#e32929',
+                    icon: 'mdi-alert-circle'
+                  })
                 })
 
                 commit('setLoading', false)
@@ -799,10 +1044,25 @@ export default new Vuex.Store({
               }).catch(err => {
                 console.log(err)
                 commit('setLoading', false)
+                commit('setError', {
+                  text: 'A aparut o eroare. Va rugam sa reincercati!',
+                  color: '#e32929',
+                  icon: 'mdi-alert-circle'
+                })
               })
             }).catch(err => {
           console.log(err)
+          commit('setError', {
+            text: 'A aparut o eroare. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
           commit('setLoading', false)
+        })
+        commit('setError', {
+          text: 'Datele dvs. au fost modificate cu succes!',
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
         })
       }
        else if(payload.bio !== undefined) {
@@ -812,6 +1072,11 @@ export default new Vuex.Store({
         }).catch(err => {
           console.log(err)
           commit('setLoading', false)
+          commit('setError', {
+            text: 'A aparut o eroare. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
         })
 
         firebase.firestore().collection('users').doc(payload.uid).update({
@@ -819,6 +1084,16 @@ export default new Vuex.Store({
         }).catch(err => {
           console.log(err)
           commit('setLoading', false)
+          commit('setError', {
+            text: 'A aparut o eroare. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
+        })
+        commit('setError', {
+          text: 'Datele dvs. au fost modificate cu succes!',
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
         })
       }
        else {
@@ -827,6 +1102,11 @@ export default new Vuex.Store({
         }).catch(err => {
           console.log(err)
           commit('setLoading', false)
+          commit('setError', {
+            text: 'A aparut o eroare. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
         })
 
         firebase.firestore().collection('users').doc(payload.uid).update({
@@ -834,6 +1114,16 @@ export default new Vuex.Store({
         }).catch(err => {
           console.log(err)
           commit('setLoading', false)
+          commit('setError', {
+            text: 'A aparut o eroare. Va rugam sa reincercati!',
+            color: '#e32929',
+            icon: 'mdi-alert-circle'
+          })
+        })
+        commit('setError', {
+          text: 'Datele dvs. au fost modificate cu succes!',
+          color: '#24ba22',
+          icon: 'mdi-check-circle'
         })
       }
     },
@@ -1002,7 +1292,7 @@ export default new Vuex.Store({
       return state.error
     },
     reviews (state) {
-      return state.reviews
+      return state.yourReview.concat(state.reviews)
     },
     theProd (state) {
       return state.prod

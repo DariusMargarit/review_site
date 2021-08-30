@@ -3,8 +3,6 @@
   <v-main class="main">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <snackbar />
-
     <v-container style="margin-top: 4%; align-items: center; justify-content: center; display: flex;" >
       <v-container align="center" class="formdesign" style="align-items:center; justify-content: center; display: flex;">
         <v-form class="form" @submit.prevent="submitForm()">
@@ -21,26 +19,35 @@
           <v-container >
             <v-row no-gutters align-content="center">
               <v-col>
-                <div class="wrapper">
-                  <div class="button" @click="facebookSignUp()">
-                    <div class="icon-facebook">
-                      <i><v-icon class="pb-1" size="40">mdi-facebook</v-icon></i>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div class="wrapper">
+                      <div v-on="on" v-bind="attrs" class="button" @click="facebookSignUp()">
+                        <div class="icon-facebook">
+                          <i><v-icon class="pb-1" size="40">mdi-facebook</v-icon></i>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </template>
+                  <span>Inscriere cu Facebook</span>
+                </v-tooltip>
               </v-col>
               <v-col>
-                <div class="wrapper">
-                  <div class="button" @click="googleSignUp()">
-                    <div class="icon-google">
-                      <i><v-icon class="pb-1" size="35">mdi-google</v-icon></i>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div class="wrapper">
+                      <div v-bind="attrs" v-on="on" class="button" @click="googleSignUp()">
+                        <div class="icon-google">
+                          <i><v-icon class="pb-1" size="35">mdi-google</v-icon></i>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </template>
+                  <span>Inscriere cu Google</span>
+                </v-tooltip>
               </v-col>
             </v-row>
           </v-container>
-
           <div class="separator text">sau prin E-Mail</div>
 
           <v-container>
@@ -90,10 +97,20 @@
           <v-container class="containers">
             <v-row style="flex-basis: 31%">
               <v-col align-self="center" cols="12" sm="6">
-                <v-btn style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" v-on="on" style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
+                  </template>
+                  <span>Trimite</span>
+                </v-tooltip>
               </v-col>
               <v-col align-self="center">
-                <v-btn class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear()">goleste</v-btn>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" v-on="on" class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear">goleste</v-btn>
+                  </template>
+                  <span>Goleste tot</span>
+                </v-tooltip>
               </v-col>
             </v-row>
           </v-container>
@@ -106,7 +123,12 @@
                 <span class="text" >Ai deja un cont?</span>
               </v-col>
               <v-col align-self="center">
-                <v-btn text class="ml-3 text"  style="font-family: 'Lato', sans-serif; font-weight: bold;" float="right" @click="toLogIn">Autentifica-te</v-btn>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" v-on="on" text class="ml-3 text"  style="font-family: 'Lato', sans-serif; font-weight: bold;" float="right" @click="toLogIn">Autentifica-te</v-btn>
+                  </template>
+                  <span>creeaza-ti un cont</span>
+                </v-tooltip>
               </v-col>
             </v-row>
           </v-container>
@@ -130,11 +152,9 @@ import { required, maxLength, email, minLength } from 'vuelidate/lib/validators'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import snackbar from "../components/snackbar";
 export default {
   name: "signup",
   components: {
-    'snackbar': snackbar
   },
   mixins: [validationMixin],
   validations: {

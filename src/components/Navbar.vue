@@ -56,13 +56,13 @@
 
           <v-autocomplete
               class="searchBar"
-              style="margin-top: 1.5rem; font-family: 'Lato', sans-serif;"
+              style="margin-top: 1vh; font-family: 'Lato', sans-serif; margin-right: 0.5rem; margin-left: 0.5rem;"
               filled
               auto-select-first
-              dark
               outlined
               clearable
               hide-no-data
+              no-data-text="Nu sunt rezultate"
               v-model="select"
               :loading="loading"
               :search-input.sync="searchResponsive"
@@ -74,6 +74,7 @@
           </v-autocomplete>
 
         </v-list-item-content>
+
       </v-list>
     </v-navigation-drawer>
 
@@ -81,7 +82,12 @@
       <v-app-bar-nav-icon dark @click.native.stop="sideNavBtn" class="hidden-lg-and-up"></v-app-bar-nav-icon>
       <v-app-bar-nav-icon dark @click.native.stop="sideSearchBtn" class="hidden-md-and-up"><v-icon>mdi-magnify</v-icon></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-md-and-down">
-        <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
+        <v-tooltip open-delay="500" open-on-focus bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <img v-bind="attrs" v-on="on" src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
+          </template>
+          <span>Acasa</span>
+        </v-tooltip>
       </v-app-bar-title>
 
       <div class="hidden-md-and-down">
@@ -112,6 +118,7 @@
             label="Cautare..."
             prepend-inner-icon="mdi-magnify"
             append-icon=""
+            no-data-text="Nu sunt rezultate"
         >
 
         </v-autocomplete>
@@ -127,9 +134,14 @@
         >
           <v-menu offset-y class="notif-menu">
             <template v-slot:activator="{ on }">
-              <v-icon v-on="on" class="imgProfil" style="color: white">
-                mdi-bell-ring
-              </v-icon>
+              <div v-on="on">
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div v-bind="attrs" v-on="on"><v-icon class="imgProfil" style="color: white">mdi-bell-ring</v-icon></div>
+                  </template>
+                  <span>Notificari</span>
+                </v-tooltip>
+              </div>
             </template>
 
             <v-list class="notif-menu">
@@ -175,7 +187,7 @@
             <v-list class="notif-menu" v-if="Notificari.length === 0">
               <v-list-item-content style="justify-content: center; display: flex;">
                 <v-container style="min-height: 10vh; font-weight: bolder; margin: 1rem;">
-                  <v-row><v-col style="align-items: center; justify-content: center; display: flex">nicio notificare</v-col></v-row>
+                  <v-row><v-col style="align-items: center; justify-content: center; display: flex">Nicio notificare</v-col></v-row>
                   <v-row><v-col style="align-items: center; justify-content: center; display: flex"><v-icon>mdi-bell</v-icon></v-col></v-row>
                 </v-container>
               </v-list-item-content>
@@ -204,9 +216,14 @@
       <div v-if="userIsAuthenticated" style="margin-left: 1rem">
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
-            <v-avatar v-on="on" class="imgProfil">
-              <img :src="user.profileImg">
-            </v-avatar>
+            <div v-on="on">
+            <v-tooltip open-delay="500" open-on-focus bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <div v-bind="attrs" v-on="on"><v-avatar v-on="on" class="imgProfil"><img :src="user.profileImg"></v-avatar></div>
+              </template>
+              <span>Setari profil</span>
+            </v-tooltip>
+            </div>
           </template>
           <v-list class="list">
             <v-list-item-group>
@@ -284,6 +301,11 @@ export default {
   watch: {
     search (valoare) {
       valoare && valoare !== this.select && this.selectari(valoare)
+      if((valoare === null || valoare === '') && this.select === null) this.items = []
+    },
+    searchResponsive (valoare) {
+      valoare && valoare !== this.select && this.selectari(valoare)
+      if((valoare === null || valoare === '') && this.select === null) this.items = []
     },
     searchArray (value) {
       if(value !== []) {
@@ -349,7 +371,7 @@ export default {
       this.loading = true
       setTimeout(() => {
         this.items = this.chestii.filter(cautare => {
-          return cautare.toLowerCase().match(this.search.toLowerCase())
+          return cautare.toLowerCase().match(v.toLowerCase())
         })
         this.loading = false
       }, 500)

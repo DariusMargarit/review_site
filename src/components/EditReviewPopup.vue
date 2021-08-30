@@ -10,7 +10,12 @@
 
     <v-card class="main-content">
       <v-container class="form">
-          <div @click="closeCard()"><v-icon class="closeIcon">mdi-close</v-icon></div>
+        <v-tooltip open-delay="500" open-on-focus right>
+          <template v-slot:activator="{ on, attrs }">
+            <div v-bind="attrs" v-on="on" @click="closeCard()"><v-icon class="closeIcon">mdi-close</v-icon></div>
+          </template>
+          <span>Inchide</span>
+        </v-tooltip>
 
           <h1>Editeaza review-ul pentru</h1>
           <br />

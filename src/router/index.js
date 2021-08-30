@@ -82,13 +82,26 @@ const routes = [
     path: '/reports',
     name: 'reports',
     component: reports
-  }
+  },
+  {
+    path: '*',
+    redirect: '/'
+  },
 
 ]
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: 'history',
+  scrollBehavior (to) {
+    if (to.hash) {
+      return {
+        selector: to.hash,
+        offset: { x: 0, y: 140 }
+      }
+    }
+    return { x: 0, y: 0 }
+  }
 })
 
 export default router

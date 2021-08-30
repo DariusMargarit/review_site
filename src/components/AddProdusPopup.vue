@@ -7,7 +7,12 @@
         <v-card>
             <div class="main">
                 <form @submit.prevent="submitForm">
-                    <div @click="dialogadd = !dialogadd"><v-icon class="closeIcon">mdi-close</v-icon></div>
+                  <v-tooltip open-delay="500" open-on-focus right>
+                    <template v-slot:activator="{ on, attrs }">
+                      <div v-bind="attrs" v-on="on" @click="dialogadd = !dialogadd"><v-icon class="closeIcon">mdi-close</v-icon></div>
+                    </template>
+                    <span>Inchide</span>
+                  </v-tooltip>
                     <h1>Adauga un produs!</h1>
                     <br />
                     <div align="center">
@@ -154,8 +159,8 @@
 
     .main {
         background-color: white;
-        min-height: 60vh;
-        min-width: 40vh;
+        min-height: 50vh;
+        min-width: 30rem;
         text-align: center;
         justify-content: center;
         align-content: center;
@@ -163,6 +168,7 @@
         padding: 60px;
         font-family: 'Lato', sans-serif;
         font-weight: bold;
+        margin-top: 0;
     }
 
     .homebutton{

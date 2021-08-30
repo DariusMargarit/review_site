@@ -68,15 +68,20 @@
             <v-row no-gutters class="font">
                 <v-col cols="2" sm="1">
                     <v-btn icon v-if="this.liked" @click="unlike(review)">
-                        <v-icon style="color: red">
-                            mdi-heart
-                        </v-icon>
+                      <v-tooltip open-delay="500" open-on-focus bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <div v-bind="attrs" v-on="on"><v-icon style="color: red">mdi-heart</v-icon></div>
+                        </template>
+                        <span>Nu imi mai place</span>
+                      </v-tooltip>
                     </v-btn>
-                    <v-btn class="heart-btn-click" icon v-if="!this.liked"
-                           @click="like(review)">
-                        <v-icon>
-                            mdi-heart-outline
-                        </v-icon>
+                    <v-btn class="heart-btn-click" icon v-if="!this.liked" @click="like(review)">
+                      <v-tooltip open-delay="500" open-on-focus bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <div v-bind="attrs" v-on="on"><v-icon>mdi-heart-outline</v-icon></div>
+                        </template>
+                        <span>Imi place</span>
+                      </v-tooltip>
                     </v-btn>
                 </v-col>
                 <v-col cols="4" align-self="center" align="left">

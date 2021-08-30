@@ -1,16 +1,29 @@
 <template>
   <v-dialog v-model="EditAcc" width="600">
+
     <template v-slot:activator="{ on }">
       <v-btn icon v-on="on">
-        <v-icon>
-          mdi-lead-pencil
-        </v-icon>
+        <v-tooltip open-delay="500" open-on-focus left>
+          <template v-slot:activator="{ on, attrs }">
+            <div v-bind="attrs" v-on="on">
+            <v-icon>
+              mdi-lead-pencil
+            </v-icon>
+            </div>
+          </template>
+          <span>Modifica-ti contul</span>
+        </v-tooltip>
       </v-btn>
     </template>
 
     <v-card class="main-content">
       <v-container class="form">
-        <div @click="closeCard()"><v-icon class="closeIcon">mdi-close</v-icon></div>
+        <v-tooltip open-delay="500" open-on-focus right>
+          <template v-slot:activator="{ on, attrs }">
+            <div v-bind="attrs" v-on="on" @click="closeCard()"><v-icon class="closeIcon">mdi-close</v-icon></div>
+          </template>
+          <span>Inchide</span>
+        </v-tooltip>
 
         <h1>Modifica-ti contul!</h1>
 

@@ -4,10 +4,15 @@
             <v-btn  class="homebutton text--black" plain v-on="on">Adauga un review nou</v-btn>
         </template>
         <v-card>
-            <div class="main">
+            <div class="main-form">
               <div>
                 <form @submit.prevent="submitForm">
-                  <div @click="dialogadd = !dialogadd"><v-icon class="closeIcon">mdi-close</v-icon></div>
+                  <v-tooltip open-delay="500" open-on-focus right>
+                    <template v-slot:activator="{ on, attrs }">
+                      <div v-bind="attrs" v-on="on" @click="dialogadd = !dialogadd"><v-icon class="closeIcon">mdi-close</v-icon></div>
+                    </template>
+                    <span>Inchide</span>
+                  </v-tooltip>
                   <h1>Adauga un review pentru</h1>
                     <br />
                   <br />
@@ -69,8 +74,8 @@
                     </div>
                     <div align="center">
                         <br />
-                        <v-btn class="mr-4 butoane" depressed type="submit" :loading="loading">trimite</v-btn>
-                        <v-btn @click="clear" class="butoane" depressed>goleste</v-btn>
+                        <v-btn style="background-color: hsl(47, 95%, 49%)" class="mr-4 butoane" depressed type="submit" :loading="loading">trimite</v-btn>
+                        <v-btn style="background-color: hsl(47, 95%, 49%)" @click="clear" class="butoane" depressed>goleste</v-btn>
                     </div>
                 </form>
               </div>
@@ -185,7 +190,7 @@
         margin-bottom: 30px;
         margin-left:15px;
     }
-    .main {
+    .main-form {
         background-color: white;
         min-height: 60vh;
         min-width: 40vh;

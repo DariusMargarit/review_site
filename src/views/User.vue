@@ -13,9 +13,31 @@
           <v-col cols="12" sm="11" md="10" lg="9" xl="8">
             <v-card>
               <v-tabs v-model="tab" grow color="#000000" background-color="grey lighten-2" slider-color="hsl(47, 95%, 49%)">
-                <v-tab href="#1"><v-icon>mdi-account-circle</v-icon></v-tab>
-                <v-tab href="#2"><v-icon>mdi-card-bulleted</v-icon></v-tab>
-                <v-tab href="#3" v-if="authUser"><v-icon>mdi-bell-ring</v-icon></v-tab>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+
+                  <v-tab v-bind="attrs" v-on="on" href="#1"><v-icon>mdi-account-circle</v-icon></v-tab>
+
+                  </template>
+                  <span>Profilul meu</span>
+                </v-tooltip>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+
+                  <v-tab v-bind="attrs" v-on="on" href="#2"><v-icon>mdi-card-bulleted</v-icon></v-tab>
+
+                  </template>
+                  <span>Review-urile mele</span>
+                </v-tooltip>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+
+                  <v-tab v-bind="attrs" v-on="on" href="#3" v-if="authUser"><v-icon>mdi-bell-ring</v-icon></v-tab>
+
+                  </template>
+                  <span>Notificarile mele</span>
+                </v-tooltip>
+
                 <v-tab-item class="profileColor" value="1">
                   <br>
                   <v-container fluid>
@@ -167,8 +189,11 @@
                 </v-tab-item>
                 <v-tab-item class="profileColor" value="3">
                   <br />
-                  <H3 class="mb-10">Notificarile tale</H3>
-                  <v-container>
+
+<!--                  daca ai notificari, afiseaza asta-->
+
+                  <H3 v-if="this.Notificari.length > 0" class="mb-10">Notificarile tale</H3>
+                  <v-container v-if="this.Notificari.length > 0">
                     <v-spacer />
                     <v-row style="justify-content: end; display: inline-flex; float: right;">
                       <v-spacer />
@@ -184,6 +209,19 @@
                       </v-col>
                     </v-row>
                   </v-container>
+                  <br />
+
+<!--                  sfarsit notificari-->
+
+<!--                  daca nu sunt notificari, se afiseaza asta-->
+
+                  <v-container v-if="this.Notificari.length === 0">
+                    <v-row><v-col style="align-items: center; justify-content: center; display: flex; font-size: larger; font-weight: bolder;">nicio notificare</v-col></v-row>
+                    <v-row><v-col style="align-items: center; justify-content: center; display: flex; font-size: larger; font-weight: bolder;"><v-icon>mdi-bell</v-icon></v-col></v-row>
+                  </v-container>
+
+<!--                  sfarsit mesaj 'fara notificari'-->
+
                   <br /> <br />
                   <v-card class="ml-2 mr-2 mb-4 pa-7" style="overflow:hidden;"
                           v-for="(notificare, index) in Notificari" :key="index">
