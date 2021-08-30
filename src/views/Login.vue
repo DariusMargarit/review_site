@@ -20,22 +20,32 @@
           <v-container >
             <v-row no-gutters align-content="center">
               <v-col>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
                 <div class="wrapper">
-                  <div class="button" @click="facebookLogIn">
+                  <div v-on="on" v-bind="attrs" class="button" @click="facebookLogIn">
                     <div class="icon-facebook">
                       <i><v-icon class="pb-1" size="40">mdi-facebook</v-icon></i>
                     </div>
                   </div>
                 </div>
+                  </template>
+                  <span>Autentificare cu Facebook</span>
+                </v-tooltip>
               </v-col>
               <v-col>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
                 <div class="wrapper">
-                  <div class="button" @click="googleLogIn">
+                  <div v-bind="attrs" v-on="on" class="button" @click="googleLogIn">
                     <div class="icon-google">
                       <i><v-icon class="pb-1" size="35">mdi-google</v-icon></i>
                     </div>
                   </div>
                 </div>
+                  </template>
+                  <span>Autentificare cu Google</span>
+                </v-tooltip>
               </v-col>
             </v-row>
           </v-container>
@@ -74,10 +84,20 @@
           <v-container class="containers">
             <v-row style="flex-basis: 31%">
               <v-col align-self="center" cols="12" sm="6">
-                <v-btn style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" style="font-family: 'Lato', sans-serif; font-weight: bold;" type="submit" :loading="loading">trimite</v-btn>
+                  </template>
+                  <span>Trimite</span>
+                </v-tooltip>
               </v-col>
               <v-col align-self="center">
-                <v-btn class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear">goleste</v-btn>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" class="bttn"  style="font-family: 'Lato', sans-serif; font-weight: bold;" @click="clear">goleste</v-btn>
+                  </template>
+                  <span>Goleste tot</span>
+                </v-tooltip>
               </v-col>
             </v-row>
           </v-container>
@@ -90,7 +110,12 @@
                 <span class="text" >Inca nu ti-ai creat un cont?</span>
               </v-col>
               <v-col align-self="center">
-                <v-btn text class="ml-3 text"  style="font-family: 'Lato', sans-serif; font-weight: bold;" float="right" @click="toSignUp">Inscrie-te</v-btn>
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" text class="ml-3 text"  style="font-family: 'Lato', sans-serif; font-weight: bold;" float="right" @click="toSignUp">Inscrie-te</v-btn>
+                  </template>
+                  <span>creeaza-ti un cont</span>
+                </v-tooltip>
               </v-col>
             </v-row>
           </v-container>

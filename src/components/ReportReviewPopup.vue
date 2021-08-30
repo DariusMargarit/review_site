@@ -3,15 +3,23 @@
 
     <template v-slot:activator="{ on }">
     <v-btn icon v-on="on">
-      <v-icon>
-        mdi-alert-octagon
-      </v-icon>
+      <v-tooltip open-delay="500" open-on-focus bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <div v-bind="attrs" v-on="on"><v-icon>mdi-alert-octagon</v-icon></div>
+        </template>
+        <span>Report</span>
+      </v-tooltip>
     </v-btn>
     </template>
 
     <v-card class="main-content">
       <v-container class="form">
-        <div @click="closeCard()"><v-icon class="closeIcon">mdi-close</v-icon></div>
+        <v-tooltip open-delay="500" open-on-focus right>
+          <template v-slot:activator="{ on, attrs }">
+            <div v-bind="attrs" v-on="on" @click="closeCard()"><v-icon class="closeIcon">mdi-close</v-icon></div>
+          </template>
+          <span>Inchide</span>
+        </v-tooltip>
 
         <h1 style="margin-bottom: 2rem">Semnaleaza o neregula pentru review-ul selectat</h1>
 

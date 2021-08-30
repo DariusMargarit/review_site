@@ -82,7 +82,12 @@
       <v-app-bar-nav-icon dark @click.native.stop="sideNavBtn" class="hidden-lg-and-up"></v-app-bar-nav-icon>
       <v-app-bar-nav-icon dark @click.native.stop="sideSearchBtn" class="hidden-md-and-up"><v-icon>mdi-magnify</v-icon></v-app-bar-nav-icon>
       <v-app-bar-title class="hidden-md-and-down">
-        <img src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
+        <v-tooltip open-delay="500" open-on-focus bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <img v-bind="attrs" v-on="on" src="../assets/logoo.png" style="cursor: pointer;height:120%" @click="goToHome" class="logo">
+          </template>
+          <span>Acasa</span>
+        </v-tooltip>
       </v-app-bar-title>
 
       <div class="hidden-md-and-down">
@@ -129,9 +134,14 @@
         >
           <v-menu offset-y class="notif-menu">
             <template v-slot:activator="{ on }">
-              <v-icon v-on="on" class="imgProfil" style="color: white">
-                mdi-bell-ring
-              </v-icon>
+              <div v-on="on">
+                <v-tooltip open-delay="500" open-on-focus bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div v-bind="attrs" v-on="on"><v-icon class="imgProfil" style="color: white">mdi-bell-ring</v-icon></div>
+                  </template>
+                  <span>Notificari</span>
+                </v-tooltip>
+              </div>
             </template>
 
             <v-list class="notif-menu">
@@ -206,9 +216,14 @@
       <div v-if="userIsAuthenticated" style="margin-left: 1rem">
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
-            <v-avatar v-on="on" class="imgProfil">
-              <img :src="user.profileImg">
-            </v-avatar>
+            <div v-on="on">
+            <v-tooltip open-delay="500" open-on-focus bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <div v-bind="attrs" v-on="on"><v-avatar v-on="on" class="imgProfil"><img :src="user.profileImg"></v-avatar></div>
+              </template>
+              <span>Setari profil</span>
+            </v-tooltip>
+            </div>
           </template>
           <v-list class="list">
             <v-list-item-group>
