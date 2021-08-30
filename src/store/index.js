@@ -18,6 +18,7 @@ export default new Vuex.Store({
     categorii: null,
     produse: null,
     error: null,
+    yourReview: [],
     reviews: [],
     prod: null,
     userReviews: null,
@@ -46,6 +47,9 @@ export default new Vuex.Store({
     },
     setError (state, payload) {
       state.error = payload
+    },
+    setYourReview (state, payload) {
+      state.yourReview = payload
     },
     setReviews (state, payload) {
       state.reviews = payload
@@ -466,73 +470,157 @@ export default new Vuex.Store({
         console.log(err)
       })
     },
-    loadProductReviews ({commit}, payload) {
-      commit('setLoading', true)
+    loadProductYourReview ({commit}, payload) {
+      const reviews = []
       firebase.database().ref('/categorii/' + payload.catId + '/produse/' + payload.prodId + '/pareri')
           .once('value').then((data) => {
-            const reviews = []
-            const obj = data.val()
+        const obj = data.val()
+
         for(let key in obj) {
           const reviewKey = obj[key].reviewKey
           firebase.database().ref('/reviews/' + reviewKey).once('value')
               .then((val) => {
-            const obj = val.val()
+                const obj = val.val()
 
-                reviews.push({
-                  id: reviewKey,
-                  idFromCat: key,
-                  title: obj.title,
-                  rating: obj.rating,
-                  text: obj.text,
-                  img: obj.img,
-                  userKey: obj.userKey,
-                  date: obj.date,
-                  edited: obj.edited,
-                  likes: 0,
-                  likeKey: '',
-                  liked: false,
-                  name: '',
-                  userImg: ''
-                })
+                if(obj.userKey === payload.authUserKey){
 
-                const i = reviews.length - 1
+                  reviews.push({
+                    id: reviewKey,
+                    idFromCat: key,
+                    title: obj.title,
+                    rating: obj.rating,
+                    text: obj.text,
+                    img: obj.img,
+                    userKey: obj.userKey,
+                    date: obj.date,
+                    edited: obj.edited,
+                    likes: 0,
+                    likeKey: '',
+                    liked: false,
+                    name: '',
+                    userImg: ''
+                  })
 
-                if(obj.likes !== undefined && obj.likes !== null) {
-                  var x = 0
-                  for(let j in obj.likes) {
-                    x++;
-                    if(obj.likes[j].userKey === payload.authUserKey) {
-                      reviews[i].liked = true
-                      reviews[i].likeKey = j
+                  const i = reviews.length - 1
+
+                  if(obj.likes !== undefined && obj.likes !== null) {
+                    var x = 0
+                    for(let j in obj.likes) {
+                      x++;
+                      if(obj.likes[j].userKey === payload.authUserKey) {
+                        reviews[i].liked = true
+                        reviews[i].likeKey = j
+                      }
                     }
+                    reviews[i].likes = x
                   }
-                  reviews[i].likes = x
+
+
+                  firebase.database().ref('/users/' + reviews[i].userKey).once('value')
+                      .then((val) => {
+                        const obj = val.val()
+                        reviews[i].name = obj.userName
+                        reviews[i].userImg = obj.profileImg
+                      }).catch(err => {
+                    commit('setLoading', false)
+                    console.log(err)
+                  })
+
                 }
 
-
-                firebase.database().ref('/users/' + reviews[i].userKey).once('value')
-                    .then((val) => {
-                      const obj = val.val()
-                      reviews[i].name = obj.userName
-                      reviews[i].userImg = obj.profileImg
-                    }).catch(err => {
-                  commit('setLoading', false)
-                  console.log(err)
-                })
-
-          }).catch(err => {
+              }).catch(err => {
             commit('setLoading', false)
             console.log(err)
           })
 
         }
-          commit('setReviews', reviews)
-          commit('setLoading', false)
+
+        console.log(reviews)
+        commit('setLoading', false)
 
       }).catch(err => {
         commit('setLoading', false)
         console.log(err)
       })
+      commit('setYourReview', reviews)
+    },
+
+
+    loadProductReviews ({commit}, payload) {
+      commit('setLoading', true)
+      const reviews = []
+      firebase.database().ref('/categorii/' + payload.catId + '/produse/' + payload.prodId + '/pareri')
+          .once('value').then((data) => {
+        const obj = data.val()
+
+        for(let key in obj) {
+          const reviewKey = obj[key].reviewKey
+          firebase.database().ref('/reviews/' + reviewKey).once('value')
+              .then((val) => {
+                const obj = val.val()
+
+                if(obj.userKey !== payload.authUserKey){
+
+                  reviews.push({
+                    id: reviewKey,
+                    idFromCat: key,
+                    title: obj.title,
+                    rating: obj.rating,
+                    text: obj.text,
+                    img: obj.img,
+                    userKey: obj.userKey,
+                    date: obj.date,
+                    edited: obj.edited,
+                    likes: 0,
+                    likeKey: '',
+                    liked: false,
+                    name: '',
+                    userImg: ''
+                  })
+
+                  const i = reviews.length - 1
+
+                  if(obj.likes !== undefined && obj.likes !== null) {
+                    var x = 0
+                    for(let j in obj.likes) {
+                      x++;
+                      if(obj.likes[j].userKey === payload.authUserKey) {
+                        reviews[i].liked = true
+                        reviews[i].likeKey = j
+                      }
+                    }
+                    reviews[i].likes = x
+                  }
+
+
+                  firebase.database().ref('/users/' + reviews[i].userKey).once('value')
+                      .then((val) => {
+                        const obj = val.val()
+                        reviews[i].name = obj.userName
+                        reviews[i].userImg = obj.profileImg
+                      }).catch(err => {
+                    commit('setLoading', false)
+                    console.log(err)
+                  })
+
+                }
+
+              }).catch(err => {
+            commit('setLoading', false)
+            console.log(err)
+          })
+
+        }
+
+        console.log(reviews)
+        commit('setLoading', false)
+
+      }).catch(err => {
+        commit('setLoading', false)
+        console.log(err)
+      })
+
+      commit('setReviews', reviews)
     },
     uploadProdus ({commit}, payload) {
       commit('setLoading', true)
@@ -1204,7 +1292,7 @@ export default new Vuex.Store({
       return state.error
     },
     reviews (state) {
-      return state.reviews
+      return state.yourReview.concat(state.reviews)
     },
     theProd (state) {
       return state.prod

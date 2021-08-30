@@ -102,6 +102,11 @@ export default {
       if (user) {
         firebase.firestore().collection('users').doc(user.uid).onSnapshot((doc) => {
           if (doc.exists) {
+            this.$store.dispatch('loadProductYourReview', {
+              catId: this.catId,
+              prodId: this.prodId,
+              authUserKey: doc.data().key
+            })
             this.$store.dispatch('loadProductReviews', {
               catId: this.catId,
               prodId: this.prodId,
@@ -137,6 +142,7 @@ export default {
           break;
         }
       }
+      console.log(value)
     }
   },
 
