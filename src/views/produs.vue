@@ -72,11 +72,6 @@
 
         </v-col>
       </v-row>
-<!--      <v-alert style="width: 23rem;display: flex;float: right"-->
-<!--               color="green"-->
-<!--               elevation="3"-->
-<!--               type="success"-->
-<!--      >VALELEU MAICA </v-alert>-->
     </v-container>
 
 
@@ -107,6 +102,11 @@ export default {
       if (user) {
         firebase.firestore().collection('users').doc(user.uid).onSnapshot((doc) => {
           if (doc.exists) {
+            this.$store.dispatch('loadProductYourReview', {
+              catId: this.catId,
+              prodId: this.prodId,
+              authUserKey: doc.data().key
+            })
             this.$store.dispatch('loadProductReviews', {
               catId: this.catId,
               prodId: this.prodId,
@@ -142,6 +142,7 @@ export default {
           break;
         }
       }
+      console.log(value)
     }
   },
 
